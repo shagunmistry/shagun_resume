@@ -1,11 +1,21 @@
 import React, { Component } from 'react';
+import firebaseApp from '../../Firebase';
 
+require('firebase/firestore');
 
+const db = firebaseApp.firestore();
 
 class Experience extends Component {
     
     componentWillMount() {
-        console.warn(this.props);
+        // let referThis = this;
+        // db.collection('Experience').onSnapshot((doc) => {
+        //     doc.forEach((eachDoc) => {
+        //         if(eachDoc && eachDoc.exists){
+        //             console.log('Each Doc: ', eachDoc.data());
+        //         }
+        //     })
+        // });
     }
     render() {
         return (

@@ -40,6 +40,11 @@ body {
   padding: 15px;
 }
 
+#addButton{
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
 /* Chrome, Safari, Opera */
 
 @-webkit-keyframes wink {

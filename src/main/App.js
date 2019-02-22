@@ -4,6 +4,7 @@ import Homepage from '../components/Homepage';
 //import Footer from '../components/Footer';
 //import Comingsoon from '../components/Comingsoon';
 import Login from '../components/newupdate/Login';
+import GeneralEditCard from '../components/GeneralEditCard';
 
 class App extends Component {
   render() {
@@ -14,6 +15,7 @@ class App extends Component {
           <div>
             <Route exact path="/" component={Homepage} />
             <Route exact path='/login'component={Login} />
+            <Route exact path='/Add' component={GeneralEditCard} />
           </div>
         </Router>
         {//<Footer />
