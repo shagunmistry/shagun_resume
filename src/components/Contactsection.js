@@ -22,22 +22,21 @@ class Contactsection extends Component {
         };
         return (
             <div className="card" style={styles.contactCard}>
-                <h3 className="card-title" style={styles.contactHeader}>Contact Me: </h3>
-                <div className="card-block">
-                    <ul>
-                        <li id="githubList"><p>
-                            <i className="fab fa-github-alt"></i><a href="https://www.github.com/shagunmistry/"> Github</a>
-                        </p></li>
-                        <li id="linkedinList"><p>
-                            <i className="fab fa-linkedin-in"></i><a href="https://www.linkedin.com/in/shagun-mistry-5903a483/"> LinkedIn</a>
-                        </p></li>
-                        <li id="instaList"><p>
-                            <i className="fab fa-instagram"></i><a href="https://www.instagram.com/shagun_mistry/"> Instagram</a>
-                        </p></li>
-                        <li id="emailList"><p>
-                            <i className="fas fa-envelope"></i><a href="mailto:shagun.mistry@hotmail.com"> Email Me!</a>
-                        </p></li>
-                    </ul>
+                <div className="card-block" style={{ marginRight: 'auto', marginLeft: 'auto' }}>
+                    <div className="row" style={{ fontSize: '24px' }}>
+                        <div className="col-sm-2 eachRow" style={{width: '50%'}}>
+                            <a href="https://www.github.com/shagunmistry/"><i className="fab fa-github-alt"></i></a>
+                        </div>
+                        <div className="col-sm-2 eachRow" style={{width: '50%'}}>
+                            <a href="https://www.linkedin.com/in/shagun-mistry-5903a483/"><i className="fab fa-linkedin-in"></i></a>
+                        </div>
+                        <div className="col-sm-2 eachRow" style={{width: '50%'}}>
+                            <a href="https://www.instagram.com/shagun_mistry/"><i className="fab fa-instagram"></i> </a>
+                        </div>
+                        <div className="col-sm-2 eachRow" style={{width: '50%'}}>
+                            <a href="mailto:shagun.mistry@hotmail.com"><i className="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
                 </div>
             </div>
         );

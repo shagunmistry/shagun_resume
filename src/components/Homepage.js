@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import Alldetails from './Alldetails';
 import firebase from 'firebase';
 import firebaseApp from '../Firebase';
+import Contactsection from './Contactsection';
 
 require('firebase/firestore');
 const db = firebaseApp.firestore();
@@ -96,6 +97,7 @@ class Homepage extends Component {
                         </Link>
                         : null
                 }
+                <Contactsection />
                 <hr />
                 <div className="card linkedInCard">
                     <p style={{ marginRight: 'auto', marginLeft: 'auto' }}>Contact Me!</p>
@@ -105,7 +107,7 @@ class Homepage extends Component {
                     <br /><input className="form-control" type="email" placeholder="Email" id="emailField" />
                     <br /><button type="button" className="btn btn-lg btn-outline-dark" id="emailSubmitButton"
                         onClick={() => this.sendEmail()}
-                    >Send Email Info</button>
+                    >Send Email!</button>
                 </div>
                 <hr />
                 <Alldetails signedIn={this.state.signedIn} />
