@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "firebase": "^4.6.1",
-    "jquery": "^1.9.1",
+    "jquery": ">=3.4.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-lightweight-tooltip": "0.0.4",
