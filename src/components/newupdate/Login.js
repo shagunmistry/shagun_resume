@@ -13,6 +13,7 @@ class Login extends Component {
 
     componentDidMount() {
         let thisState = this;
+        // This logic could be definitely improved.
         firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
                 document.getElementById('loginButton').innerText = 'Logout';
@@ -37,6 +38,8 @@ class Login extends Component {
     loginWithEmail = () => {
         const email = document.getElementById('emailInput').value;
         const password = document.getElementById('passwordInput').value;
+        
+        // we have to do this reassign because 'this' can't be used under Firebase scope. 
         let thisState = this;
         if (this.state.signedIn) {
             firebaseApp.auth().signOut();

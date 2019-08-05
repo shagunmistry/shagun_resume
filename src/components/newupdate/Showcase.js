@@ -1,12 +1,6 @@
 import React, { Component } from 'react';
-import firebaseApp from '../../Firebase';
 import EachShowcaseCard from './EachShowcaseCard';
 
-require('firebase/firestore');
-
-const db = firebaseApp.firestore();
-
-var urls = require('../../config/downloadUrls');
 class Showcase extends Component {
     constructor(props) {
         super(props);
@@ -19,7 +13,7 @@ class Showcase extends Component {
     componentWillMount() {
         let referThis = this;
         let showcaseArr = [];
-        db.collection('Showcase').get().then((doc) => {
+        this.props.database.collection('Showcase').get().then((doc) => {
             doc.forEach((eachDoc) => {
                 if (eachDoc && eachDoc.exists) {
                     showcaseArr.push(eachDoc.data());

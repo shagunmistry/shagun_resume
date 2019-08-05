@@ -1,10 +1,5 @@
 import React, { Component } from 'react';
-import firebaseApp from '../../Firebase';
 import EachExperienceCard from './EachExperienceCard';
-
-require('firebase/firestore');
-
-const db = firebaseApp.firestore();
 
 class Experience extends Component {
     constructor(props) {
@@ -18,7 +13,7 @@ class Experience extends Component {
     componentWillMount() {
         let referThis = this;
         let jobArr = [];
-        db.collection('Experience').get().then((doc) => {
+        this.props.database.collection('Experience').get().then((doc) => {
             doc.forEach((eachDoc) => {
                 if (eachDoc && eachDoc.exists) {
                     jobArr.push(eachDoc.data());

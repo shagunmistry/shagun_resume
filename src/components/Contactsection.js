@@ -4,10 +4,7 @@
 import React, { Component } from 'react';
 
 class Contactsection extends Component {
-
-
     render() {
-
         var styles = {
             contactHeader: {
                 borderBottom: "1px solid black"

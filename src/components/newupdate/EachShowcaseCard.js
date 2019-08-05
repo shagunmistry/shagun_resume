@@ -4,21 +4,17 @@ class EachShowcaseCard extends Component {
     render() {
         const {
             logoLinks,
-            monthEnded,
-            monthStarted,
             responsibilities,
             subtitle,
             title,
-            yearEnded,
-            yearStarted,
         } = this.props;
+        
+        // collapse ID is the subtitle string without any spaces in it.
         const collapseId = `${subtitle.replace(/ /g, '')}`;
+
         return (
             <div className='card showcaseCard'>
                 <div className="card-block">
-                    
-                    {/* <img src={urls.challenge_me_url} alt="Challenge Me- A social media website Logo"
-                        id='web_logo' /> */}
                     <span className="badge badge-primary">Work In Progress</span>
                     <h4 role='button'
                         data-toggle='collapse' href={'#' + collapseId}>
@@ -28,6 +24,7 @@ class EachShowcaseCard extends Component {
                         <p>Details:</p>
                         <ul>
                             {
+                                // Split it based on any character you placed in the description part. 
                                 responsibilities.split('•').map((x, i) =>
                                     x !== "" ? <li key={i}>{x}</li>
                                         : null

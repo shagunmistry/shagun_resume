@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Experience from './newupdate/Experience';
 import Education from './newupdate/Education';
+import Experience from './newupdate/Experience';
 import Showcase from './newupdate/Showcase';
 
 class Alldetails extends Component {

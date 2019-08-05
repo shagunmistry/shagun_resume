@@ -7,6 +7,7 @@ import Alldetails from './Alldetails';
 import firebase from 'firebase';
 import firebaseApp from '../Firebase';
 import Contactsection from './Contactsection';
+import { SendEmail } from './Main.actions';
 
 require('firebase/firestore');
 const db = firebaseApp.firestore();
@@ -37,40 +38,15 @@ class Homepage extends Component {
         });
     }
 
-    sendEmail = () => {
-        const emailField = document.getElementById('emailField').value;
-        const reasonField = document.getElementById('reasonField').value;
-        const nameField = document.getElementById('nameField').value;
-
-        let text = "";
-        let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-
-        for (var i = 0; i < 5; i++) {
-            text += possible.charAt(Math.floor(Math.random() * possible.length));
-        }
-        if (emailField !== "") {
-            db.collection('emails').doc(text).set({
-                email: emailField,
-                name: nameField,
-                reason: reasonField,
-            }).then(() => {
-                document.getElementById('emailSubmitButton').style.color = 'green';
-                document.getElementById('emailField').innerText = "";
-                document.getElementById('reasonField').innerText = "";
-                document.getElementById('nameField').innerText = "";
-            }).catch((err) => {
-                window.alert(err.message);
-            });
-        }
-    }
-
     render() {
         return (
             <div className='container'>
+
                 <div id="header">
                     <p>Shagun Mistry</p>
                     <h4>A Developer with a passion to create and improve!</h4>
                 </div>
+
                 <div className="card linkedInCard">
                     <img className="card-img-top" src={urls.background_pic_url} id="backProfilePic" alt="Background" />
                     <div className="card-body">
@@ -79,16 +55,13 @@ class Homepage extends Component {
                                 <img src={urls.profile_card_url} id="profile_pic" className="text-center" alt="Shagun Mistry" />
                             </div>
                             <div className="col-md-6" style={{ width: 'auto' }}>
-                                <h3 id="user_name">
-                                    <Link to='/login'>
-                                        Shagun Mistry
-                                    </Link>
-                                </h3>
+                                <h3 id="user_name"><Link to='/login'>Shagun Mistry</Link></h3>
                             </div>
                         </div>
                         <hr />
                     </div>
                 </div>
+
                 <br />
                 {
                     this.state.signedIn ?
@@ -99,18 +72,19 @@ class Homepage extends Component {
                 }
                 <Contactsection />
                 <hr />
+
                 <div className="card linkedInCard">
                     <p style={{ marginRight: 'auto', marginLeft: 'auto' }}>Contact Me!</p>
                     <input className="form-control" type="text" placeholder="Name" id="nameField" />
-                    <br />
-                    <input className="form-control" type="text" placeholder="Reason For Contact" id="reasonField" />
+                    <br /><input className="form-control" type="text" placeholder="Reason For Contact" id="reasonField" />
                     <br /><input className="form-control" type="email" placeholder="Email" id="emailField" />
                     <br /><button type="button" className="btn btn-lg btn-outline-dark" id="emailSubmitButton"
-                        onClick={() => this.sendEmail()}
+                        onClick={() => SendEmail(db, document)}
                     >Send Email!</button>
                 </div>
                 <hr />
-                <Alldetails signedIn={this.state.signedIn} />
+
+                <Alldetails signedIn={this.state.signedIn} database={db} />
             </div>
         );
     }
