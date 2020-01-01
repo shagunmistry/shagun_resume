@@ -1,5 +1,5 @@
 module.exports ={
-    profile_card_url: "https://firebasestorage.googleapis.com/v0/b/shagunresume.appspot.com/o/Self_pic.PNG?alt=media&token=77b32fbf-f73b-401a-9cae-31b482d0bc62",
+    profile_card_url: "https://media.licdn.com/dms/image/C5603AQHnjbjZh9pmFA/profile-displayphoto-shrink_200_200/0?e=1583366400&v=beta&t=LA02fsOHd2tg48WHYsB0Agiz_CjWGx1ryQYaqrBIKYk",
     challenge_me_url: "https://firebasestorage.googleapis.com/v0/b/shagunresume.appspot.com/o/blackInside.png?alt=media&token=ef563ec1-51f4-4e3d-929f-6ae7eefe90e7",
     background_pic_url:'https://www.oho.com/sites/default/files/insights/rocket-night.jpg',
     challenger_home_page: 'https://firebasestorage.googleapis.com/v0/b/shagunresume.appspot.com/o/challenger_homepage.PNG?alt=media&token=77d0cf41-122a-4cd9-a654-0e679328f98b',
