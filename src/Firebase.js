@@ -4,11 +4,11 @@ import firebase from 'firebase';
 // Initialize Firebase
 var config = {
   apiKey: "",
-  authDomain: "",
-  databaseURL: "",
-  projectId: "",
+  authDomain: "shagunresume.firebaseapp.com",
+  databaseURL: "https://shagunresume.firebaseio.com",
+  projectId: "shagunresume",
   storageBucket: "",
-  messagingSenderId: "",
+  messagingSenderId: "702206149527",
 };
 var firebaseApp = !firebase.apps.length ? firebase.initializeApp(config) : firebase.app();
 export default firebaseApp;
