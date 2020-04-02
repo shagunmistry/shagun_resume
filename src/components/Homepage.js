@@ -38,6 +38,10 @@ class Homepage extends Component {
         });
     }
 
+    logOut = () => {
+        firebase.auth().signOut();
+    }
+
     render() {
         return (
             <div className='container'>
@@ -61,16 +65,18 @@ class Homepage extends Component {
                         <hr />
                     </div>
                 </div>
-
-                <br />
+                <h4 className='text-center'><a href='/blogs'>Blogs</a></h4>
                 {
                     this.state.signedIn ?
-                        <Link className="btn btn-outline-dark" id="addButton" to="/Add">
-                            <i className='fas fa-plus'></i>
-                        </Link>
+                        (<div>
+                            <button className='btn btn-sm' onClick={() => this.logOut()}>Log out</button>
+                            <br />
+                            <Link className="btn btn-outline-dark" id="addButton" to="/Add">
+                                <i className='fas fa-plus'></i>
+                            </Link>
+                        </div>)
                         : null
                 }
-                <Contactsection />
                 <hr />
 
                 <div className="card linkedInCard">
@@ -81,10 +87,13 @@ class Homepage extends Component {
                     <br /><button type="button" className="btn btn-lg btn-outline-dark" id="emailSubmitButton"
                         onClick={() => SendEmail(db, document)}
                     >Send Email!</button>
+                    <small id='messagePlaceholder'></small>
                 </div>
                 <hr />
 
                 <Alldetails signedIn={this.state.signedIn} database={db} />
+                <hr />
+                <Contactsection />
             </div>
         );
     }

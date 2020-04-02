@@ -13,7 +13,7 @@ export const SendEmail = (db, bDocument) => {
     for (var i = 0; i < 5; i++) {
         text += possible.charAt(Math.floor(Math.random() * possible.length));
     }
-    if (emailField !== "") {
+    if (emailField !== "" || reasonField !== '' || nameField !== '') {
         db.collection('emails').doc(text).set({
             email: emailField,
             name: nameField,
@@ -26,6 +26,8 @@ export const SendEmail = (db, bDocument) => {
         }).catch((err) => {
             window.alert(err.message);
         });
+    } else {
+        bDocument.getElementById('messagePlaceholder').innerText = 'Please fill in all the information.';
     }
 };
 

@@ -8,14 +8,14 @@ class EachShowcaseCard extends Component {
             subtitle,
             title,
         } = this.props;
-        
+
         // collapse ID is the subtitle string without any spaces in it.
         const collapseId = `${subtitle.replace(/ /g, '')}`;
 
         return (
             <div className='card showcaseCard'>
                 <div className="card-block">
-                    <span className="badge badge-primary">Work In Progress</span>
+                    <span className="badge badge-primary">WIP</span>
                     <h4 role='button'
                         data-toggle='collapse' href={'#' + collapseId}>
                         <a href={logoLinks}>{title}</a> <i className="fas fa-angle-down"></i>
