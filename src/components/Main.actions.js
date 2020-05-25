@@ -13,16 +13,18 @@ export const SendEmail = (db, bDocument) => {
     for (var i = 0; i < 5; i++) {
         text += possible.charAt(Math.floor(Math.random() * possible.length));
     }
-    if (emailField !== "" || reasonField !== '' || nameField !== '') {
+    if (emailField !== "" && reasonField !== '' && nameField !== '') {
+        console.log('Hello world!');
         db.collection('emails').doc(text).set({
             email: emailField,
             name: nameField,
             reason: reasonField,
         }).then(() => {
             bDocument.getElementById('emailSubmitButton').style.color = 'green';
-            bDocument.getElementById('emailField').innerText = "";
-            bDocument.getElementById('reasonField').innerText = "";
-            bDocument.getElementById('nameField').innerText = "";
+            bDocument.getElementById('emailField').value = "";
+            bDocument.getElementById('reasonField').value = "";
+            bDocument.getElementById('nameField').value = "";
+            bDocument.getElementById('messagePlaceholder').innerText = 'Sent!';
         }).catch((err) => {
             window.alert(err.message);
         });
@@ -35,7 +37,7 @@ export const SendEmail = (db, bDocument) => {
  * Edit this info as needed, based on the DB values you want. 
  *
  */
-export const AddInfoToDb = (db, bDocument) => {
+export const AddInfoToDb = (db, signedIn, bDocument) => {
     // Get all the fields
     const linksField = bDocument.getElementById('linkField').value,
         monthEnded = bDocument.getElementById('monthEndedField').value,
@@ -47,7 +49,7 @@ export const AddInfoToDb = (db, bDocument) => {
         yearEnded = bDocument.getElementById('yearEndedField').value,
         yearStarted = bDocument.getElementById('yearStartedField').value;
 
-    if (this.state.signedIn) {
+    if (signedIn) {
         // If the yearEnd and MonthEnd field are emtpy, it is their current position
         let typeDecider = showcaseCheckBox ? 'Showcase' : 'Experience';
         db.collection(typeDecider).doc(subtitle).set({

@@ -32,8 +32,8 @@ class GeneralEditCard extends Component {
             }
         });
     }
-    
-    
+
+
 
     render() {
         return (
@@ -66,7 +66,7 @@ class GeneralEditCard extends Component {
                         <label className="form-check-label" >Showcase</label>
                     </div>
                     <br />
-                    <button type="button" className="btn btn-primary" onClick={() => AddInfoToDb(db, document)}>
+                    <button type="button" className="btn btn-primary" onClick={() => AddInfoToDb(db, this.state.signedIn, document)}>
                         Submit
                     </button>
                 </form>

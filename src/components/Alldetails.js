@@ -6,7 +6,7 @@ import Showcase from './newupdate/Showcase';
 class Alldetails extends Component {
     render() {
         return (
-            <div>
+            <div id='detailsSection'>
                 <Experience {...this.props} />
                 <br />
                 <Education {...this.props} />

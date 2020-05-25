@@ -45,12 +45,10 @@ class Homepage extends Component {
     render() {
         return (
             <div className='container'>
-
                 <div id="header">
                     <p>Shagun Mistry</p>
                     <h4>A Developer with a passion to create and improve!</h4>
                 </div>
-
                 <div className="card linkedInCard">
                     <img className="card-img-top" src={urls.background_pic_url} id="backProfilePic" alt="Background" />
                     <div className="card-body">
@@ -60,12 +58,14 @@ class Homepage extends Component {
                             </div>
                             <div className="col-md-6" style={{ width: 'auto' }}>
                                 <h3 id="user_name"><Link to='/login'>Shagun Mistry</Link></h3>
+                                <h4 ><a href='/blogs'>Blogs</a></h4>
                             </div>
                         </div>
-                        <hr />
                     </div>
+                    <div className='card-footer'>
+                        <Contactsection />
+                    </div>,
                 </div>
-                <h4 className='text-center'><a href='/blogs'>Blogs</a></h4>
                 {
                     this.state.signedIn ?
                         (<div>
@@ -78,7 +78,36 @@ class Homepage extends Component {
                         : null
                 }
                 <hr />
-
+                <div className='card techUsedCard'>
+                    <h5 className='text-center'>What I've used before</h5>
+                    <div className='row' style={{ maxWidth: '400px', marginRight: 'auto', marginLeft: 'auto', fontSize: '3rem', textAlign: 'center' }}>
+                        <div className='col'>
+                            <i className="fab fa-angular" color='#B52E31'></i>
+                        </div>
+                        <div className='col'>
+                            <i className="fab fa-react" color='#00d8ff'></i>
+                        </div>
+                        <div className='col'>
+                            <i className="fab fa-docker" color='#0db7ed'></i>
+                        </div>
+                        <div className='col'>
+                            <i className="fab fa-html5" color='#e34f26'></i>
+                        </div>
+                        <div className='col'>
+                            <i className="fab fa-sass" color='#FFC0CB'></i>
+                        </div>
+                        <div className='col'>
+                            <i className="fab fa-node" color='#6cc24a'></i>
+                        </div>
+                        <div className='col'>
+                            <i className="fab fa-aws" color='#ff9900'></i>
+                        </div>
+                        <div className='col'>
+                            <i className="fab fa-python" color='#4584b6'></i>
+                        </div>
+                    </div>
+                </div>
+                <hr />
                 <div className="card linkedInCard">
                     <p style={{ marginRight: 'auto', marginLeft: 'auto' }}>Contact Me!</p>
                     <input className="form-control" type="text" placeholder="Name" id="nameField" />
@@ -93,7 +122,7 @@ class Homepage extends Component {
 
                 <Alldetails signedIn={this.state.signedIn} database={db} />
                 <hr />
-                <Contactsection />
+
             </div>
         );
     }

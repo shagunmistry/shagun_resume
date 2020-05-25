@@ -12,7 +12,7 @@ class BlogList extends Component {
         this.state = {
             blogList: [],
             blogData: {},
-            showBlogList: false,
+            showBlogList: true,
         };
     }
 
@@ -21,11 +21,9 @@ class BlogList extends Component {
         let blogList = [], referThis = this;
         console.log('State: ', this.props.match.params);
         if (this.props.match.params.blogid) {
-            console.log('State 2: ', this.props.match.params.blogid);
             // The user is on a specific blog.
             db.collection('blogs').doc(this.props.match.params.blogid).get()
                 .then((res) => {
-                    console.log('Res: ', res.data());
                     const container = document.getElementById('blogEditor');
                     const editor = new Quill(container, {
                         modules: { toolbar: null },
@@ -41,10 +39,7 @@ class BlogList extends Component {
                     })
                 })
                 .catch((err) => {
-                    console.log('There was an error getting particular blog info: ', err);
-                    this.setState({
-                        showBlogList: true,
-                    })
+                    this.setState({ showBlogList: true })
                 })
         }
         else {
