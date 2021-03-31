@@ -1,39 +1,41 @@
 .addBlogCard {
-    width: 100%;
-    height: 500px;
-    border: none;
+  width: 100%;
+  height: 500px;
+  border: none;
 }
 
 .card-container {
-    margin: 20px auto;
+  margin: 20px auto;
 }
 
 .blog-card-footer {
-    background-color: transparent;
+  background-color: transparent;
 }
 
 .blogsListCard {
-    width: 100%;
-    height: 500px;
+  width: 100%;
+  height: 500px;
 }
 
 .blogListCardHeader {
-    background-color: transparent;
-    margin-bottom: 20px;
+  background-color: transparent;
+  margin-bottom: 20px;
 }
 
 .blogListItem {
-    border: none;
-    margin-bottom: 10px;
-    box-shadow: 0 14px 28px rgba(209, 209, 209, 0.25), 0 10px 10px rgba(202, 202, 202, 0.25);
-    height: 50px;
+  border: none;
+  margin-bottom: 10px;
+  box-shadow: 0 14px 28px rgba(209, 209, 209, 0.25),
+    0 10px 10px rgba(202, 202, 202, 0.25);
+  height: 50px;
 }
 
 #blogEditor {
-    border: none;
-    border-top: 1px solid black;
-    border-radius: 10px;
-    box-shadow: 0 14px 28px rgba(209, 209, 209, 0.25), 0 10px 10px rgba(202, 202, 202, 0.25);
-    margin-bottom: 45px;
-    padding: 20px;
+  border: none;
+  border-top: 1px solid black;
+  border-radius: 10px;
+  box-shadow: 0 14px 28px rgba(209, 209, 209, 0.25),
+    0 10px 10px rgba(202, 202, 202, 0.25);
+  margin-bottom: 45px;
+  padding: 20px;
 }

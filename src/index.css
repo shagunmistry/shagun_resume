@@ -14,7 +14,8 @@ body {
   margin: 0;
   min-width: 500px;
   padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   background-color: white;
 }
 
@@ -90,7 +91,8 @@ body {
   /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   transition: all 0.5s;
   color: white;
-  box-shadow: 0 14px 28px rgba(34, 15, 204, 0.25), 0 10px 10px rgba(34, 15, 204, 0.25);
+  box-shadow: 0 14px 28px rgba(34, 15, 204, 0.25),
+    0 10px 10px rgba(34, 15, 204, 0.25);
 }
 
 #touch_button:hover {
@@ -111,7 +113,7 @@ body {
 
 #linkedinList {
   font-size: 20px;
-  color: #0077B5;
+  color: #0077b5;
 }
 
 #emailList {
@@ -134,7 +136,8 @@ body {
 #backProfilePic {
   max-width: 500px;
   max-height: 300px;
-  box-shadow: 0 14px 28px rgba(34, 15, 204, 0.25), 0 10px 10px rgba(34, 15, 204, 0.25);
+  box-shadow: 0 14px 28px rgba(34, 15, 204, 0.25),
+    0 10px 10px rgba(34, 15, 204, 0.25);
 }
 
 #profile_pic {
@@ -164,7 +167,8 @@ body {
   border: 1px solid red;
   border-radius: 10px;
   bottom: -20px;
-  box-shadow: 0 14px 28px rgba(34, 15, 204, 0.25), 0 10px 10px rgba(34, 15, 204, 0.25);
+  box-shadow: 0 14px 28px rgba(34, 15, 204, 0.25),
+    0 10px 10px rgba(34, 15, 204, 0.25);
   padding: 5px;
   width: 87%;
   left: 30px;
@@ -173,14 +177,15 @@ body {
 /*************** ALL DETAILS **************/
 
 #experience {
-  background: #7F7FD5;
+  background: #7f7fd5;
   /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #91EAE4, #86A8E7, #7F7FD5);
+  background: -webkit-linear-gradient(to right, #91eae4, #86a8e7, #7f7fd5);
   /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #91EAE4, #86A8E7, #7F7FD5);
+  background: linear-gradient(to right, #91eae4, #86a8e7, #7f7fd5);
   /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   border-radius: 10px;
-  box-shadow: 0 14px 28px rgba(34, 15, 204, 0.25), 0 10px 10px rgba(34, 15, 204, 0.25);
+  box-shadow: 0 14px 28px rgba(34, 15, 204, 0.25),
+    0 10px 10px rgba(34, 15, 204, 0.25);
   color: white;
   padding: 30px;
 }
@@ -189,7 +194,7 @@ body {
   margin-left: 10px;
   border-radius: 10px;
   border-top: 1px solid blue;
-  box-shadow: 8px 10px 20px 0 rgba(46, 61, 73, .15);
+  box-shadow: 8px 10px 20px 0 rgba(46, 61, 73, 0.15);
   color: black;
   padding: 20px;
 }
@@ -215,7 +220,7 @@ body {
   background: linear-gradient(to right, #78ffd6, #a8ff78);
   /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   border-radius: 10px;
-  box-shadow: 8px 10px 20px 0 rgba(46, 61, 73, .15);
+  box-shadow: 8px 10px 20px 0 rgba(46, 61, 73, 0.15);
   padding: 30px;
   color: white;
 }
@@ -223,7 +228,7 @@ body {
 .educationCard {
   border-top: 1px solid red;
   border-radius: 10px;
-  box-shadow: 8px 10px 20px 0 rgba(46, 61, 73, .15);
+  box-shadow: 8px 10px 20px 0 rgba(46, 61, 73, 0.15);
   color: black;
   padding: 20px;
 }
@@ -249,7 +254,7 @@ body {
 
 .showcaseCard {
   border-radius: 0px;
-  box-shadow: 8px 10px 20px 0 rgba(46, 61, 73, .15);
+  box-shadow: 8px 10px 20px 0 rgba(46, 61, 73, 0.15);
   color: black;
   padding: 20px;
   border-top: 1px solid rgb(123, 18, 221);
@@ -267,7 +272,7 @@ body {
   border-radius: 0%;
   max-width: 100px;
   max-height: 50px;
-  box-shadow: 8px 10px 20px 0 rgba(46, 61, 73, .15);
+  box-shadow: 8px 10px 20px 0 rgba(46, 61, 73, 0.15);
 }
 
 /**** Small Screens ****/
