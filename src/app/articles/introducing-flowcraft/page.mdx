@@ -1,0 +1,76 @@
+import { ArticleLayout } from '@/components/ArticleLayout'
+import FlowCraftHomepage from './flowcraft-homepage.png'
+
+export const article = {
+  author: 'Shagun Mistry',
+  date: '2024-05-05',
+  title: 'The Birth of FlowCraft',
+  description:
+    'Building visual diagrams is a pain. Here is the story of how I built FlowCraft to make that easier.',
+}
+
+export const metadata = {
+  title: article.title,
+  description: article.description,
+}
+
+export default (props) => <ArticleLayout article={article} {...props} />
+
+Most people learn by visualizing. That's why I built FlowCraft, a tool that lets you create visual diagrams with ease. It was a long journey to build the platform that I originally made for myself, but I'm excited to share it with the world.
+
+## The Problem
+
+I've always been a visual learner. When I was in school, I would draw out diagrams to help me understand complex concepts. But as I got older, I found that creating these diagrams was a pain. I would have to use multiple tools to create the diagrams, and it was hard to keep them all in sync.
+
+I found myself constantly battling clunky flowcharting software.
+
+The endless dragging and dropping, the disconnect between my ideas and the visual representation – it felt like a chore, not a creative outlet.
+
+One day, the thought struck me: "What if I could just describe what I wanted in a flowchart, and the software could build it for me?" That seed of an idea became the foundation of FlowCraft.
+
+## The Birth of FlowCraft
+
+<Image
+  src={FlowCraftHomepage}
+  alt="FlowCraft Homepage"
+  className="rounded-lg shadow-lg"
+/>
+
+Transforming that idea into reality was no easy feat. I had to learn new technologies, experiment with different approaches, and iterate on the design countless times. But with each step, I got closer to my vision.
+
+I started by building a simple prototype that could parse text descriptions of Flow charts using the library of \*_ReactFlow_ and generate the corresponding diagrams. It was rough around the edges, but it worked. I showed it to a few friends, and they loved it.
+
+## The Tech Stack
+
+FlowCraft is built on a modern tech stack that allows for flexibility and scalability. Here are some of the key technologies that power the platform:
+
+- **NextJS**: The frontend is built with NextJS, a React framework that enables server-side rendering and static site generation.
+- **ReactFlow.Dev**: The core of FlowCraft's Flow diagramming capabilities is powered by ReactFlow.Dev, a flexible library for building interactive node-based diagrams.
+- **MermaidJS**: For more complex diagrams, FlowCraft uses MermaidJS, a diagramming and charting tool that uses text-based descriptions to generate diagrams.
+- **Google Cloud Platform**: FlowCraft's backend is hosted on Google Cloud Platform, which provides scalability and reliability.
+- **FastAPI**: The backend API is built with FastAPI, a modern Python web framework that is fast and easy to use.
+- **OpenAI GPT-4**: FlowCraft uses OpenAI's GPT-4 model to generate the code for the diagrams based on the text descriptions provided by the user.
+- **TLDraw**: For the Whiteboard feature, FlowCraft uses TLDraw, a collaborative whiteboard tool that allows users to draw and annotate diagrams in real-time.
+- **Vercel**: FlowCraft is deployed on Vercel, a platform that provides seamless deployment and hosting for NextJS applications.
+
+The combination of these technologies has allowed me to create a tool that empowers users to ditch the drag-and-drop tedium and focus on the essence of their ideas.
+
+Whether you're outlining a complex business process, storyboarding a movie plot, or mapping out the inner workings of a cell, FlowCraft translates your thoughts into clear and concise visual representations with just a few words.
+
+## The Future of FlowCraft
+
+FlowCraft is just getting started. I have big plans for the platform, including:
+
+- **Collaboration**: I want to enable real-time collaboration on diagrams, so teams can work together seamlessly.
+- **Integration**: I plan to integrate FlowCraft with popular tools like Notion, Trello, and Slack, so users can easily embed diagrams in their workflows.
+- **Automation**: I'm exploring ways to automate the diagram creation process even further, so users can generate diagrams from data sources or code snippets.
+
+## Over to You
+
+FlowCraft is a labor of love, and I'm excited to see where it goes. If you're tired of clunky flowcharting software and want a tool that empowers you to create beautiful diagrams with ease, give (FlowCraft)[https://flowcraft.app] a try.
+
+In the meantime, feel free to reach out with feedback, feature requests, or just to say hi. I'd love to hear from you!
+
+Happy diagramming!
+
+Shagun Mistry
