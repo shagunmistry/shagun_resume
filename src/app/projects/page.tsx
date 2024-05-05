@@ -4,18 +4,13 @@ import Image from 'next/image'
 import { Card } from '@/components/Card'
 import { SimpleLayout } from '@/components/SimpleLayout'
 
-import FlowCraftLogo from '@/images/project_logos/FlowCraftLogo_New.png'
-import MeNotepadLogo from '@/images/project_logos/Menotepad_logo.png'
-import ResponAiLogo from '@/images/project_logos/ResponAi_Logo.jpeg'
-import CaptionRLogo from '@/images/project_logos/CaptionR_Logo.png'
-
 const projects = [
   {
     name: 'FlowCraft',
     description:
       'Creating diagrams and flowcharts from plain text description, using AI.',
     link: { href: 'http://flowcraft.app', label: 'flowcraft.app' },
-    logo: FlowCraftLogo,
+    logo: 'https://firebasestorage.googleapis.com/v0/b/shagunresume.appspot.com/o/Logos%2FFlowCraftLogo_New.png?alt=media&token=183bbf9f-adfc-4e05-accd-9e1ed15196f4',
   },
   {
     name: 'FlowCraft VS Code Extension',
@@ -25,14 +20,14 @@ const projects = [
       href: 'https://marketplace.visualstudio.com/items?itemName=FlowCraft.flowcraft',
       label: 'marketplace.visualstudio.com',
     },
-    logo: FlowCraftLogo,
+    logo: 'https://firebasestorage.googleapis.com/v0/b/shagunresume.appspot.com/o/Logos%2FFlowCraftLogo_New.png?alt=media&token=183bbf9f-adfc-4e05-accd-9e1ed15196f4',
   },
   {
     name: 'MeNotepad',
     description:
       'A simple free full-featured note-taking website. No ads, no tracking.',
     link: { href: 'https://menotepad.com', label: 'menotepad.com' },
-    logo: MeNotepadLogo,
+    logo: 'https://firebasestorage.googleapis.com/v0/b/shagunresume.appspot.com/o/Logos%2FMenotepad_logo.png?alt=media&token=55ab9c06-3177-4fa3-86fc-90d55c28be11',
   },
   {
     name: 'CommitAi',
@@ -42,7 +37,7 @@ const projects = [
       href: 'https://marketplace.visualstudio.com/items?itemName=CommitAI.commit-ai',
       label: 'marketplace.visualstudio.com',
     },
-    logo: ResponAiLogo,
+    logo: 'https://firebasestorage.googleapis.com/v0/b/shagunresume.appspot.com/o/Logos%2FResponAi_Logo.jpeg?alt=media&token=96a99bd7-4d04-4da6-8f7a-1841b915b4a3',
   },
   {
     name: 'CaptionR',
@@ -52,7 +47,7 @@ const projects = [
       href: 'https://apps.apple.com/us/app/captionr-ai-generated-caption/id6447811994',
       label: 'apps.apple.com',
     },
-    logo: CaptionRLogo,
+    logo: 'https://firebasestorage.googleapis.com/v0/b/shagunresume.appspot.com/o/Logos%2FCaptionR_logo.png?alt=media&token=7ba4184c-b5c2-4371-8ee0-b07736777cf8',
   },
 ]
 
@@ -90,6 +85,8 @@ export default function Projects() {
                 alt=""
                 className="h-8 w-8"
                 unoptimized
+                width={32}
+                height={32}
               />
             </div>
             <h2 className="mt-6 text-base font-semibold text-zinc-800 dark:text-zinc-100">

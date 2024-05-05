@@ -10,14 +10,6 @@ import {
   LinkedInIcon,
   XIcon,
 } from '@/components/SocialIcons'
-import ATILogo from '../images/logos/ATI logo.png'
-import CenteneLogo from '../images/logos/Centene Logo 2023.jpg'
-import RiaLogo from '../images/logos/RiaLogo.svg'
-import WiproLogo from '../images/logos/Wipro_logo.svg'
-import XactlyLogo from '../images/logos/Xactly logo white.svg'
-import VitusVetLogo from '../images/logos/VitusVet logo.png'
-import EasyKnockLogo from '../images/logos/EasyKnock logo.svg'
-import SourceLinkLogo from '../images/logos/sourceLink_Logo.jpeg'
 import { type ArticleWithSlug, getAllArticles } from '@/lib/articles'
 import { formatDate } from '@/lib/formatDate'
 
@@ -190,7 +182,14 @@ function Role({ role }: { role: Role }) {
   return (
     <li className="flex gap-4">
       <div className="relative mt-1 flex h-10 w-10 flex-none items-center justify-center rounded-full shadow-md shadow-zinc-800/5 ring-1 ring-zinc-900/5 dark:border dark:border-zinc-700/50 dark:bg-zinc-800 dark:ring-0">
-        <Image src={role.logo} alt="" className="h-7 w-7" unoptimized />
+        <Image
+          src={role.logo}
+          alt=""
+          className="h-7 w-7"
+          unoptimized
+          width={28}
+          height={28}
+        />
       </div>
       <dl className="flex flex-auto flex-wrap gap-x-2">
         <dt className="sr-only">Company</dt>
@@ -220,7 +219,7 @@ function Resume() {
     {
       company: 'ATI',
       title: 'Senior Software DevOps Engineer',
-      logo: ATILogo,
+      logo: 'https://firebasestorage.googleapis.com/v0/b/shagunresume.appspot.com/o/Logos%2FATI%20logo.png?alt=media&token=aef3494f-909f-4447-a4f4-2acb97a4209c',
       start: '2019',
       end: {
         label: 'Present',
@@ -230,49 +229,49 @@ function Resume() {
     {
       company: 'Xactly',
       title: 'Senior Software Developer',
-      logo: XactlyLogo,
+      logo: 'https://firebasestorage.googleapis.com/v0/b/shagunresume.appspot.com/o/Logos%2FXactly%20logo%20white.svg?alt=media&token=6a62934a-b168-4b7b-aa37-bbf2b9ffc397',
       start: '2014',
       end: '2019',
     },
     {
       company: 'Centene',
       title: 'Senior Software Developer',
-      logo: CenteneLogo,
+      logo: 'https://firebasestorage.googleapis.com/v0/b/shagunresume.appspot.com/o/Logos%2FCentene%20Logo%202023.jpg?alt=media&token=a7433614-11f4-4439-901c-3b8622c6f6b1',
       start: '2014',
       end: '2019',
     },
     {
       company: 'EasyKnock',
       title: 'Senior Software Developer',
-      logo: EasyKnockLogo,
+      logo: 'https://firebasestorage.googleapis.com/v0/b/shagunresume.appspot.com/o/Logos%2FEasyKnock%20Logo.svg?alt=media&token=668070db-cec4-4356-9d27-eb0968b3866e',
       start: '2014',
       end: '2019',
     },
     {
       company: 'VitusVet',
       title: 'Senior Software Developer',
-      logo: VitusVetLogo,
+      logo: 'https://firebasestorage.googleapis.com/v0/b/shagunresume.appspot.com/o/Logos%2FVitusVet%20logo.png?alt=media&token=f453f53e-8073-40ed-8e66-126a5668bca4',
       start: '2011',
       end: '2014',
     },
     {
       company: 'Ria Money Transfer | EuroNet',
       title: 'Full-stack Developer',
-      logo: RiaLogo,
+      logo: 'https://firebasestorage.googleapis.com/v0/b/shagunresume.appspot.com/o/Logos%2FRiaLogo.svg?alt=media&token=b7d8ef5d-f8c9-4871-97da-6d45df2bf670',
       start: '2008',
       end: '2011',
     },
     {
       company: 'WiPro',
       title: 'Software Engineer',
-      logo: WiproLogo,
+      logo: 'https://firebasestorage.googleapis.com/v0/b/shagunresume.appspot.com/o/Logos%2FWipro_logo.svg?alt=media&token=833a7d56-b66d-42c0-bc3c-fd76234c16cb',
       start: '2014',
       end: '2019',
     },
     {
       company: 'SourceLink',
       title: 'Enterprise Software Developer',
-      logo: SourceLinkLogo,
+      logo: 'https://firebasestorage.googleapis.com/v0/b/shagunresume.appspot.com/o/Logos%2FsourceLink_Logo.jpeg?alt=media&token=6b468aab-9310-4c43-9b4d-eac0ba29d997',
       start: '2014',
       end: '2019',
     },
