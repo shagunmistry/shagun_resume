@@ -10,14 +10,14 @@ import {
   LinkedInIcon,
   XIcon,
 } from '@/components/SocialIcons'
-import ATILogo from 'src/images/logos/ATI logo.png'
-import CenteneLogo from 'src/images/logos/Centene Logo 2023.jpg'
-import RiaLogo from 'src/images/logos/RiaLogo.svg'
-import WiproLogo from 'src/images/logos/Wipro_logo.svg'
-import XactlyLogo from 'src/images/logos/Xactly logo white.svg'
-import VitusVetLogo from 'src/images/logos/VitusVet logo.png'
-import EasyKnockLogo from 'src/images/logos/EasyKnock logo.svg'
-import SourceLinkLogo from 'src/images/logos/sourceLink_Logo.jpeg'
+import ATILogo from '../images/logos/ATI logo.png'
+import CenteneLogo from '../images/logos/Centene Logo 2023.jpg'
+import RiaLogo from '../images/logos/RiaLogo.svg'
+import WiproLogo from '../images/logos/Wipro_logo.svg'
+import XactlyLogo from '../images/logos/Xactly logo white.svg'
+import VitusVetLogo from '../images/logos/VitusVet logo.png'
+import EasyKnockLogo from '../images/logos/EasyKnock logo.svg'
+import SourceLinkLogo from '../images/logos/sourceLink_Logo.jpeg'
 import { type ArticleWithSlug, getAllArticles } from '@/lib/articles'
 import { formatDate } from '@/lib/formatDate'
 
