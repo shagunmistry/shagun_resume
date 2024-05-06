@@ -9,10 +9,10 @@ export const metadata: Metadata = {
   title: {
     template: '%s - Shagun Mistry',
     default:
-      'Shagun Mistry - Software Engineer, Machine Learning Enthusiast, interested in Entrepreneurship, Startups, and Technology',
+      'Shagun Mistry - Software Engineer, Machine Learning Enthusiast, interested in Entrepreneurship, Startups, and Biotechnology',
   },
   description:
-    'Hi, I am Shagun Mistry, a Software Engineer, Machine Learning Enthusiast, interested in Entrepreneurship, Startups, and Technology. I write about my experiences, learnings, and thoughts on technology, startups, and life.',
+    'Hi, I am Shagun Mistry, a Software Engineer, Machine Learning Enthusiast, interested in Entrepreneurship, Startups, and Biotechnology. I write about my experiences, learnings, and thoughts on technology, startups, and life.',
   alternates: {
     types: {
       'application/rss+xml': `${process.env.NEXT_PUBLIC_SITE_URL}/feed.xml`,
