@@ -1,0 +1,88 @@
+import { ArticleLayout } from '@/components/ArticleLayout'
+
+export const article = {
+  author: 'Shagun Mistry',
+  date: '2024-08-30',
+  title: 'A Lighter, More Accurate Solution for Brain MRI Alignment?',
+  description:
+    'H-SGANet: The future of brain MRI registration, where precision meets efficiency.',
+}
+
+export const metadata = {
+  title: article.title,
+  description: article.description,
+}
+
+export default (props) => <ArticleLayout article={article} {...props} />
+
+# Hybrid Sparse Graph Attention Network (H-SGANet) for Deformable Medical Image Registration
+
+Day 3 of reading, understanding, and writing about an Arxiv paper.
+Today I write about this paper: https://arxiv.org/pdf/2408.16719v1
+
+## Why DMIR is Crucial
+
+DMIR is a fundamental task in medical imaging, playing a crucial role in various applications such as:
+
+* **Diagnosis:** Aligning images from different modalities or time points to detect abnormalities.
+* **Surgery:** Planning and executing complex surgical procedures with greater precision.
+* **Therapy:** Monitoring treatment response and adjusting therapy plans.
+
+Traditional DMIR methods often struggle with high computational demands and limited accuracy, particularly when dealing with large deformations and complex anatomical structures.  
+
+## The Need for a Hybrid Model
+
+To address these limitations, researchers have explored the use of deep learning models for DMIR.  However, traditional ConvNets often face challenges in capturing long-range dependencies and understanding global anatomical relationships.  
+
+This is where H-SGANet shines. It incorporates the following key elements:
+
+* **Sparse Graph Attention (SGA):**  SGA leverages the strength of ViG by representing the image as a graph structure. This allows H-SGANet to efficiently capture the intricate anatomical connections within the brain, leading to a more accurate representation of spatial relationships.
+* **Separable Self-Attention (SSA):**  SSA enhances the efficiency of the transformer architecture by employing a novel token mixing mechanism. It significantly reduces computational complexity while maintaining comparable performance to traditional multi-head attention (MHA) modules.
+* **ConvNet-ViG-Transformer Integration:**  H-SGANet combines the strengths of all three methodologies, leveraging the strengths of each to create a powerful and efficient DMIR model.
+
+## Practical Code Example (Illustrative Snippet)
+
+```python
+import torch
+import torch.nn as nn
+
+class SGA(nn.Module):
+    def __init__(self, in_channels, out_channels, k=2):
+        super(SGA, self).__init__()
+        self.k = k
+        self.conv = nn.Conv3d(in_channels, out_channels, kernel_size=3, padding=1)
+
+    def forward(self, x):
+        # Apply SGA (simplified version, without KNN computation)
+        x_rolled = torch.roll(x, shifts=self.k, dims=1)
+        x_rolled = torch.roll(x_rolled, shifts=self.k, dims=2)
+        x_rolled = torch.roll(x_rolled, shifts=self.k, dims=3)
+        x_concat = torch.cat([x, x_rolled], dim=1)
+        x_out = self.conv(x_concat)
+        return x_out
+```
+
+> *Note that this is a simplified example for illustration purposes*. 
+
+This code snippet defines a simplified SGA module that demonstrates the basic idea of capturing spatial relationships by incorporating shifted versions of the input tensor. 
+
+
+A complete H-SGANet implementation would involve more complex components and require a deeper understanding of graph neural networks and transformers.
+
+## Key Benefits of H-SGANet
+
+* **Superior accuracy:** H-SGANet outperforms existing DMIR methods in terms of Dice score and the percentage of non-normal Jacobian determinants.
+* **Efficiency:**  The use of SGA and SSA significantly reduces computational complexity, making H-SGANet a more efficient and scalable model.
+* **Generalization:** H-SGANet demonstrates strong generalization capabilities, as shown by its performance on both the OASIS and LPBA40 datasets.
+
+##  Next Steps
+
+If you want to learn more about this topic, here are some potential next steps:
+
+* **Investigating the impact of various hyperparameters:**  Experiment with different values of K (number of neighbors in SGA) and other hyperparameters to understand their influence on performance.
+* **Exploring alternative graph structures:** Investigate the use of different graph structures to capture more nuanced anatomical relationships.
+* **Applying H-SGANet to real-world clinical data:**  Evaluate the performance and potential of H-SGANet in practical settings.
+
+When scientists and researchers use latest technologies to solve real-world problems, the results can be amazing and have lasting impact on generations whether it is physical, mental, or financial well-being.
+
+---
