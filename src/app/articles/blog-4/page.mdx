@@ -1,0 +1,98 @@
+import { ArticleLayout } from '@/components/ArticleLayout'
+
+export const article = {
+  author: 'Shagun Mistry',
+  date: '2024-08-31',
+  title: 'Personalized Recommendations, No Bias, No Privacy Concerns: Meet F2PGNN',
+  description:
+    'Bias is a major concern in recommendation systems. F2PGNN offers a solution that combines fairness and privacy in a federated learning setting.',
+}
+
+export const metadata = {
+  title: article.title,
+  description: article.description,
+}
+
+export default (props) => <ArticleLayout article={article} {...props} />
+
+# Personalized Recommendations, No Bias, No Privacy Concerns: Meet F2PGNN
+
+Day 6 of reading, understanding, and writing about an Arxiv Research paper. Today, we will be going through this paper: http://arxiv.org/pdf/2312.10080v2
+
+In today's world, recommendation systems (RSs) play a crucial role in shaping our online experiences. From e-commerce to healthcare, these systems personalize our interactions, but they can also perpetuate existing biases. **Fair federated graph neural networks (F2PGNN)**, a cutting-edge approach to address this challenge combines the power of graph neural networks (GNNs) with fairness considerations in a federated learning setting.
+
+## **The Problem:**
+
+Imagine a scenario where a recommendation system favors certain demographic groups while neglecting others. This inherent bias can lead to unfair and discriminatory outcomes. Traditional centralized recommendation systems often face privacy concerns, requiring sensitive user data to be collected and processed.
+
+**Intro to Federated Learning:**
+
+Federated learning (FL) offers a privacy-preserving solution. It allows models to be trained across multiple devices (clients) without sharing raw data.  However, introducing fairness constraints in FL, especially when dealing with complex graph-based recommendation models, presents a significant challenge.
+
+### **F2PGNN: Fairness and Privacy in Harmony:**
+
+F2PGNN addresses this challenge head-on. It combines the power of personalized graph neural networks (GNNs) with fairness considerations within a federated learning framework.  Here's a breakdown of the key components:
+
+**1. Inductive Graph Expansion:**
+
+F2PGNN utilizes an algorithm to effectively capture higher-order interactions within the user-item graph, even when the data is distributed across multiple clients. This helps improve the accuracy and personalization of the recommendation system.
+
+**2. Fairness Regularization:**
+
+F2PGNN incorporates fairness constraints directly into the model's objective function. It aims to minimize the disparity in performance across different demographic groups.
+
+**3. Local Differential Privacy (LDP):**
+
+To enhance privacy, F2PGNN leverages LDP, a technique that adds noise to model parameters and group statistics before they are shared with the central server. This protects sensitive information without significantly impacting model accuracy.
+
+**Code Example (Simplified):**
+
+```python
+import tensorflow as tf
+from tensorflow.keras.layers import Dense, LayerNormalization
+
+class GNNLayer(tf.keras.layers.Layer):
+    def __init__(self, units, **kwargs):
+        super(GNNLayer, self).__init__(**kwargs)
+        self.units = units
+        self.attention = tf.keras.layers.Dense(units, activation='relu')
+        self.update = tf.keras.layers.Dense(units, activation='relu')
+
+    def call(self, inputs, adjacency_matrix):
+        # 1. Attention Mechanism
+        attention_weights = self.attention(inputs)
+        attention_weights = tf.nn.softmax(attention_weights, axis=1)
+
+        # 2. Message Passing
+        messages = tf.matmul(attention_weights, inputs)
+
+        # 3. Node Update
+        updated_inputs = self.update(inputs + messages)
+        return updated_inputs
+
+# Example usage:
+inputs = tf.random.normal([10, 16])
+adjacency_matrix = tf.random.uniform([10, 10], minval=0, maxval=1)
+
+gnn_layer = GNNLayer(units=32)
+output = gnn_layer(inputs, adjacency_matrix)
+```
+
+**Practical Example:**
+
+Imagine a movie recommendation system trained on data from various users. F2PGNN can ensure that the system doesn't unfairly recommend certain genres to users based on their demographics, ensuring a diverse and personalized experience for all.
+
+**Key Advantages of F2PGNN:**
+
+* **Improved Fairness:** Reduces bias in recommendations across different demographic groups.
+* **Privacy Preservation:**  Shields sensitive user data using local differential privacy.
+* **Enhanced Personalization:** Leverages the power of graph neural networks to understand complex relationships within user data.
+* **Scalable and Flexible:** Adaptable to various recommendation scenarios and federated learning settings.
+
+---
+
+If you're interested in exploring cutting-edge research at the intersection of fairness, privacy, and recommendation systems, F2PGNN offers a promising avenue. By combining the strengths of graph neural networks and federated learning, this approach paves the way for personalized recommendations without bias or privacy concerns.
+
+What are your thoughts on F2PGNN and its potential impact on recommendation systems? Share your insights and ideas! 
+
+Please subscribe to my [Newsletter](https://shaguns-newsletter.beehiiv.com/subscribe) for more such articles. Thank you for reading!
