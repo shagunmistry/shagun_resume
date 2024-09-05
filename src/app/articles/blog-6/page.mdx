@@ -1,0 +1,41 @@
+import { ArticleLayout } from '@/components/ArticleLayout'
+
+export const article = {
+  author: 'Shagun Mistry',
+  date: '2024-09-05',
+  title: 'Git Essentials: The commands you'll actually use as a Developer',
+  description:
+    'A curated list of essential Git commands for developers to navigate version control efficiently.',
+}
+
+export const metadata = {
+  title: article.title,
+  description: article.description,
+}
+
+export default (props) => <ArticleLayout article={article} {...props} />
+
+# Git Essentials: The commands you'll actually use as a Developer
+
+I've worked as a Software Developer and Engineer for past 9 years. 
+Based on my career at over 10 different companies, I've created a list of git commands that are of use in most of the normal day-to-day development:
+
+* **`git status`:** Your trusty guide. Tells you what files have been changed, added, or are untracked. Use it frequently to stay on top of your project's state.
+* **`git add .`:** Stages all changes in your current directory, preparing them to be included in the next commit. Remember the dot!
+* **`git commit -m "your message here"`:** Saves your changes with a descriptive message. Good commit messages are like breadcrumbs for future you!
+* **`git checkout <branch_name>`:** Switches to a different branch. Think of branches like parallel universes for your code.
+* **`git checkout -`:** A quick way to jump back to the branch you were on previously. Like a handy "undo" button for branches.
+* **`git merge <branch_name>`:**  Combines changes from another branch into your current one.
+* **`git pull`:**  Fetches the latest changes from a remote repository and merges them into your current branch. Stay in sync with your team.
+* **`git reset --hard`:**  **Caution!** Discards all uncommitted changes in your working directory. Use with care when you need a clean slate.
+* **`git stash`:** Temporarily saves your changes without committing them. Useful when you need to switch branches but aren't ready to commit yet.
+* **`git stash pop`:**  Reapplies your stashed changes. Bring back those changes when you're ready to work on them again.
+* **`git cherry-pick -m 1 <commit_hash>`:** Applies a specific commit from another branch to your current branch. The `-m 1` is crucial when the commit is part of a merge, ensuring you pick the correct change. Use this sparingly to avoid messy history.
+
+**Bonus Tip:** 
+
+* Use `git log` to view the commit history. It's like a time machine for your code!
+
+Master these, and you'll be well on your way to Git mastery!
+
+If you liked this bite-sized tutorial, please share and subscribe to my [Newsletter](https://shaguns-newsletter.beehiiv.com/subscribe). I share similar tips and tricks on a variety of topics every week!
