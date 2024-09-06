@@ -1,0 +1,159 @@
+import { ArticleLayout } from '@/components/ArticleLayout'
+
+export const article = {
+  author: 'Shagun Mistry',
+  date: '2024-09-06',
+  title: 'How to write clean and efficient React code?',
+  description:
+    'Learn best practices for writing clean and efficient React code from a seasoned Developer.',
+}
+
+export const metadata = {
+  title: article.title,
+  description: article.description,
+}
+
+export default (props) => <ArticleLayout article={article} {...props} />
+
+# How to write clean and efficient React code?
+
+After nearly a decade of being a Developer, I've learned a thing or two about writing clean and efficient React code.
+
+Here are some best practices to help you level up your React skills based on my experience:
+
+## 1. Keep Components Small and Focused
+
+One of the key principles of React is component-based architecture. This means breaking your UI into smaller, reusable pieces. Each component should have a single, well-defined purpose.
+
+**Example:**
+
+Instead of having a single "ProductCard" component handling everything, consider splitting it into:
+
+- `ProductCard`: Handles the overall structure and styling.
+- `ProductImage`: Renders the product image.
+- `ProductName`: Displays the product name.
+- `ProductPrice`: Shows the product price.
+
+This makes the code more modular, easier to test, and allows for easier reuse of individual components.
+
+## 2. Leverage Props for Data and Functionality
+
+Components should communicate with each other using props. Pass data and functions down from parent components to child components, keeping data flow predictable and testable.
+
+**Example:**
+
+```javascript
+function ProductCard({ product }) {
+  return (
+    <div>
+      <ProductImage src={product.image} />
+      <ProductName name={product.name} />
+      <ProductPrice price={product.price} />
+    </div>
+  )
+}
+
+// Parent component passing props
+;<ProductCard product={productData} />
+```
+
+> This is also sometimes called the "**Higher Order Component**" pattern. "**Higher Order Components**" are components that take other components as input and return a new component with additional functionality.
+
+## 3. Use State Management with Context API or Redux
+
+For managing shared data and state, use Context API or Redux. These tools allow you to manage state centrally and keep your components in sync.
+
+**When to use Context API:**
+
+- For simpler state management needs.
+- When you have a small to medium-sized application.
+
+**When to use Redux:**
+
+- For complex state management needs.
+- When you have a large application with many components.
+
+To learn more about Redux, check out the [official Redux documentation](https://redux.js.org/).
+To learn more about Context API, check out the [official React documentation](https://react.dev/reference/react/useContext).
+
+**Example:** (Context API)
+
+```javascript
+const CartContext = createContext()
+
+function CartProvider({ children }) {
+  const [cart, setCart] = useState([])
+
+  const addToCart = (item) => {
+    setCart([...cart, item])
+  }
+
+  return (
+    <CartContext.Provider value={{ cart, addToCart }}>
+      {children}
+    </CartContext.Provider>
+  )
+}
+
+// Accessing the context in a child component
+function ProductCard({ product }) {
+  const { addToCart } = useContext(CartContext)
+
+  // ...
+}
+```
+
+## 4. Optimize for Performance
+
+React is known for its performance, but there are ways to further improve it:
+
+- **Use `React.memo`:** Prevents re-rendering of components when their props haven't changed.
+- **Optimize `useEffect` dependencies:** Only run effects when necessary to avoid unnecessary re-renders.
+- **Use `useCallback` and `useMemo`:** Memoize expensive calculations or functions to avoid repetitive computation.
+
+**React Memo Example:**
+
+```javascript
+const ProductList = React.memo(({ products }) => {
+  return (
+    <div>
+      {products.map((product) => (
+        <ProductCard key={product.id} product={product} />
+      ))}
+    </div>
+  )
+})
+```
+
+**UseEffect Dependencies Example:**
+
+```javascript
+useEffect(() => {
+  fetchData()
+}, [fetchData]) // Only run effect when fetchData changes
+```
+
+**UseCallback and UseMemo Example:**
+
+```javascript
+const memoizedValue = useMemo(() => computeExpensiveValue(a, b), [a, b])
+
+const memoizedCallback = useCallback(() => {
+  doSomething(a, b)
+}, [a, b])
+```
+> **Note:** Always measure performance improvements with tools like React DevTools or Chrome DevTools to ensure your optimizations are effective.
+
+## 5. Follow a Consistent Coding Style
+
+Use a code linter like ESLint with a style guide like Airbnb or Prettier to ensure your code is consistent, readable, and maintainable.
+
+**Bonus Tip:** Use a code formatter like Prettier to automatically format your code according to your chosen style guide!
+
+To learn more about ESLint, check out the [official ESLint documentation](https://eslint.org/).
+To learn more about Prettier, check out the [official Prettier documentation](https://prettier.io/).
+
+--- 
+If you found these tips helpful, consider sharing them with your friends and colleagues.
+
+To stay updated with more tips and tricks, subscribe to my [Newsletter](https://shaguns-newsletter.beehiiv.com/subscribe). I share similar insights on a variety of topics every week!
