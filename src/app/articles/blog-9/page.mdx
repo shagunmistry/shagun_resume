@@ -1,0 +1,142 @@
+import { ArticleLayout } from '@/components/ArticleLayout'
+
+export const article = {
+  author: 'Shagun Mistry',
+  date: '2024-09-09',
+  title: 'CREAM: The Future of Automatic Programming and Software Development',
+  description:
+    'Explore the CREAM framework, a novel approach to automatic programming that integrates code search, generation, and repair techniques.',
+}
+
+export const metadata = {
+  title: article.title,
+  description: article.description,
+}
+
+export default (props) => <ArticleLayout article={article} {...props} />
+
+# CREAM: The Future of Automatic Programming and Software Development
+
+Day 7 of reading, understanding, and writing about a research paper. Today's paper is [CREAM: Code Retrieval, Enhancement, Augmentation, and Maintenance](https://arxiv.org/pdf/2409.03267.pdf).
+
+---
+
+Developing software is a complex and time-consuming process. 
+
+Automatic programming aims to minimize human intervention in the generation of executable code, making it more accessible and efficient. While research in code search, code generation, and program repair has made significant strides, existing approaches often struggle with inherent limitations.
+
+> **CREAM (Code Retrieval, Enhancement, Augmentation, and Maintenance)**
+
+CREAM leverages the complementary strengths of **code search**, **code generation**, and **program repair** techniques, utilizing the power of Large Language Models (LLMs) to seamlessly integrate these areas. 
+
+## Why CREAM Works
+
+CREAM recognizes that the three key areas of automatic programming (code search, generation, and repair) are inherently intertwined. 
+
+* **Code search** can provide valuable context and insights for code generation. 
+* **Code generation** can refine the quality of code retrieved through search.
+* **Program repair** can further refine generated code by identifying and correcting potential errors.
+
+By integrating these areas, CREAM overcomes the limitations of individual approaches and creates a more robust and effective automatic programming pipeline.
+
+## The CREAM Framework
+
+CREAM operates in three distinct phases:
+
+1. **Code Search:**  CREAM utilizes both IR-based and DL-based techniques to retrieve relevant code snippets from a database based on the given programming requirement. This provides initial context and guidance for code generation.
+    - **IR-based techniques** leverage information retrieval methods to match programming requirements with existing code snippets.
+    - **DL-based techniques** utilize deep learning models to identify semantic similarities between code snippets and programming requirements.
+2. **Code Generation:** CREAM constructs a prompt by combining the retrieved code, the programming requirement, and natural language instructions. This augmented prompt is then provided to a pre-trained LLM to generate code. 
+3. **Program Repair:** CREAM compiles and executes the generated code, using the test cases provided as part of the programming requirement.  Any errors or failures are fed back to the LLM, prompting it to refine the generated code iteratively.
+
+## Practical Example (Python Code)
+
+Let's consider a simple example using Python. Imagine we want to write a function to count the number of occurrences of a given character in a string. 
+
+**Programming Requirement:**
+
+Write a Python function to count the number of times a given character appears in a string.
+
+**Test Case:**
+
+```python
+assert count_char('hello', 'l') == 2
+```
+
+**CREAM in Action:**
+
+1. **Code Search:** CREAM searches for relevant code snippets from a database that handle similar character counting problems.
+2. **Code Generation:** CREAM generates code based on the search results and the programming requirement.
+3. **Program Repair:** CREAM compiles and executes the generated code against the test case. If the code fails, the error message is fed back to the LLM, prompting it to generate a refined version. 
+
+**Here's an example of how CREAM might operate (using the CodeLlama LLM):**
+
+**Step 1: Code Search (Retrieval-Augmented Prompt Template)**
+
+```python
+# Requirement
+Write a Python function to count the number of times a given character appears in a string.
+# Test Case
+assert count_char('hello', 'l') == 2
+# Source Code (Retrieved from database)
+def count_char(str, char):
+  count = 0
+  for i in str:
+    if i == char:
+      count += 1
+  return count 
+```
+
+**Step 2: Code Generation (LLM Prompt)**
+
+```python
+# Requirement
+Write a Python function to count the number of times a given character appears in a string.
+# Test Case
+assert count_char('hello', 'l') == 2
+# Similar Code 
+def count_char(str, char):
+  count = 0
+  for i in str:
+    if i == char:
+      count += 1
+  return count 
+# Generate Code
+```
+
+**Step 3: Program Repair (LLM Prompt with Test Case Feedback)**
+
+```python
+# Requirement
+Write a Python function to count the number of times a given character appears in a string.
+# Test Case
+assert count_char('hello', 'l') == 2
+# Generated Code 
+def count_char(str, char):
+  count = 0
+  for i in str:
+    if i == char:
+      count += 1
+  # Error Message (Assume generated code is missing "return count")
+  # Test failed!  
+  # Fix the code!
+```
+
+**In this example, CREAM would iteratively prompt the CodeLlama LLM to refine the generated code, eventually producing a correct solution.**
+
+## Benefits of CREAM
+
+* **Increased Accuracy:** By leveraging code search and program repair, CREAM enhances the accuracy of code generation.
+* **Reduced Development Time:** CREAM automates many manual tasks, accelerating software development.
+* **Improved Code Quality:** CREAM promotes best practices by leveraging existing code snippets and refining the generated code.
+
+## Challenges and Future Directions
+
+While CREAM shows significant promise, further research is needed to explore its application in various domain-specific scenarios and to improve the efficiency of code search and repair techniques.
+The integration of CREAM with existing development tools and workflows is also an area for future exploration as many companies have proprietary codebases and development practices which may require customization. 
+
+---
+
+CREAM represents a significant step forward in the field of automatic programming, offering a comprehensive framework that integrates code search, generation, and repair techniques. By leveraging the power of Large Language Models, CREAM has the potential to increase the efficiency and accessibility of software development, paving the way for a future where automatic programming is the norm rather than the exception.
+
+If you enjoyed this article, consider subscribing to my [Newsletter](https://shaguns-newsletter.beehiiv.com/subscribe) where we cover a topic per day per week.
