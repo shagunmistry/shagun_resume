@@ -1,0 +1,170 @@
+import { ArticleLayout } from '@/components/ArticleLayout'
+
+export const article = {
+  author: 'Shagun Mistry',
+  date: '2024-09-13',
+  title: 'Let\'s Verify Step by Step: Training Reliable Reward Models with Process Supervision',
+  description:
+    "OpenAI's research paper 'Let's Verify Step by Step' explores the training of reliable reward models for large language models using process supervision",
+}
+
+export const metadata = {
+  title: article.title,
+  description: article.description,
+}
+
+export default (props) => <ArticleLayout article={article} {...props} />
+
+# Let's Verify Step by Step: How OpenAI o1 was created
+
+Day 9 of reading, understanding, and writing about a research paper. Today's paper is [Let's Verify Step by Step](https://arxiv.org/pdf/2305.20050).
+
+This tutorial dives into the fascinating world of AI alignment and explores the exciting findings of a recent research paper, "Let's Verify Step by Step," published on arXiv. This paper delves into the crucial problem of training reliable reward models for large language models (LLMs) that can solve complex multi-step reasoning tasks.
+
+The authors, a team of researchers from OpenAI, investigate two distinct methods for training reward models: outcome supervision and process supervision. 
+
+Outcome supervision focuses on providing feedback based on the final result of an LLM's reasoning chain, while process supervision, the focus of this paper, provides feedback at each individual reasoning step. 
+
+## Why Process Supervision?
+
+Process supervision offers several key advantages over outcome supervision:
+
+* **More precise feedback:** By evaluating each step, process supervision pinpoints the exact location of errors, leading to more targeted learning for the model.
+* **Easier for humans to interpret:** Humans can easily understand and assess the correctness of individual reasoning steps, making process supervision more amenable to human feedback.
+* **More directly rewards aligned behavior:** Process supervision encourages LLMs to follow a human-approved chain of thought, contributing to safer and more interpretable AI systems.
+
+## Key Findings of the Paper
+
+The paper presents several significant findings:
+
+* **Process supervision outperforms outcome supervision:** The researchers demonstrate that models trained with process supervision achieve significantly better performance than those trained with outcome supervision on challenging reasoning tasks.
+* **Active learning significantly improves process supervision:** By strategically selecting the most informative solutions to label, active learning significantly boosts the efficiency of process supervision.
+* **Large-scale process supervision dataset (PRM800K):** To facilitate further research in this area, the paper provides a comprehensive dataset of 800,000 step-level human feedback labels used to train their best reward model.
+
+## A Practical Example: Training a Simple Reward Model with Process Supervision
+
+Let's illustrate the concept of process supervision with a simple Python example. 
+
+We'll focus on a basic task: recognizing whether a sequence of numbers is increasing.
+
+```python
+import random
+
+def is_increasing(sequence):
+    """Checks if a sequence of numbers is increasing."""
+    for i in range(1, len(sequence)):
+        if sequence[i] <= sequence[i - 1]:
+            return False
+    return True
+
+def generate_solution(problem_length):
+    """Generates a random solution to the 'is_increasing' problem."""
+    return [random.randint(0, 10) for _ in range(problem_length)]
+
+def process_supervised_reward_model(sequence, step):
+    """
+    A simple process-supervised reward model that checks each step.
+    
+    Args:
+        sequence: The sequence of numbers.
+        step: The current step being evaluated (index of the number).
+    
+    Returns:
+        1 if the step is correct (greater than previous), 0 otherwise.
+    """
+    if step == 0:
+        return 1  # First step is always correct
+    else:
+        return 1 if sequence[step] > sequence[step - 1] else 0
+
+def outcome_supervised_reward_model(sequence):
+    """
+    A simple outcome-supervised reward model that only checks the final result.
+    
+    Args:
+        sequence: The complete sequence of numbers.
+    
+    Returns:
+        1 if the entire sequence is increasing, 0 otherwise.
+    """
+    return 1 if is_increasing(sequence) else 0
+
+def evaluate_solution(reward_model, sequence, process_supervised=True):
+    """Evaluates a solution using either process or outcome supervision."""
+    if process_supervised:
+        scores = [reward_model(sequence, i) for i in range(len(sequence))]
+        return all(scores), scores
+    else:
+        return reward_model(sequence) == 1, [reward_model(sequence)]
+
+# Example usage
+problem_length = 5
+num_samples = 1000
+
+process_correct = 0
+outcome_correct = 0
+
+for _ in range(num_samples):
+    solution = generate_solution(problem_length)
+    
+    # Evaluate with process supervision
+    process_result, process_scores = evaluate_solution(process_supervised_reward_model, solution)
+    if process_result:
+        process_correct += 1
+    
+    # Evaluate with outcome supervision
+    outcome_result, _ = evaluate_solution(outcome_supervised_reward_model, solution, process_supervised=False)
+    if outcome_result:
+        outcome_correct += 1
+
+    # Print an example for visualization
+    if _ == 0:
+        print(f"Example solution: {solution}")
+        print(f"Process supervision scores: {process_scores}")
+        print(f"Outcome supervision score: {outcome_result}")
+
+print(f"\nProcess supervision accuracy: {process_correct / num_samples:.2%}")
+print(f"Outcome supervision accuracy: {outcome_correct / num_samples:.2%}")
+```
+
+This example demonstrates the key concepts of process supervision vs. outcome supervision:
+
+We define a simple problem: determining if a sequence of numbers is increasing.
+We implement two reward models:
+
+A process-supervised model that evaluates each step in the sequence.
+An outcome-supervised model that only evaluates the final result.
+
+We generate random solutions and evaluate them using both supervision methods.
+We compare the accuracy of both methods over a large number of samples.
+
+This simplified example illustrates how process supervision provides more granular feedback by evaluating each step, while outcome supervision only considers the final result. In more complex scenarios, like those described in the paper, this granular feedback can lead to more reliable and interpretable AI systems.
+
+
+## Results
+The researchers conducted experiments using both large-scale and small-scale models. 
+For large-scale experiments, they finetuned models from GPT-4 and evaluated them on a subset of the MATH dataset.
+
+The results show that the process-supervised reward model (PRM) significantly outperforms both the outcome-supervised reward model (ORM) and majority voting baselines. The PRM achieves 78.2% accuracy on a representative subset of the MATH test set, compared to 72.4% for the ORM and 69.6% for majority voting.
+
+The performance gap between PRM and ORM widens as the number of sampled solutions increases, indicating that the PRM is more effective at searching over a large number of model-generated solutions.
+
+## Implications for AI Alignment
+The researchers argue that process supervision has several advantages related to AI alignment:
+
+1. Improved interpretability: Process supervision encourages models to follow a human-approved chain of thought.
+2. Enhanced safety: It directly rewards aligned behavior rather than relying on outcomes as a proxy.
+3. Negative alignment tax: Unlike some alignment methods that may reduce performance, process supervision actually improves model capabilities.
+
+## The Future of Process Supervision
+
+The "Let's Verify Step by Step" paper demonstrates the potential of process supervision in training more reliable and aligned reward models for LLMs. By providing more precise feedback and encouraging human-approved reasoning processes, this approach could lead to more robust and trustworthy AI systems.
+
+The researchers have released the PRM800K dataset to facilitate further research in this area. While the current study focuses on mathematical reasoning, future work could explore the application of process supervision in other domains and investigate its broader implications for AI alignment and safety.
+
+As the field of AI continues to advance, techniques like process supervision may play a crucial role in developing more reliable, interpretable, and aligned artificial intelligence systems.
+
+---
+
+Share this article if you found it helpful!
+If you're interested in learning more about machine learning and data science, check out my [Newsletter](https://shaguns-newsletter.beehiiv.com/subscribe) for daily insights and tips! 📈✨
