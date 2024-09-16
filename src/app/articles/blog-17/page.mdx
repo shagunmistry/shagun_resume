@@ -1,0 +1,89 @@
+import { ArticleLayout } from '@/components/ArticleLayout'
+
+export const article = {
+  author: 'Shagun Mistry',
+  date: '2024-09-16',
+  title: 'How Top Models Like DALL-E 3 Are Accidentally Stealing Superheroes (And What We Can Do About It)',
+  description:
+    'Let\'s talk about how state-of-the-art AI models like DALL-E 3 and Stable Diffusion can generate images that resemble copyrighted characters, even without explicitly mentioning their names.',
+}
+
+export const metadata = {
+  title: article.title,
+  description: article.description,
+}
+
+export default (props) => <ArticleLayout article={article} {...props} />
+
+# How Top Models Like DALL-E 3 Are Accidentally Stealing Superheroes (And What We Can Do About It)
+
+Day 9 of reading, understanding, and writing about a research paper. Today's paper is [Evaluating and Mitigating IP Infringement in Visual Generative AI](https://arxiv.org/pdf/2406.04662).
+
+In recent years, the rapid advancement of visual generative AI has brought forth unprecedented capabilities in image creation. 
+
+However, this progress has also raised significant concerns regarding intellectual property (IP) rights.
+
+## Understanding the IP Infringement Risk
+
+State-of-the-art AI models, such as DALL-E 3 and Stable Diffusion, have demonstrated remarkable abilities in generating images based on text prompts. These models, trained on vast datasets of images and text, often including copyrighted material, have learned to associate specific visual elements with certain characters or concepts.
+
+The challenge arises when these models generate images that closely resemble copyrighted characters, even without explicit mention in the input prompt. 
+
+For instance, a request for "a superhero in a red and blue suit" might result in an image strikingly similar to Spider-Man, raising potential IP infringement concerns.
+
+## Assessing the Extent of the Problem
+
+Recent research has shed light on the severity of this issue. Experiments conducted with various AI models revealed a concerning frequency of generated images that bear strong resemblances to well-known characters like Spider-Man, Iron Man, and Batman, among others. These results underscore the need for robust solutions to protect intellectual property rights in the age of AI-generated content.
+
+## The TRIM Approach: A Potential Solution
+
+One of the potential solutions proposed is a defense method called TRIM (inTellectual pRoperty Infringement Mitigating). This approach addresses the IP infringement risk through a two-pronged strategy:
+
+1. **Preventing Name-Based Infringement**: 
+   TRIM employs advanced language models to analyze input prompts and identify explicit mentions of protected character names. This initial screening helps prevent direct infringement by blocking or modifying problematic prompts.
+
+2. **Detecting and Suppressing Visual Infringement**:
+   The method utilizes vision-language models to identify potentially infringing content within generated images. If infringement is detected, TRIM employs a technique called classifier-free guidance to steer the image generation process away from protected visual elements.
+
+## Implementation Considerations
+
+While the full implementation of TRIM requires integration with specific AI models, the concept can be illustrated with a simplified example:
+
+```python
+import openai
+
+def analyze_prompt(prompt, protected_characters):
+    response = openai.Completion.create(
+        engine="text-davinci-003",
+        prompt=f"Does the following prompt mention any of these characters: {protected_characters}? Prompt: {prompt}",
+        max_tokens=10
+    )
+    return "yes" in response.choices[0].text.lower()
+
+protected_characters = ["Spider-Man", "Iron Man", "Hulk"]
+user_prompt = "Create an image of a hero in a red and blue suit with a mask."
+
+if analyze_prompt(user_prompt, protected_characters):
+    print("Potential infringement detected. Modifying prompt...")
+    # Implement prompt modification or blocking mechanism
+else:
+    print("No direct infringement detected. Proceeding with image generation.")
+    # Implement image generation with additional visual infringement checks
+```
+
+This example demonstrates the first step of the TRIM approach, analyzing the input prompt for potential infringement. 
+
+In a full implementation, this would be followed by the image generation process with integrated visual infringement detection and mitigation.
+
+## Why IP Protection Matters
+
+Addressing IP infringement in AI-generated content is crucial for the ethical and sustainable development of visual generative AI technologies. The TRIM method represents a promising step towards reconciling the innovative potential of AI with the protection of intellectual property rights.
+
+As the field continues to evolve, ongoing research and collaboration between AI developers, legal experts, and content creators will be essential in refining these approaches and establishing best practices for responsible AI development.
+
+By prioritizing the protection of intellectual property alongside technological advancement, we can foster an environment where AI-driven creativity flourishes while respecting the rights of content creators and copyright holders.
+
+---
+
+Share this article if you found it helpful!
+If you're interested in learning about a different relevant topic per day every week, check out my [Newsletter](https://shaguns-newsletter.beehiiv.com/subscribe)! 📚✨
