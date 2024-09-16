@@ -1,0 +1,187 @@
+import { ArticleLayout } from '@/components/ArticleLayout'
+
+export const article = {
+  author: 'Shagun Mistry',
+  date: '2024-09-16',
+  title: 'Neural Networks: A Simple Introduction',
+  description:
+    'Learn the basics of neural networks with a simple explanation and code example.',
+}
+
+export const metadata = {
+  title: article.title,
+  description: article.description,
+}
+
+export default (props) => <ArticleLayout article={article} {...props} />
+
+Neural networks are all the rage, powering everything from image recognition to language translation.
+
+But what exactly are they, and how do they work?
+
+In simple terms, a neural network is a computer system that learns by example.
+It's inspired by the structure of the human brain, where neurons are interconnected and process information.
+
+Think of it as a complex web of interconnected nodes, each with its own unique function.
+
+Here's a simplified analogy:
+Imagine you're teaching a child to recognize a cat. You show them several pictures of cats, highlighting key features like pointy ears, whiskers, and furry tails. Over time, the child learns to associate these features with the concept of a cat.
+
+Similarly, a neural network is trained on a massive dataset of examples, adjusting its internal connections to identify patterns and make predictions. It learns to recognize specific features in the input data and make decisions based on what it has learned.
+
+Here's a simple example using JavaScript:
+
+```python
+import numpy as np
+
+class SimpleNeuralNetwork:
+    def __init__(self, input_size, hidden_size, output_size):
+        self.input_size = input_size
+        self.hidden_size = hidden_size
+        self.output_size = output_size
+
+        # Initialize weights and biases
+        self.W1 = np.random.randn(self.input_size, self.hidden_size)
+        self.b1 = np.zeros((1, self.hidden_size))
+        self.W2 = np.random.randn(self.hidden_size, self.output_size)
+        self.b2 = np.zeros((1, self.output_size))
+
+    def sigmoid(self, x):
+        return 1 / (1 + np.exp(-x))
+
+    def sigmoid_derivative(self, x):
+        return x * (1 - x)
+
+    def forward(self, X):
+        # Forward propagation
+        self.z1 = np.dot(X, self.W1) + self.b1
+        self.a1 = self.sigmoid(self.z1)
+        self.z2 = np.dot(self.a1, self.W2) + self.b2
+        self.a2 = self.sigmoid(self.z2)
+        return self.a2
+
+    def backward(self, X, y, output):
+        # Backpropagation
+        self.error = y - output
+        self.delta2 = self.error * self.sigmoid_derivative(output)
+
+        self.error_hidden = np.dot(self.delta2, self.W2.T)
+        self.delta1 = self.error_hidden * self.sigmoid_derivative(self.a1)
+
+        # Update weights and biases
+        self.W2 += np.dot(self.a1.T, self.delta2)
+        self.b2 += np.sum(self.delta2, axis=0, keepdims=True)
+        self.W1 += np.dot(X.T, self.delta1)
+        self.b1 += np.sum(self.delta1, axis=0, keepdims=True)
+
+    def train(self, X, y, epochs):
+        for _ in range(epochs):
+            output = self.forward(X)
+            self.backward(X, y, output)
+
+    def predict(self, X):
+        return self.forward(X)
+
+# Example usage
+if __name__ == "__main__":
+    # XOR problem
+    X = np.array([[0, 0], [0, 1], [1, 0], [1, 1]])
+    y = np.array([[0], [1], [1], [0]])
+
+    nn = SimpleNeuralNetwork(2, 4, 1)
+    nn.train(X, y, 10000)
+
+    # Test the trained network
+    for i in range(len(X)):
+        prediction = nn.predict(X[i].reshape(1, -1))
+        print(f"Input: {X[i]}, Predicted Output: {prediction[0][0]:.4f}, Actual Output: {y[i][0]}")
+```
+
+This implementation demonstrates a simple neural network capable of learning the XOR function. Here's a breakdown of the key components:
+
+1. The `SimpleNeuralNetwork` class initializes with input, hidden, and output layer sizes.
+2. It uses the sigmoid activation function and its derivative.
+3. The forward method performs forward propagation.
+4. The backward method implements backpropagation to update weights and biases.
+5. The train method trains the network for a specified number of epochs.
+6. The predict method uses the trained network to make predictions.
+
+## Detailed Explanation
+
+1. Initialization (`__init__` method):
+   This is like setting up the structure of our neural network.
+
+   ```python
+   self.W1 = np.random.randn(self.input_size, self.hidden_size)
+   self.b1 = np.zeros((1, self.hidden_size))
+   ```
+
+   We're creating the "wiring" (weights) and "adjustments" (biases) between layers. We start with random weights and zero biases, which the network will adjust as it learns.
+
+2. Activation Function (sigmoid and its derivative):
+   This is the network's way of deciding whether a neuron should "fire" or not.
+
+   ```python
+   def sigmoid(self, x):
+       return 1 / (1 + np.exp(-x))
+   ```
+
+   The sigmoid function squishes any input into a value between 0 and 1, which we can interpret as a probability or activation level.
+
+3. Forward Propagation (`forward` method):
+   This is how the network processes input data to make a prediction.
+
+   ```python
+   self.z1 = np.dot(X, self.W1) + self.b1
+   self.a1 = self.sigmoid(self.z1)
+   ```
+
+   It's like passing information through each layer, applying weights, biases, and the activation function along the way.
+
+4. Backpropagation (`backward` method):
+   This is how the network learns from its mistakes.
+
+   ```python
+   self.error = y - output
+   self.delta2 = self.error * self.sigmoid_derivative(output)
+   ```
+
+   It calculates the error and then propagates it backwards through the network, adjusting weights and biases to minimize this error.
+
+5. Training (`train` method):
+   This is the process of teaching the network.
+
+   ```python
+   for _ in range(epochs):
+       output = self.forward(X)
+       self.backward(X, y, output)
+   ```
+
+   It repeatedly feeds data through the network (forward propagation) and then adjusts based on the errors (backpropagation).
+
+6. Prediction (`predict` method):
+   This is using the trained network to make predictions on new data.
+
+   ```python
+   def predict(self, X):
+       return self.forward(X)
+   ```
+
+   It's simply running the forward propagation step without any learning or adjustments.
+
+In essence, we set up the network (1), define how neurons activate (2), process data forward (3), learn from errors backwards (4), repeat this process to train (5), and finally use the trained network to make predictions (6).
+
+## Final Thoughts
+
+This simple neural network implementation provides a glimpse into how Artificial Intelligence works. While our example is basic, it demonstrates the core principles that drive even the most advanced AI systems.
+
+From image recognition in self-driving cars to natural language processing in chatbots, these fundamental concepts scale up to solve complex real-world problems.
+
+So the next time you hear about neural networks, remember: it's not magic, it's just a bunch of interconnected nodes learning from examples.
+
+And who knows, maybe you'll be the one to build the next groundbreaking AI system!
+
+---
+
+Share this article if you found it helpful!
+If you're interested in learning more about machine learning and data science, check out my [Newsletter](https://shaguns-newsletter.beehiiv.com/subscribe) for daily insights and tips! 📈✨
