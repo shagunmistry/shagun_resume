@@ -1,0 +1,178 @@
+import { ArticleLayout } from '@/components/ArticleLayout'
+
+export const article = {
+  author: 'Shagun Mistry',
+  date: '2024-09-18',
+  title:
+    'Neural Networks: Backpropagation Explained',
+  description: 'A clear, concise explanation of this fundamental AI concept, complete with Python code examples.'
+}
+
+export const metadata = {
+  title: article.title,
+  description: article.description,
+}
+
+export default (props) => <ArticleLayout article={article} {...props} />
+
+# Neural Networks: Backpropagation Explained
+
+Backpropagation is what makes neural networks tick. It's the secret sauce that turns raw data into intelligent predictions, powering everything from self-driving cars to virtual assistants.
+
+## The Essence of Learning
+
+At its core, backpropagation is elegantly simple:
+
+1. **See**: The network observes data.
+2. **Guess**: It makes a prediction.
+3. **Learn**: It refines its understanding based on its mistakes.
+
+Sound familiar? It's how we all learn, transformed into mathematical poetry.
+
+## The Dance of Numbers
+
+Let's break it down:
+
+1. **Forward Pass**: Data flows through the network, layer by layer.
+2. **Error Calculation**: The network compares its guess to reality.
+3. **Backward Pass**: The error ripples back, fine-tuning connections.
+
+It's a beautiful choreography of numbers, each step precisely calculated to bring the network closer to perfection.
+
+## Bringing It to Life
+
+Here's a glimpse into the heart of backpropagation, distilled into Python:
+
+```python
+import numpy as np
+
+def sigmoid(x):
+    return 1 / (1 + np.exp(-x))
+
+def sigmoid_derivative(x):
+    return x * (1 - x)
+
+class NeuralNetwork:
+    def __init__(self, x, y):
+        self.input = x
+        self.weights1 = np.random.rand(self.input.shape[1], 4)
+        self.weights2 = np.random.rand(4, 1)
+        self.y = y
+        self.output = np.zeros(y.shape)
+
+    def feedforward(self):
+        self.layer1 = sigmoid(np.dot(self.input, self.weights1))
+        self.output = sigmoid(np.dot(self.layer1, self.weights2))
+
+    def backprop(self):
+        d_weights2 = np.dot(self.layer1.T, 2 * (self.y - self.output) * sigmoid_derivative(self.output))
+        d_weights1 = np.dot(self.input.T, np.dot(2 * (self.y - self.output) * sigmoid_derivative(self.output), self.weights2.T) * sigmoid_derivative(self.layer1))
+
+        self.weights1 += d_weights1
+        self.weights2 += d_weights2
+
+# Example usage
+X = np.array([[0,0,1], [0,1,1], [1,0,1], [1,1,1]])
+y = np.array([[0], [1], [1], [0]])
+nn = NeuralNetwork(X, y)
+
+for _ in range(1500):
+    nn.feedforward()
+    nn.backprop()
+
+print(nn.output)
+```
+
+
+# Backpropagation: The Magic Behind Neural Networks
+
+[Previous content remains the same]
+
+## Decoding the Neural Dance: A Code Walkthrough
+
+Let's peel back the layers of our Python implementation, revealing the elegant simplicity of backpropagation in action.
+
+### The Neuron's Activation
+
+```python
+def sigmoid(x):
+    return 1 / (1 + np.exp(-x))
+
+def sigmoid_derivative(x):
+    return x * (1 - x)
+```
+
+These functions are the heartbeat of our network. The `sigmoid` function squashes any input into a value between 0 and 1, mimicking a neuron's firing. Its derivative, crucial for learning, tells us how to adjust our network's "thinking."
+
+### The Network's Architecture
+
+```python
+class NeuralNetwork:
+    def __init__(self, x, y):
+        self.input = x
+        self.weights1 = np.random.rand(self.input.shape[1], 4)
+        self.weights2 = np.random.rand(4, 1)
+        self.y = y
+        self.output = np.zeros(y.shape)
+```
+
+Here, we're setting up our network's structure. We initialize random weights, creating a canvas for our network to paint its understanding upon. The `input` and `y` are our training data and expected outputs – the network's textbook and exam answers.
+
+### The Forward Pass: Thinking in Action
+
+```python
+def feedforward(self):
+    self.layer1 = sigmoid(np.dot(self.input, self.weights1))
+    self.output = sigmoid(np.dot(self.layer1, self.weights2))
+```
+
+This is our network in action. It takes the input, processes it through layers of neurons (represented by matrix multiplications and sigmoid activations), and produces an output. It's like the network is forming a thought, layer by layer.
+
+### The Backward Pass: Learning from Mistakes
+
+```python
+def backprop(self):
+    d_weights2 = np.dot(self.layer1.T, 2 * (self.y - self.output) * sigmoid_derivative(self.output))
+    d_weights1 = np.dot(self.input.T, np.dot(2 * (self.y - self.output) * sigmoid_derivative(self.output), self.weights2.T) * sigmoid_derivative(self.layer1))
+
+    self.weights1 += d_weights1
+    self.weights2 += d_weights2
+```
+
+This is where the magic happens. The network compares its output to the expected result, calculates the error, and propagates it backward. It's like the network is reflecting on its mistakes, adjusting its understanding bit by bit. The mathematical operations here embody the chain rule of calculus, allowing the network to assign credit (or blame) to each of its neurons.
+
+### Putting It All Together
+
+```python
+X = np.array([[0,0,1], [0,1,1], [1,0,1], [1,1,1]])
+y = np.array([[0], [1], [1], [0]])
+nn = NeuralNetwork(X, y)
+
+for _ in range(1500):
+    nn.feedforward()
+    nn.backprop()
+
+print(nn.output)
+```
+
+Here, we're training our network on a simple dataset. Each iteration is a cycle of thought and reflection, gradually sculpting the network's understanding. After 1500 cycles, we print the output – a testament to the network's learned wisdom.
+
+## The Future, Unfolding
+
+Backpropagation isn't just a technical curiosity—it's the engine driving breakthroughs in:
+
+- Computer vision that rivals human perception
+- Language models that craft prose and poetry
+- AI assistants that understand and respond with near-human intuition
+
+
+
+---
+
+> This article was written with information from [Deep Learning](https://www.deeplearningbook.org/) and is based on this paper:
+> [Learning representations by back-propagating errors](https://www.nature.com/articles/323533a0)
+
+---
+
+Share this article if you found it helpful!
+If you're interested in learning more about AI and machine learning, check out my [Newsletter](https://shaguns-newsletter.beehiiv.com/subscribe) for weekly insights and tips! 🤖📈
