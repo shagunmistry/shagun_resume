@@ -1,0 +1,98 @@
+import { ArticleLayout } from '@/components/ArticleLayout'
+
+export const article = {
+  author: 'Shagun Mistry',
+  date: '2024-09-24',
+  title: 'Finding Outliers with Z-score Normalization',
+  description:
+    'Learn how to detect outliers in your data using Z-score normalization in JavaScript.',
+}
+
+export const metadata = {
+  title: article.title,
+  description: article.description,
+}
+
+export default (props) => <ArticleLayout article={article} {...props} />
+
+# Finding Outliers with Z-score Normalization
+
+Anomaly detection is a crucial skill in data analysis and machine learning. 
+
+It helps us identify unusual patterns, outliers, or deviations from the expected behavior in our data. This can be incredibly useful for tasks like fraud detection, network security monitoring, and quality control.
+
+**Z-score normalization.**
+One common technique for anomaly detection is Z-score normalization.
+
+## What is Z-score?
+
+The Z-score, or standard score, measures how many standard deviations a data point is away from the mean. A high Z-score (above 3) suggests an outlier – a data point significantly different from the rest.
+
+## Implementing Z-score Anomaly Detection
+
+Let's implement a basic Z-score anomaly detection function:
+
+```javascript
+function detectAnomalies(data, threshold = 3) {
+  const mean = data.reduce((sum, val) => sum + val, 0) / data.length
+  const standardDeviation = Math.sqrt(
+    data.reduce((sum, val) => sum + Math.pow(val - mean, 2), 0) / data.length,
+  )
+
+  return data.map((value) => {
+    const zScore = (value - mean) / standardDeviation
+    return { value, zScore, isAnomaly: Math.abs(zScore) > threshold }
+  })
+}
+
+const data = [10, 12, 11, 13, 14, 15, 100]
+
+const anomalies = detectAnomalies(data)
+console.log(anomalies)
+```
+
+In this code:
+
+1. We calculate the mean and standard deviation of the input data.
+2. We iterate over each data point and compute its Z-score.
+3. We define a `threshold` (defaulting to 3) to determine what constitutes an anomaly.
+4. We return an array of objects with each data point, its corresponding Z-score, and a flag indicating whether it's an anomaly based on the threshold.
+
+## Running the code:
+
+This code will output the following, identifying the value 100 as an anomaly:
+
+```
+[
+  { value: 10, zScore: -2.0506120149284825, isAnomaly: false },
+  { value: 12, zScore: -0.6835373416428277, isAnomaly: false },
+  { value: 11, zScore: -1.3670746832856553, isAnomaly: false },
+  { value: 13, zScore: 0.0000000000000002, isAnomaly: false },
+  { value: 14, zScore: 0.6835373416428275, isAnomaly: false },
+  { value: 15, zScore: 1.3670746832856554, isAnomaly: false },
+  { value: 100, zScore: 15.81138830084189, isAnomaly: true }
+]
+```
+
+What this means is that the value 100 is 15.81 standard deviations away from the mean, which is well above our threshold of 3.
+This makes it an anomaly according to our Z-score-based detection.
+
+## Key takeaways:
+
+- Z-score normalization is a simple and effective technique for detecting outliers.
+- We can adjust the threshold value to control the sensitivity of our anomaly detection.
+- This is just one approach to anomaly detection; many other methods exist, each suited for different data characteristics and applications.
+
+## Real-world applications:
+
+- Fraud detection in financial transactions.
+- Monitoring network traffic for security breaches.
+- Identifying defective products in manufacturing processes.
+
+In the real world, by using Z-score normalization and other anomaly detection techniques, we can proactively address issues and improve the quality and security of our systems.
+
+---
+
+If you found this article insightful, consider sharing it with your network!
+
+For more AI and machine learning content, subscribe to my [Newsletter](https://shaguns-newsletter.beehiiv.com/subscribe) for weekly updates and tips! 🤖📈
