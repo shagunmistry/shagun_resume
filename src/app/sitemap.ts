@@ -7,8 +7,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   console.log('Generating sitemap...')
   // print out the directory and its contents
-  console.log(fs.readdirSync(path.join(process.cwd())))
-  const articlesDirectory = path.join(process.cwd(), '/app/articles')
+  console.log(fs.readdirSync(path.join(process.cwd(), 'src')))
+  console.log(fs.readdirSync(path.join(process.cwd(), '/src')))
+  const articlesDirectory = path.join(process.cwd(), '/src/app/articles')
   const articleSlugs = fs
     .readdirSync(articlesDirectory)
     .filter((file) =>
