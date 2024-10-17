@@ -6,7 +6,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://shazzamm.dev'
 
   // Get all article slugs
-  const articlesDirectory = path.join(process.cwd(), 'app/articles')
+  const articlesDirectory = path.join(process.cwd(), '/articles')
   const articleSlugs = fs
     .readdirSync(articlesDirectory)
     .filter((file) =>
