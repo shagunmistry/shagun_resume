@@ -6,7 +6,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://shazzamm.dev'
 
   console.log('Generating sitemap...')
-  console.log("Base Path: ", path.join(process.cwd(), '/app/articles'))
+  // print out the directory and its contents
+  console.log(fs.readdirSync(path.join(process.cwd())))
   const articlesDirectory = path.join(process.cwd(), '/app/articles')
   const articleSlugs = fs
     .readdirSync(articlesDirectory)
