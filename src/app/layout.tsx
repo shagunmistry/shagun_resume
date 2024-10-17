@@ -9,15 +9,65 @@ import '@/styles/tailwind.css'
 export const metadata: Metadata = {
   title: {
     template: '%s - Shagun Mistry',
-    default:
-      'Shagun Mistry - Software Engineer, Machine Learning Enthusiast, interested in Entrepreneurship, Startups, and Biotechnology',
+    default: 'Shagun Mistry - Software Engineer, ML Enthusiast, Entrepreneur',
   },
   description:
-    'Hi, I am Shagun Mistry, a Software Engineer, Machine Learning Enthusiast, interested in Entrepreneurship, Startups, and Biotechnology. I write about my experiences, learnings, and thoughts on technology, startups, and life.',
+    'Shagun Mistry: Software Engineer and Machine Learning enthusiast exploring entrepreneurship, startups, and biotechnology. Sharing insights on tech, innovation, and personal growth.',
   alternates: {
     types: {
       'application/rss+xml': `${process.env.NEXT_PUBLIC_SITE_URL}/feed.xml`,
     },
+  },
+  openGraph: {
+    title: 'Shagun Mistry - Tech Enthusiast and Entrepreneur',
+    description:
+      'Explore insights on software engineering, machine learning, startups, and biotechnology with Shagun Mistry.',
+    url: process.env.NEXT_PUBLIC_SITE_URL,
+    siteName: 'Shagun Mistry',
+    images: [
+      {
+        url: `${process.env.NEXT_PUBLIC_SITE_URL}/og-image.jpg`,
+        width: 1200,
+        height: 630,
+        alt: 'Shagun Mistry - Software Engineer and Entrepreneur',
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Shagun Mistry - Tech Enthusiast and Entrepreneur',
+    description:
+      'Software engineering, ML, startups, and biotech insights from Shagun Mistry.',
+    creator: '@shagunmistry',
+    images: [`${process.env.NEXT_PUBLIC_SITE_URL}/twitter-image.jpg`],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  keywords: [
+    'software engineering',
+    'machine learning',
+    'entrepreneurship',
+    'startups',
+    'biotechnology',
+    'tech innovation',
+  ],
+  authors: [{ name: 'Shagun Mistry' }],
+  category: 'Technology',
+  verification: {
+    google: 'your-google-verification-code',
+    yandex: 'your-yandex-verification-code',
+    // Add other verification codes as needed
   },
 }
 
