@@ -12,6 +12,8 @@ import {
 } from '@/components/SocialIcons'
 import { type ArticleWithSlug, getAllArticles } from '@/lib/articles'
 import { formatDate } from '@/lib/formatDate'
+import { Resume } from '@/components/Resume'
+import { ArticlesList } from '@/components/Article'
 
 function MailIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   return (
@@ -69,21 +71,6 @@ function ArrowDownIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
         strokeLinejoin="round"
       />
     </svg>
-  )
-}
-
-function Article({ article }: { article: ArticleWithSlug }) {
-  return (
-    <Card as="article">
-      <Card.Title href={`/articles/${article.slug}`}>
-        {article.title}
-      </Card.Title>
-      <Card.Eyebrow as="time" dateTime={article.date} decorate>
-        {formatDate(article.date)}
-      </Card.Eyebrow>
-      <Card.Description>{article.description}</Card.Description>
-      <Card.Cta>Read article</Card.Cta>
-    </Card>
   )
 }
 
@@ -214,94 +201,94 @@ function Role({ role }: { role: Role }) {
   )
 }
 
-function Resume() {
-  let resume: Array<Role> = [
-    {
-      company: 'ATI',
-      title: 'Senior Software DevOps Engineer',
-      logo: 'https://firebasestorage.googleapis.com/v0/b/shagunresume.appspot.com/o/Logos%2FATI%20logo.png?alt=media&token=aef3494f-909f-4447-a4f4-2acb97a4209c',
-      start: '2019',
-      end: {
-        label: 'Present',
-        dateTime: new Date().getFullYear().toString(),
-      },
-    },
-    {
-      company: 'Xactly',
-      title: 'Senior Software Developer',
-      logo: 'https://firebasestorage.googleapis.com/v0/b/shagunresume.appspot.com/o/Logos%2FXactly%20logo%20white.svg?alt=media&token=6a62934a-b168-4b7b-aa37-bbf2b9ffc397',
-      start: '2014',
-      end: '2019',
-    },
-    {
-      company: 'Centene',
-      title: 'Senior Software Developer',
-      logo: 'https://firebasestorage.googleapis.com/v0/b/shagunresume.appspot.com/o/Logos%2FCentene%20Logo%202023.jpg?alt=media&token=a7433614-11f4-4439-901c-3b8622c6f6b1',
-      start: '2014',
-      end: '2019',
-    },
-    {
-      company: 'EasyKnock',
-      title: 'Senior Software Developer',
-      logo: 'https://firebasestorage.googleapis.com/v0/b/shagunresume.appspot.com/o/Logos%2FEasyKnock%20Logo.svg?alt=media&token=668070db-cec4-4356-9d27-eb0968b3866e',
-      start: '2014',
-      end: '2019',
-    },
-    {
-      company: 'VitusVet',
-      title: 'Senior Software Developer',
-      logo: 'https://firebasestorage.googleapis.com/v0/b/shagunresume.appspot.com/o/Logos%2FVitusVet%20logo.png?alt=media&token=f453f53e-8073-40ed-8e66-126a5668bca4',
-      start: '2011',
-      end: '2014',
-    },
-    {
-      company: 'Ria Money Transfer | EuroNet',
-      title: 'Full-stack Developer',
-      logo: 'https://firebasestorage.googleapis.com/v0/b/shagunresume.appspot.com/o/Logos%2FRiaLogo.svg?alt=media&token=b7d8ef5d-f8c9-4871-97da-6d45df2bf670',
-      start: '2008',
-      end: '2011',
-    },
-    {
-      company: 'WiPro',
-      title: 'Software Engineer',
-      logo: 'https://firebasestorage.googleapis.com/v0/b/shagunresume.appspot.com/o/Logos%2FWipro_logo.svg?alt=media&token=833a7d56-b66d-42c0-bc3c-fd76234c16cb',
-      start: '2014',
-      end: '2019',
-    },
-    {
-      company: 'SourceLink',
-      title: 'Enterprise Software Developer',
-      logo: 'https://firebasestorage.googleapis.com/v0/b/shagunresume.appspot.com/o/Logos%2FsourceLink_Logo.jpeg?alt=media&token=6b468aab-9310-4c43-9b4d-eac0ba29d997',
-      start: '2014',
-      end: '2019',
-    },
-  ]
+// function Resume() {
+//   let resume: Array<Role> = [
+//     {
+//       company: 'ATI',
+//       title: 'Senior Software DevOps Engineer',
+//       logo: 'https://firebasestorage.googleapis.com/v0/b/shagunresume.appspot.com/o/Logos%2FATI%20logo.png?alt=media&token=aef3494f-909f-4447-a4f4-2acb97a4209c',
+//       start: '2019',
+//       end: {
+//         label: 'Present',
+//         dateTime: new Date().getFullYear().toString(),
+//       },
+//     },
+//     {
+//       company: 'Xactly',
+//       title: 'Senior Software Developer',
+//       logo: 'https://firebasestorage.googleapis.com/v0/b/shagunresume.appspot.com/o/Logos%2FXactly%20logo%20white.svg?alt=media&token=6a62934a-b168-4b7b-aa37-bbf2b9ffc397',
+//       start: '2014',
+//       end: '2019',
+//     },
+//     {
+//       company: 'Centene',
+//       title: 'Senior Software Developer',
+//       logo: 'https://firebasestorage.googleapis.com/v0/b/shagunresume.appspot.com/o/Logos%2FCentene%20Logo%202023.jpg?alt=media&token=a7433614-11f4-4439-901c-3b8622c6f6b1',
+//       start: '2014',
+//       end: '2019',
+//     },
+//     {
+//       company: 'EasyKnock',
+//       title: 'Senior Software Developer',
+//       logo: 'https://firebasestorage.googleapis.com/v0/b/shagunresume.appspot.com/o/Logos%2FEasyKnock%20Logo.svg?alt=media&token=668070db-cec4-4356-9d27-eb0968b3866e',
+//       start: '2014',
+//       end: '2019',
+//     },
+//     {
+//       company: 'VitusVet',
+//       title: 'Senior Software Developer',
+//       logo: 'https://firebasestorage.googleapis.com/v0/b/shagunresume.appspot.com/o/Logos%2FVitusVet%20logo.png?alt=media&token=f453f53e-8073-40ed-8e66-126a5668bca4',
+//       start: '2011',
+//       end: '2014',
+//     },
+//     {
+//       company: 'Ria Money Transfer | EuroNet',
+//       title: 'Full-stack Developer',
+//       logo: 'https://firebasestorage.googleapis.com/v0/b/shagunresume.appspot.com/o/Logos%2FRiaLogo.svg?alt=media&token=b7d8ef5d-f8c9-4871-97da-6d45df2bf670',
+//       start: '2008',
+//       end: '2011',
+//     },
+//     {
+//       company: 'WiPro',
+//       title: 'Software Engineer',
+//       logo: 'https://firebasestorage.googleapis.com/v0/b/shagunresume.appspot.com/o/Logos%2FWipro_logo.svg?alt=media&token=833a7d56-b66d-42c0-bc3c-fd76234c16cb',
+//       start: '2014',
+//       end: '2019',
+//     },
+//     {
+//       company: 'SourceLink',
+//       title: 'Enterprise Software Developer',
+//       logo: 'https://firebasestorage.googleapis.com/v0/b/shagunresume.appspot.com/o/Logos%2FsourceLink_Logo.jpeg?alt=media&token=6b468aab-9310-4c43-9b4d-eac0ba29d997',
+//       start: '2014',
+//       end: '2019',
+//     },
+//   ]
 
-  return (
-    <div className="rounded-2xl p-6 shadow-lg dark:border dark:border-purple-400">
-      <h2 className="flex text-sm font-semibold text-purple-900 dark:text-purple-100">
-        <BriefcaseIcon className="h-6 w-6 flex-none" />
-        <span className="ml-3">Work</span>
-      </h2>
-      <ol className="mt-6 space-y-4">
-        {resume.map((role, roleIndex) => (
-          <Role key={roleIndex} role={role} />
-        ))}
-      </ol>
-      <Button
-        variant="secondary"
-        className="group mt-6 w-full"
-        href="https://firebasestorage.googleapis.com/v0/b/shagunresume.appspot.com/o/Shagun%20Mistry%20Resume.pdf?alt=media&token=77caa21f-7bbd-4d42-bbda-08d7180bfc67"
-        download={true}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Download CV
-        <ArrowDownIcon className="h-4 w-4 stroke-purple-400 transition group-active:stroke-purple-600 dark:group-hover:stroke-purple-50 dark:group-active:stroke-purple-50" />
-      </Button>
-    </div>
-  )
-}
+//   return (
+//     <div className="rounded-2xl p-6 shadow-lg dark:border dark:border-purple-400">
+//       <h2 className="flex text-sm font-semibold text-purple-900 dark:text-purple-100">
+//         <BriefcaseIcon className="h-6 w-6 flex-none" />
+//         <span className="ml-3">Work</span>
+//       </h2>
+//       <ol className="mt-6 space-y-4">
+//         {resume.map((role, roleIndex) => (
+//           <Role key={roleIndex} role={role} />
+//         ))}
+//       </ol>
+//       <Button
+//         variant="secondary"
+//         className="group mt-6 w-full"
+//         href="https://firebasestorage.googleapis.com/v0/b/shagunresume.appspot.com/o/Shagun%20Mistry%20Resume.pdf?alt=media&token=77caa21f-7bbd-4d42-bbda-08d7180bfc67"
+//         download={true}
+//         target="_blank"
+//         rel="noopener noreferrer"
+//       >
+//         Download CV
+//         <ArrowDownIcon className="h-4 w-4 stroke-purple-400 transition group-active:stroke-purple-600 dark:group-hover:stroke-purple-50 dark:group-active:stroke-purple-50" />
+//       </Button>
+//     </div>
+//   )
+// }
 
 export default async function Home() {
   let articles = (await getAllArticles()).slice(0, 4)
@@ -344,9 +331,10 @@ export default async function Home() {
       <Container className="mt-24 md:mt-28">
         <div className="mx-auto grid max-w-xl grid-cols-1 gap-y-20 lg:max-w-none lg:grid-cols-2">
           <div className="flex flex-col gap-16">
-            {articles.map((article) => (
+            {/* {articles.map((article) => (
               <Article key={article.slug} article={article} />
-            ))}
+            ))} */}
+            <ArticlesList articles={articles} />
           </div>
           <div className="space-y-10 lg:pl-16 xl:pl-24">
             <Newsletter />

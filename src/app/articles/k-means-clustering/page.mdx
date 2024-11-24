@@ -1,0 +1,218 @@
+import { ArticleLayout } from '@/components/ArticleLayout'
+import { Card } from '@/components/Card'
+
+export const article = {
+  author: 'Shagun Mistry',
+  date: '2024-11-24',
+  title: 'K-Means Clustering',
+  description:
+    'K-Means Clustering is a popular unsupervised machine learning algorithm used for clustering data points into groups based on their similarity.',
+}
+
+export const metadata = {
+  title: article.title,
+  description: article.description,
+}
+
+export default (props) => <ArticleLayout article={article} {...props} />
+
+<Card>
+  <Card.Eyebrow decorate>Prerequisites</Card.Eyebrow>
+  <Card.Description>
+    Before diving into k-means clustering, ensure you have:
+    - Intermediate Python programming skills
+    - Basic understanding of NumPy and pandas
+    - Familiarity with basic statistical concepts
+    - Python environment with scikit-learn installed
+  </Card.Description>
+
+  <Alert type="info">
+    <AlertTitle>Environment Setup</AlertTitle>
+    <AlertDescription>
+      Run the following command to set up your environment:
+      ```bash
+      pip install numpy pandas scikit-learn matplotlib seaborn
+      ```
+    </AlertDescription>
+  </Alert>
+</Card>
+
+## Introduction
+
+<Card>
+  <Card.Description>
+    K-means clustering is one of the most fundamental and widely-used unsupervised machine learning algorithms. It's particularly valuable in scenarios where you need to:
+
+    - Segment customer bases for targeted marketing
+    - Group similar documents or articles
+    - Identify patterns in geographic data
+    - Perform image compression through color quantization
+
+  </Card.Description>
+</Card>
+
+## Core Concept: How K-Means Works
+
+K-means clustering follows an iterative process to group data points into 'k' distinct clusters.
+
+<Steps>
+  <Step title="Initialize Centroids">
+    Randomly place 'k' centroids in your feature space
+  </Step>
+  <Step title="Assign Points">
+    Assign each data point to the nearest centroid using Euclidean distance
+  </Step>
+  <Step title="Update Centroids">
+    Recalculate centroid positions based on the mean of all points in each
+    cluster
+  </Step>
+  <Step title="Iterate">
+    Repeat steps 2-3 until convergence (minimal centroid movement)
+  </Step>
+</Steps>
+
+## Implementation
+
+<Card>
+  <Card.Title>Basic Implementation</Card.Title>
+  <Card.Description>
+    Let's implement k-means clustering using scikit-learn with a simple example:
+  </Card.Description>
+  ```python
+    import numpy as np
+    import matplotlib.pyplot as plt
+    from sklearn.cluster import KMeans
+    from sklearn.datasets import make_blobs
+
+    # Generate synthetic data
+
+    X, \_ = make_blobs(n_samples=300, centers=4, cluster_std=0.60, random_state=0)
+
+    # Initialize and fit KMeans
+
+    kmeans = KMeans(n_clusters=4, random_state=0)
+    cluster_labels = kmeans.fit_predict(X)
+
+    # Plot the results
+
+    plt.figure(figsize=(10, 6))
+    plt.scatter(X[:, 0], X[:, 1], c=cluster*labels, cmap='viridis')
+    plt.scatter(kmeans.cluster_centers*[:, 0],
+    kmeans.cluster*centers*[:, 1],
+    marker='x', s=200, linewidths=3,
+    color='red', label='Centroids')
+    plt.title('K-Means Clustering Results')
+    plt.legend()
+    plt.show()
+    ```
+
+</Card>
+
+## Best Practices and Common Pitfalls
+
+<Card>
+<Card.Title>Guidelines</Card.Title>
+<Alert type="success">
+  <AlertTitle>Do's</AlertTitle>
+  <AlertDescription>
+    - Scale your features before clustering
+    - Use the elbow method to find optimal k
+    - Validate results using silhouette analysis
+    - Consider multiple random initializations
+  </AlertDescription>
+</Alert>
+
+<Alert type="error" className="mt-4">
+  <AlertTitle>Don'ts</AlertTitle>
+  <AlertDescription>
+    - Don't assume clusters are spherical
+    - Don't skip data preprocessing
+    - Don't rely solely on visual inspection
+    - Don't forget to handle outliers
+  </AlertDescription>
+</Alert>
+</Card>
+
+## Practical Applications
+
+<Card as="article">
+<Card.Eyebrow decorate>Customer Segmentation Example</Card.Eyebrow>
+<Card.Description>
+  ```python
+  import pandas as pd
+  from sklearn.preprocessing import StandardScaler
+
+# Sample customer data
+
+customer_data = pd.DataFrame({
+'annual_income': [30000, 45000, 60000, 120000, 250000],
+'spending_score': [15, 35, 55, 75, 95]
+})
+
+# Preprocess data
+
+scaler = StandardScaler()
+scaled_data = scaler.fit_transform(customer_data)
+
+# Apply k-means
+
+kmeans = KMeans(n_clusters=3, random_state=0)
+customer_segments = kmeans.fit_predict(scaled_data)
+
+# Add segments to dataframe
+
+customer_data['Segment'] = customer_segments
+
+```
+</Card.Description>
+<Card.Cta>Learn more about customer segmentation</Card.Cta>
+</Card>
+
+## Advanced Topics
+
+<Card>
+<Card.Title>Advanced Concepts</Card.Title>
+<Card.Description>
+### Variations of K-Means
+- Mini-batch K-means for large datasets
+- K-means++ for better initialization
+- Soft K-means (fuzzy clustering)
+- Kernel K-means for non-linear separation
+
+### Performance Metrics
+- Silhouette Score
+- Calinski-Harabasz Index
+- Davies-Bouldin Index
+</Card.Description>
+</Card>
+
+## Next Steps
+
+<Steps>
+<Step title="Explore Other Clustering Algorithms">
+- DBSCAN for density-based clustering
+- Hierarchical clustering
+- Gaussian Mixture Models
+</Step>
+<Step title="Practice with Real Datasets">
+- UCI Machine Learning Repository
+- Kaggle datasets
+- Your own domain-specific data
+</Step>
+<Step title="Master Advanced Concepts">
+- Cluster validation techniques
+- Dimensionality reduction with PCA
+- Ensemble clustering methods
+</Step>
+</Steps>
+
+## Resources
+
+<Card>
+<Card.Title>Learning Resources</Card.Title>
+<Card.Description>
+- [Scikit-learn Documentation](https://scikit-learn.org/stable/modules/clustering.html)
+- [Elements of Statistical Learning](https://web.stanford.edu/~hastie/ElemStatLearn/)
+- [Python Data Science Handbook](https://jakevdp.github.io/PythonDataScienceHandbook/)
+</Card.Description>
+</Card>
