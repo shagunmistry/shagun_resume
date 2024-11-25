@@ -14,7 +14,7 @@ import {
 import { type ArticleWithSlug, getAllArticles } from '@/lib/articles'
 import { formatDate } from '@/lib/formatDate'
 import { Resume } from '@/components/Resume'
-import { ArticlesList } from '@/components/Article'
+import { ArticlesList } from '@/components/ArticleList'
 
 function MailIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   return (

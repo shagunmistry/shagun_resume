@@ -190,7 +190,7 @@ export function Resume() {
           className="group flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r 
                      from-purple-500 to-blue-500 px-4 py-2 text-white shadow-lg 
                      transition-all hover:from-purple-600 hover:to-blue-600"
-          href="your-cv-link"
+          href="https://firebasestorage.googleapis.com/v0/b/shagunresume.appspot.com/o/Shagun%20Mistry%20Resume.pdf?alt=media&token=77caa21f-7bbd-4d42-bbda-08d7180bfc67"
           download
           target="_blank"
           rel="noopener noreferrer"
