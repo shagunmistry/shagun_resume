@@ -1,51 +1,8 @@
-// 'use client'
-
-// // Export the useMDXComponents function
-// export function useMDXComponents(components: MDXComponents) {
-//   return {
-//     ...components,
-//     Image: (props: ImageProps) => <Image {...props} />,
-//     Alert,
-//     AlertTitle,
-//     AlertDescription,
-//     Card,
-//     Callout,
-//     pre: CodeBlock,
-//     Layout,
-//     Steps,
-//     Step,
-//   }
-// }
-// // Export individual components for direct usage
-// export {
-//   Layout,
-//   Alert,
-//   AlertTitle,
-//   AlertDescription,
-//   Callout,
-//   CodeBlock,
-//   Steps,
-//   Step,
-//   Card,
-// }
-
 import type { MDXComponents } from 'mdx/types'
 import Image, { type ImageProps } from 'next/image'
 import { Step, Steps } from '@/components/Steps'
 import { Card } from '@/components/Card'
-
-// import { Step, Steps } from '@/components/Steps'
-// import React from 'react'
-// import { Card } from '@/components/Card'
-
-// // Layout Component
-// const Layout = ({ children }: { children: React.ReactNode }) => {
-//   return (
-//     <div className="mx-auto max-w-4xl px-4 py-8">
-//       <main className="prose-blue prose">{children}</main>
-//     </div>
-//   )
-// }
+import Callout from '@/components/Callout'
 
 // Alert Components
 interface AlertProps {
@@ -73,11 +30,11 @@ const AlertDescription = ({ children }: { children: React.ReactNode }) => (
 )
 
 // Callout Component
-const Callout = ({ children }: { children: React.ReactNode }) => (
-  <div className="my-4 border-l-4 border-blue-500 bg-gray-50 p-4">
-    {children}
-  </div>
-)
+// const Callout = ({ children }: { children: React.ReactNode }) => (
+//   <div className="my-4 border-l-4 border-blue-500 bg-gray-50 p-4">
+//     {children}
+//   </div>
+// )
 
 // Code Block Component
 interface CodeBlockProps {
@@ -101,6 +58,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     AlertTitle,
     AlertDescription,
     Card,
+    // Callout,
     Callout,
     CodeBlock,
     // Layout,

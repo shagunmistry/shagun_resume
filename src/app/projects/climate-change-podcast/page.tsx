@@ -4,6 +4,9 @@ import { Card } from '@/components/Card'
 import { motion } from 'motion/react'
 import WasteDataSources from '@/components/climate-podcast/WasteDataSources'
 
+import Intro from './intro.mdx'
+import { Prose } from '@/components/Prose'
+
 const categories = [
   {
     category: 'Scientific Organizations',
@@ -104,6 +107,9 @@ const itemVariants = {
 export default function DataSources() {
   return (
     <>
+      <Prose>
+        <Intro />
+      </Prose>
       <Card className="mx-auto mt-8 w-full max-w-4xl">
         <div className="space-y-6 p-6">
           <div className="text-center">
