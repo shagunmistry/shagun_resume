@@ -1,3 +1,4 @@
+'use client'
 import { Card } from '@/components/Card'
 import { Section } from '@/components/Section'
 import { SimpleLayout } from '@/components/SimpleLayout'
@@ -34,10 +35,6 @@ function Tool({
   )
 }
 
-export const metadata = {
-  title: 'Tech Stack - Shagun Mistry',
-  description: 'Software, Gadgets, and other things I recommend.',
-}
 
 export default function TechStack() {
   return (
