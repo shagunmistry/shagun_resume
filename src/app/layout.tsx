@@ -66,8 +66,6 @@ export const metadata: Metadata = {
   category: 'Technology',
   verification: {
     google: 'your-google-verification-code',
-    yandex: 'your-yandex-verification-code',
-    // Add other verification codes as needed
   },
 }
 

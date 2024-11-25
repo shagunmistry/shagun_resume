@@ -32,7 +32,7 @@ export async function GET(req: Request) {
 
 
 
-  let articlesDir = path.join(process.cwd(), 'src/articles')
+  let articlesDir = path.join(process.cwd(), 'src/app/articles')
   let articleIds = fs.readdirSync(articlesDir)
     .filter((file) => file.endsWith('/page.mdx'))
     .map((file) => file.replace('/page.mdx', ''))

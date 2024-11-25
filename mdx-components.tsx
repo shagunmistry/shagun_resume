@@ -1,18 +1,51 @@
-'use client'
-import { Step, Steps } from '@/components/Steps'
-import { type MDXComponents } from 'mdx/types'
+// 'use client'
+
+// // Export the useMDXComponents function
+// export function useMDXComponents(components: MDXComponents) {
+//   return {
+//     ...components,
+//     Image: (props: ImageProps) => <Image {...props} />,
+//     Alert,
+//     AlertTitle,
+//     AlertDescription,
+//     Card,
+//     Callout,
+//     pre: CodeBlock,
+//     Layout,
+//     Steps,
+//     Step,
+//   }
+// }
+// // Export individual components for direct usage
+// export {
+//   Layout,
+//   Alert,
+//   AlertTitle,
+//   AlertDescription,
+//   Callout,
+//   CodeBlock,
+//   Steps,
+//   Step,
+//   Card,
+// }
+
+import type { MDXComponents } from 'mdx/types'
 import Image, { type ImageProps } from 'next/image'
-import React from 'react'
+import { Step, Steps } from '@/components/Steps'
 import { Card } from '@/components/Card'
 
-// Layout Component
-const Layout = ({ children }: { children: React.ReactNode }) => {
-  return (
-    <div className="mx-auto max-w-4xl px-4 py-8">
-      <main className="prose-blue prose">{children}</main>
-    </div>
-  )
-}
+// import { Step, Steps } from '@/components/Steps'
+// import React from 'react'
+// import { Card } from '@/components/Card'
+
+// // Layout Component
+// const Layout = ({ children }: { children: React.ReactNode }) => {
+//   return (
+//     <div className="mx-auto max-w-4xl px-4 py-8">
+//       <main className="prose-blue prose">{children}</main>
+//     </div>
+//   )
+// }
 
 // Alert Components
 interface AlertProps {
@@ -60,8 +93,7 @@ const CodeBlock = ({ children, language }: CodeBlockProps) => (
   </pre>
 )
 
-// Export the useMDXComponents function
-export function useMDXComponents(components: MDXComponents) {
+export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
     ...components,
     Image: (props: ImageProps) => <Image {...props} />,
@@ -70,21 +102,9 @@ export function useMDXComponents(components: MDXComponents) {
     AlertDescription,
     Card,
     Callout,
-    pre: CodeBlock,
-    Layout,
+    CodeBlock,
+    // Layout,
     Steps,
     Step,
   }
-}
-// Export individual components for direct usage
-export {
-  Layout,
-  Alert,
-  AlertTitle,
-  AlertDescription,
-  Callout,
-  CodeBlock,
-  Steps,
-  Step,
-  Card,
 }
