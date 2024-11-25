@@ -1,3 +1,4 @@
+'use client'
 import { motion } from 'motion/react'
 import { ArticleWithSlug } from '@/lib/articles'
 import Article from '@/components/Article'
