@@ -1,16 +1,27 @@
+'use client'
 import { type Metadata } from 'next'
 import { SimpleLayout } from '@/components/SimpleLayout'
-import { getAllArticles } from '@/lib/articles'
+import { ArticleWithSlug, getAllArticles } from '@/lib/articles'
 import { ArticlesList } from '@/components/ArticleList'
 
-export const metadata: Metadata = {
-  title: 'Articles',
-  description:
-    'This is where I write about my experiences, learnings, and thoughts on technology, sciences, startups, and life.',
-}
+// export const metadata: Metadata = {
+//   title: 'Articles',
+//   description:
+//     'This is where I write about my experiences, learnings, and thoughts on technology, sciences, startups, and life.',
+// }
 
-export default async function ArticlesIndex() {
-  let articles = await getAllArticles()
+import { useEffect, useState } from 'react'
+
+export default function ArticlesIndex() {
+  const [articles, setArticles] = useState<ArticleWithSlug[]>([])
+
+  useEffect(() => {
+    async function fetchArticles() {
+      let articles = await getAllArticles()
+      setArticles(articles)
+    }
+    fetchArticles()
+  }, [])
 
   return (
     <SimpleLayout
