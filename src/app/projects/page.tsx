@@ -1,3 +1,4 @@
+'use client'
 import { type Metadata } from 'next'
 import Image from 'next/image'
 
@@ -60,11 +61,6 @@ function LinkIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
       />
     </svg>
   )
-}
-
-export const metadata: Metadata = {
-  title: 'Projects',
-  description: 'Things I’ve made trying to put my dent in the universe.',
 }
 
 export default function Projects() {
