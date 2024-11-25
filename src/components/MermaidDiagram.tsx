@@ -87,6 +87,10 @@ export function MermaidDiagram({
             secondaryColor: resolvedTheme === 'dark' ? '#1e293b' : '#f8fafc',
             tertiaryColor: resolvedTheme === 'dark' ? '#2d3748' : '#f1f5f9',
           },
+          dompurifyConfig: {
+            ADD_TAGS: ['style'],
+            ADD_ATTR: ['class'],
+          },
         })
 
         const { svg: renderedSvg } = await mermaid.render(
