@@ -1,0 +1,204 @@
+import { ArticleLayout } from '@/components/ArticleLayout'
+
+export const article = {
+  author: 'Shagun Mistry',
+  date: '2024-11-25',
+  title: 'Building an AI-Powered File Organizer with Python and Claude',
+  description:
+    'Learn how to build an AI-powered file organizer using Python and Anthropic’s Claude AI to automatically categorize and organize your files.',
+}
+
+export const metadata = {
+  title: article.title,
+  description: article.description,
+}
+
+export default (props) => <ArticleLayout article={article} {...props} />
+
+
+I hate organizing files, especially the ones that pile up in my Downloads folder. It's like a digital junkyard that keeps growing, making it impossible to find anything when I need it. But what if I could automate this process using AI?
+
+In this tutorial, we'll build a smart file organizer that uses Anthropic's Claude AI to automatically categorize and organize your files. Let's turn that messy Downloads folder into a well-organized directory structure!
+
+You are not limited to using Anthropic's Claude AI. You can use any AI model that can classify files based on their content.
+
+## The Problem
+
+Manual organization is time-consuming and often inconsistent. What if we could automate this process using AI?
+
+## The Solution
+
+We'll create a Python script that:
+
+1. Scans a directory of your choice
+2. Uses Claude AI to intelligently categorize each file
+3. Organizes files into appropriate folders based on their content
+4. Handles duplicates and maintains a clean structure
+
+## Prerequisites
+
+Before we dive in, you'll need:
+
+- Python 3.7+
+- An Anthropic API key (you can get one from [Anthropic's website](https://www.anthropic.com))
+- The following Python packages:
+  ```bash
+  pip install anthropic pathlib
+  ```
+
+## The Code Breakdown
+
+Let's look at the key components of our file organizer:
+
+### 1. Setting Up the Organizer
+
+```python
+class ClaudeFileOrganizer:
+    def __init__(self):
+        self.api_key = self._get_api_key()
+        self.source_dir = self._get_directory()
+        self.organized_dir = self.source_dir / "organized"
+        self.client = anthropic.Anthropic(api_key=self.api_key)
+```
+
+This initializes our organizer with:
+
+- User's API key (securely input)
+- Source directory to organize
+- Output directory for organized files
+- Anthropic client for AI classification
+
+### 2. File Classification with Claude
+
+The magic happens in the `classify_file` method:
+
+```python
+def classify_file(self, file_info: Dict) -> str:
+    prompt = f"""
+    You are a productivity guru! 🧠📚🚀
+    Based on the following file information, suggest a single appropriate category:
+    Filename: {file_info['name']}
+    Type: {file_info['mime_type']}
+    Created: {file_info['created']}
+    """
+
+    message = self.client.messages.create(
+        model="claude-3-sonnet-20240229",
+        max_tokens=1024,
+        messages=[{"role": "user", "content": prompt}]
+    )
+
+    category = message.content[0].text.strip().lower()
+    return category
+```
+
+This method:
+
+1. Takes file metadata as input
+2. Constructs a prompt for Claude
+3. Gets an AI-powered category suggestion
+4. Returns a standardized category name
+
+### 3. The Organization Process
+
+The main organization logic happens in `organize_files`:
+
+- Scans the source directory
+- Processes each file
+- Creates category folders
+- Handles duplicate files
+- Moves files to their new homes
+
+```python
+# Create category directory
+category_dir = self.organized_dir / category
+category_dir.mkdir(exist_ok=True)
+
+# Handle duplicates with timestamps
+if new_path.exists():
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    new_path = category_dir / f"{file_path.stem}_{timestamp}{file_path.suffix}"
+
+shutil.move(str(file_path), str(new_path))
+```
+
+## Smart Features
+
+1. **Rate Limiting**: The script includes a 5-second delay between API calls to avoid rate limits:
+
+   ```python
+   time.sleep(5)  # Prevent API rate limiting
+   ```
+
+2. **Progress Tracking**: Real-time progress updates keep you informed:
+
+   ```python
+   print(f"\rProgress: {processed_files}/{total_files} files processed", end="")
+   ```
+
+3. **Error Handling**: Robust error handling ensures the script doesn't crash on issues:
+
+   ```python
+   try:
+       # Process file
+   except Exception as e:
+       self.logger.error(f"Error processing file {file_path}: {str(e)}")
+       continue
+   ```
+
+4. **Logging**: Comprehensive logging helps track operations and debug issues:
+   ```python
+   logging.basicConfig(
+       level=logging.INFO,
+       format='%(asctime)s - %(levelname)s - %(message)s',
+       handlers=[
+           logging.FileHandler('file_organizer.log'),
+           logging.StreamHandler()
+       ]
+   )
+   ```
+
+## How to Use It
+
+1. Save the script as `file_organizer.py`
+2. Install required packages:
+
+   ```bash
+   pip install anthropic pathlib
+   ```
+
+3. Run the script:
+
+   ```bash
+   python file_organizer.py
+   ```
+
+4. Enter your Anthropic API key when prompted
+5. Provide the directory path you want to organize
+6. Watch as your files get automatically organized!
+
+## The Results
+
+Your files will be organized into these categories:
+
+- 📄 documents
+- 🖼️ images
+- 🎵 audio
+- 🎥 video
+- 📦 archives
+- 💻 code
+- 📊 data
+- ⬇️ downloads
+- 📁 other
+
+Each category gets its own folder, making it easy to find what you need.
+
+## Future Improvements
+
+Here are some ways you could enhance the script:
+
+1. Add custom category definitions
+2. Implement file content analysis for better classification
+3. Add a preview mode to see changes before applying them
+4. Add support for recursive directory organization
+5. Create a GUI interface
