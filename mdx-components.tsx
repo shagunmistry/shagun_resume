@@ -58,10 +58,8 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     AlertTitle,
     AlertDescription,
     Card,
-    // Callout,
     Callout,
     CodeBlock,
-    // Layout,
     Steps,
     Step,
   }

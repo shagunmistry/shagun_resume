@@ -1,0 +1,219 @@
+import { ArticleLayout } from '@/components/ArticleLayout'
+import { MermaidDiagram } from '@/components/MermaidDiagram'
+
+export const article = {
+  author: 'Shagun Mistry',
+  date: '2024-11-28',
+  title: 'How to Turn Your Documents into a Podcast like Google NotebookLM',
+  description:
+    "We all know about Google's NotebookLM by now. Learn how to convert your written content into engaging podcasts using modern cloud services and event-driven architecture.",
+}
+
+export const metadata = {
+  title: article.title,
+  description: article.description,
+}
+
+export default (props) => <ArticleLayout article={article} {...props} />
+
+In an era where content consumption needs to be flexible and accessible, the ability to convert written content into audio format is becoming increasingly valuable. While solutions like [Google's NotebookLM](https://notebooklm.google) exist, today I'll show you how I built a cloud-native system that transforms documents into amazing realistic podcasts using FastAPI, Firebase, Google Cloud Pub/Sub, and Azure's Text-to-Speech service.
+
+## System Overview
+
+The system follows a modern, event-driven architecture with these key components:
+
+1. A [FastAPI](https://fastapi.tiangolo.com) backend that handles document uploads
+2. [Firebase Firestore](https://firebase.google.com/docs/firestore) for document storage and state management
+3. [Google Cloud Pub/Sub](https://cloud.google.com/pubsub/docs/overview) for asynchronous processing
+4. [Azure Text-to-Speech](https://azure.microsoft.com/en-us/products/ai-services/ai-speech) for high-quality audio generation
+
+The system allows users to upload documents or paste text, which are then processed in the background to generate a podcast. I am not sure how exactly Google's NotebookLM works, but I assume it's something similar to this because this yields great results.
+
+<MermaidDiagram
+  diagram={`
+  flowchart TD
+    User([User]) -->|Upload Document/Text| API[FastAPI Backend]
+    API -->|Store Files| FB[(Firebase Storage)]
+    API -->|Save Metadata| FFS[(Firebase Firestore)]
+    API -->|Publish Message| PS{Google Pub/Sub}
+    
+    subgraph Worker Processing
+        PS -->|Consume Message| W[Worker]
+        W -->|1. Analyze| AD[Document Analysis]
+        AD -->|2. Generate| PO[Podcast Outline]
+        PO -->|3. Create| PS[Podcast Script]
+        PS -->|4. Convert| AT[Azure TTS]
+        AT -->|5. Process| AP[Audio Processing]
+    end
+    
+    AP -->|Store Audio| FB
+    AP -->|Update Status| FFS
+    FFS -->|Status Updates| User
+    FB -->|Final Podcast| User
+
+    style User fill:#f9f,stroke:#333,stroke-width:2px
+    style API fill:#bbf,stroke:#333,stroke-width:2px
+    style FB fill:#bfb,stroke:#333,stroke-width:2px
+    style FFS fill:#bfb,stroke:#333,stroke-width:2px
+    style PS fill:#fbf,stroke:#333,stroke-width:2px
+    style Worker fill:#fbb,stroke:#333,stroke-width:2px
+  `}
+  title="System Architecture"
+  className="h-screen"
+/>
+
+## The Upload Flow
+
+When a user uploads a document or pastes text, the content first hits our FastAPI endpoint. Here's what happens:
+
+```python
+@app.post('/upload')
+async def upload_files(
+    token: Annotated[ParsedToken, Depends(verify_firebase_token)],
+    project_name: str,
+    description: str,
+    website_link: str,
+    host_count: int,
+    files: Optional[List[UploadFile]] = File(None)
+):
+```
+
+The endpoint accepts:
+
+- Authentication token
+  - Ensures the user is authenticated
+- Project name
+  - This is the title of the podcast
+- Description
+  - A brief description of the content
+- Website link (optional)
+  - For content extraction from URLs
+- Host count (for multi-voice podcasts)
+  - This determines the number of speakers in the podcast. Max I could get is 3. If I wanted more, it'll be a lot of tokens to convert to audio.
+- File uploads (optional)
+  - Users can upload documents in various formats (most common are PDF, DOCX, TXT)
+
+### Security and Validation
+
+The system implements security best practices:
+
+- Firebase token verification for authentication
+- File validation and size checking
+- Support for multiple file formats
+
+```python
+def verify_firebase_token(authorization: Annotated[str, Header()]):
+    if not authorization.startswith("Bearer "):
+        raise HTTPException(
+            status_code=401, detail="Invalid authorization header")
+
+    id_token = authorization.split("Bearer ")[1]
+    try:
+        print('Verifying ID token...')
+        decoded_token = auth.verify_id_token(id_token)
+        print('ID token verified')
+        return decoded_token
+    except Exception as e:
+        print(f"Error verifying ID token: {e}")
+        raise HTTPException(status_code=401, detail="Invalid ID token")
+```
+
+### Document Processing
+
+When files are uploaded:
+
+1. Each file gets a unique UUID
+2. Files are stored in Firebase Storage
+3. Metadata is saved to Firestore
+4. A message is published to Pub/Sub for processing
+
+```python
+message_data = {
+    'user_id': user_id,
+    'project_id': project_id,
+    'podcast_id': podcast_id,
+    'file_urls': file_urls,
+    'description': description,
+    'host_count': host_count,
+    'action': ACTIONS_CREATE_PROJECT
+}
+```
+
+> The reason for using Pub/Sub is to decouple the processing from the upload flow. This allows the system to handle large volumes of uploads without affecting the user experience.
+
+## Asynchronous Processing
+
+The real magic happens in the background worker that processes the Pub/Sub messages. Here's the processing flow:
+
+1. **Document Analysis**: The system analyzes the uploaded content
+2. **Outline Generation**: Creates a structured podcast outline
+3. **Script Generation**: Converts the outline into a natural-sounding script
+4. **Audio Generation**: Uses Azure TTS to create the audio
+5. **Post-processing**: Combines audio segments and applies enhancements
+
+```python
+# Worker processing flow
+async def process_message_async(message):
+    # Document analysis
+    analysis = await analyze_document(file_url)
+
+    # Generate outline and script
+    outline = await generate_podcast_outline(analysis, host_count)
+    script = await generate_podcast_script(outline, analysis, host_count)
+
+    # Generate audio
+    await text_to_speech(script, temp_output_path)
+
+    # Combine audio segments
+    audio_file = combine_audio_files(temp_output_path, combined_audio_file)
+```
+
+## Error Handling and Status Updates
+
+The system implements robust error handling and status updates:
+
+1. Each stage updates the project status in Firestore.
+
+- This helps to show the user the progress of their project because the status is tracked in real-time using Firestore Snapshot listeners.
+
+2. Failed messages are saved for debugging
+3. Temporary files are cleaned up after processing
+4. Users can track their project's progress in real-time
+
+```python
+await update_status(user_id, project_id, 'analyzing')
+try:
+    # Processing steps
+    await update_status(user_id, project_id, 'completed', {'audio_url': audio_url})
+except Exception as e:
+    await update_status(user_id, project_id, 'failed', {'error': str(e)})
+```
+
+## Additional Features
+
+The system includes several advanced features:
+
+- **Multi-voice Support**: Generate podcasts with multiple speakers
+- **Website Content Integration**: Process content from URLs
+- **Study Guide Generation**: Create supplementary materials
+- **FAQ Generation**: Extract and answer common questions
+- **Audio Enhancement**: Post-processing for studio-quality sound
+
+## Scaling Considerations
+
+The architecture is designed for scalability:
+
+1. **Pub/Sub Queue**: Handles traffic spikes and ensures reliable processing
+2. **Stateless Processing**: Workers can be scaled horizontally
+3. **Cloud Storage**: Distributed file storage for large documents
+4. **Status Tracking**: Real-time updates through Firestore
+
+## Future Improvements
+
+Potential enhancements could include:
+
+1. Support for more document formats
+2. Advanced audio processing options
+3. Custom voice selection
+4. Integration with podcast hosting platforms
+5. Real-time translation capabilities
