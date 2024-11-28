@@ -362,11 +362,11 @@ The event-driven architecture ensures the system remains responsive under load, 
     
     subgraph Worker Processing
         PS -->|Consume Message| W[Worker]
-        W -->|1. Analyze| AD[Document Analysis]
-        AD -->|2. Generate| PO[Podcast Outline]
-        PO -->|3. Create| PS[Podcast Script]
-        PS -->|4. Convert| AT[Azure TTS]
-        AT -->|5. Process| AP[Audio Processing]
+        W -->|Analyze| AD[Document Analysis]
+        AD -->|Generate| PO[Podcast Outline]
+        PO -->|Create| PS[Podcast Script]
+        PS -->|Convert| AT[Azure TTS]
+        AT -->|Process| AP[Audio Processing]
     end
     
     AP -->|Store Audio| FB
