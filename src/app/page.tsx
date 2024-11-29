@@ -1,9 +1,6 @@
 'use client'
-import Image, { type ImageProps } from 'next/image'
 import Link from 'next/link'
 
-import { Button } from '@/components/Button'
-import { Card } from '@/components/Card'
 import { Container } from '@/components/Container'
 import {
   GitHubIcon,
@@ -11,12 +8,8 @@ import {
   LinkedInIcon,
   XIcon,
 } from '@/components/SocialIcons'
-import { type ArticleWithSlug, getAllArticles } from '@/lib/articles'
-import { formatDate } from '@/lib/formatDate'
 import { Resume } from '@/components/Resume'
-import { ArticlesList } from '@/components/ArticleList'
-
-
+import Newsletter from '@/components/Newsletter'
 
 function SocialLink({
   icon: Icon,
@@ -30,70 +23,6 @@ function SocialLink({
     </Link>
   )
 }
-
-function Newsletter() {
-  // const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-  //   event.preventDefault()
-  //   let form = event.currentTarget
-  //   let email = form.querySelector('input[type="email"]')
-  //   let button = form.querySelector('button')
-  //   let message = form.querySelector('p')
-  //   let success = form.querySelector('button[aria-label="Success"]')
-
-  //   if (
-  //     email instanceof HTMLInputElement &&
-  //     button instanceof HTMLButtonElement &&
-  //     message instanceof HTMLElement
-  //   ) {
-  //     email.disabled = true
-  //     button.disabled = true
-  //     message.textContent = 'Subscribing...'
-  //     message.classList.remove('text-red-600')
-  //     message.classList.add('text-zinc-600')
-
-  //     fetch('/api/subscribe', {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify({ email: email.value }),
-  //     })
-  //       .then((response) => {
-  //         if (response.ok) {
-  //           form.reset()
-  //           message.textContent = 'Success! 🎉'
-  //           message.classList.remove('text-zinc-600')
-  //           message.classList.add('text-green-600')
-  //         } else {
-  //           message.textContent = 'An error occurred. Please try again.'
-  //           message.classList.remove('text-zinc-600')
-  //           message.classList.add('text-red-600')
-  //         }
-  //       })
-  //       .catch(() => {
-  //         message.textContent = 'An error occurred. Please try again.'
-  //         message.classList.remove('text-zinc-600')
-  //         message.classList.add('text-red-600')
-  //       })
-  //       .finally(() => {
-  //         email.disabled = false
-  //         button.disabled = false
-  //       })
-  //   }
-  // }
-
-  return (
-    <iframe
-      src="https://embeds.beehiiv.com/dfc07193-61a6-44f5-95b1-8d694b393034"
-      data-test-id="beehiiv-embed"
-      width="100%"
-      height="320"
-      className="rounded-2xl bg-zinc-50 shadow-lg dark:border"
-    ></iframe>
-  )
-}
-
-
 
 // function Resume() {
 //   let resume: Array<Role> = [
