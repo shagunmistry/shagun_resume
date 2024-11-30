@@ -42,18 +42,18 @@ export function Prose({
         '[&>ul>li>ul>li]:before:bg-gray-300 dark:[&>ul>li>ul>li]:before:bg-gray-700',
 
         // Ordered lists
-        'prose-ol:counter-reset-[item] prose-ol:my-6 prose-ol:list-none',
-        'prose-ol:space-y-2',
-        '[&>ol>li]:relative [&>ol>li]:pl-10',
-        '[&>ol>li]:before:absolute [&>ol>li]:before:left-0 [&>ol>li]:before:top-0',
-        '[&>ol>li]:before:text-sm [&>ol>li]:before:font-medium',
-        '[&>ol>li]:before:text-gray-500 dark:[&>ol>li]:before:text-gray-400',
-        '[&>ol>li]:before:counter-increment-[item] [&>ol>li]:before:content-[counter(item)]',
-        // Nested ordered lists
-        '[&>ol>li>ol]:mt-2 [&>ol>li>ol]:space-y-1',
-        '[&>ol>li>ol>li]:relative [&>ol>li>ol>li]:pl-8',
-        '[&>ol>li>ol>li]:before:left-0 [&>ol>li>ol>li]:before:top-0',
-        '[&>ol>li>ol>li]:before:text-sm',
+        // 'prose-ol:my-6 prose-ol:list-none prose-ol:[counter-reset:item]',
+        // 'prose-ol:space-y-2',
+        // '[&>ol>li]:relative [&>ol>li]:pl-10',
+        // '[&>ol>li]:before:absolute [&>ol>li]:before:left-0 [&>ol>li]:before:top-0',
+        // '[&>ol>li]:before:text-sm [&>ol>li]:before:font-medium',
+        // '[&>ol>li]:before:text-gray-500 dark:[&>ol>li]:before:text-gray-400',
+        // '[&>ol>li]:before:[content:counter(item)] [&>ol>li]:before:[counter-increment:item]',
+        // // Nested ordered lists
+        // '[&>ol>li>ol]:mt-2 [&>ol>li>ol]:space-y-1',
+        // '[&>ol>li>ol>li]:relative [&>ol>li>ol>li]:pl-8',
+        // '[&>ol>li>ol>li]:before:left-0 [&>ol>li>ol>li]:before:top-0',
+        // '[&>ol>li>ol>li]:before:text-sm',
 
         // List content styling
         'prose-li:text-gray-700 dark:prose-li:text-gray-300',
