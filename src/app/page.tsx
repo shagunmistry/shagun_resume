@@ -1,5 +1,7 @@
 'use client'
+import { useEffect } from 'react'
 import Link from 'next/link'
+import { motion, useMotionValue, useSpring, useScroll } from 'motion/react'
 
 import { Container } from '@/components/Container'
 import {
@@ -11,123 +13,115 @@ import {
 import { Resume } from '@/components/Resume'
 import Newsletter from '@/components/Newsletter'
 
+// Smooth gradient backgrounds inspired by Apple
+const GradientBackground = () => (
+  <div className="fixed inset-0 -z-10 overflow-hidden">
+    <div className="absolute inset-0 bg-gradient-to-br from-purple-50 via-white to-purple-100 opacity-80 dark:from-purple-950 dark:via-gray-900 dark:to-purple-900" />
+    <motion.div
+      className="absolute inset-0 bg-[linear-gradient(to_right,#8B5CF6,#6366F1)] opacity-20 dark:opacity-30"
+      animate={{
+        scale: [1, 1.1, 1],
+        opacity: [0.2, 0.3, 0.2],
+      }}
+      transition={{
+        duration: 8,
+        repeat: Infinity,
+        ease: 'easeInOut',
+      }}
+    />
+  </div>
+)
+
 function SocialLink({
   icon: Icon,
   ...props
 }: React.ComponentPropsWithoutRef<typeof Link> & {
   icon: React.ComponentType<{ className?: string }>
 }) {
+  const mouseX = useMotionValue(0)
+  const mouseY = useMotionValue(0)
+  const springConfig = { damping: 15, stiffness: 300 }
+  const x = useSpring(mouseX, springConfig)
+  const y = useSpring(mouseY, springConfig)
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    const rect = e.currentTarget.getBoundingClientRect()
+    mouseX.set(e.clientX - rect.left - rect.width / 2)
+    mouseY.set(e.clientY - rect.top - rect.height / 2)
+  }
+
   return (
-    <Link className="group -m-1 p-1" {...props}>
-      <Icon className="h-6 w-6 fill-zinc-500 transition group-hover:fill-zinc-600 dark:fill-zinc-400 dark:group-hover:fill-zinc-300" />
-    </Link>
+    <motion.div
+      onMouseMove={handleMouseMove}
+      onMouseLeave={() => {
+        mouseX.set(0)
+        mouseY.set(0)
+      }}
+      style={{ x, y }}
+      whileHover={{ scale: 1.1 }}
+      whileTap={{ scale: 0.95 }}
+    >
+      <Link
+        className="group relative flex h-12 w-12 items-center justify-center rounded-full bg-white/10 ring-1 ring-purple-200 backdrop-blur-sm transition-all duration-300 dark:ring-purple-800"
+        {...props}
+      >
+        <Icon className="h-5 w-5 fill-purple-600 transition group-hover:fill-purple-800 dark:fill-purple-400 dark:group-hover:fill-purple-200" />
+      </Link>
+    </motion.div>
   )
 }
 
-// function Resume() {
-//   let resume: Array<Role> = [
-//     {
-//       company: 'ATI',
-//       title: 'Senior Software DevOps Engineer',
-//       logo: 'https://firebasestorage.googleapis.com/v0/b/shagunresume.appspot.com/o/Logos%2FATI%20logo.png?alt=media&token=aef3494f-909f-4447-a4f4-2acb97a4209c',
-//       start: '2019',
-//       end: {
-//         label: 'Present',
-//         dateTime: new Date().getFullYear().toString(),
-//       },
-//     },
-//     {
-//       company: 'Xactly',
-//       title: 'Senior Software Developer',
-//       logo: 'https://firebasestorage.googleapis.com/v0/b/shagunresume.appspot.com/o/Logos%2FXactly%20logo%20white.svg?alt=media&token=6a62934a-b168-4b7b-aa37-bbf2b9ffc397',
-//       start: '2014',
-//       end: '2019',
-//     },
-//     {
-//       company: 'Centene',
-//       title: 'Senior Software Developer',
-//       logo: 'https://firebasestorage.googleapis.com/v0/b/shagunresume.appspot.com/o/Logos%2FCentene%20Logo%202023.jpg?alt=media&token=a7433614-11f4-4439-901c-3b8622c6f6b1',
-//       start: '2014',
-//       end: '2019',
-//     },
-//     {
-//       company: 'EasyKnock',
-//       title: 'Senior Software Developer',
-//       logo: 'https://firebasestorage.googleapis.com/v0/b/shagunresume.appspot.com/o/Logos%2FEasyKnock%20Logo.svg?alt=media&token=668070db-cec4-4356-9d27-eb0968b3866e',
-//       start: '2014',
-//       end: '2019',
-//     },
-//     {
-//       company: 'VitusVet',
-//       title: 'Senior Software Developer',
-//       logo: 'https://firebasestorage.googleapis.com/v0/b/shagunresume.appspot.com/o/Logos%2FVitusVet%20logo.png?alt=media&token=f453f53e-8073-40ed-8e66-126a5668bca4',
-//       start: '2011',
-//       end: '2014',
-//     },
-//     {
-//       company: 'Ria Money Transfer | EuroNet',
-//       title: 'Full-stack Developer',
-//       logo: 'https://firebasestorage.googleapis.com/v0/b/shagunresume.appspot.com/o/Logos%2FRiaLogo.svg?alt=media&token=b7d8ef5d-f8c9-4871-97da-6d45df2bf670',
-//       start: '2008',
-//       end: '2011',
-//     },
-//     {
-//       company: 'WiPro',
-//       title: 'Software Engineer',
-//       logo: 'https://firebasestorage.googleapis.com/v0/b/shagunresume.appspot.com/o/Logos%2FWipro_logo.svg?alt=media&token=833a7d56-b66d-42c0-bc3c-fd76234c16cb',
-//       start: '2014',
-//       end: '2019',
-//     },
-//     {
-//       company: 'SourceLink',
-//       title: 'Enterprise Software Developer',
-//       logo: 'https://firebasestorage.googleapis.com/v0/b/shagunresume.appspot.com/o/Logos%2FsourceLink_Logo.jpeg?alt=media&token=6b468aab-9310-4c43-9b4d-eac0ba29d997',
-//       start: '2014',
-//       end: '2019',
-//     },
-//   ]
+const Name = () => (
+  <motion.h1
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.8, ease: 'easeOut' }}
+    className="relative bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-center text-5xl font-bold tracking-tight text-transparent sm:text-6xl dark:from-purple-400 dark:to-indigo-400"
+  >
+    Shagun Mistry
+  </motion.h1>
+)
 
-//   return (
-//     <div className="rounded-2xl p-6 shadow-lg dark:border dark:border-purple-400">
-//       <h2 className="flex text-sm font-semibold text-purple-900 dark:text-purple-100">
-//         <BriefcaseIcon className="h-6 w-6 flex-none" />
-//         <span className="ml-3">Work</span>
-//       </h2>
-//       <ol className="mt-6 space-y-4">
-//         {resume.map((role, roleIndex) => (
-//           <Role key={roleIndex} role={role} />
-//         ))}
-//       </ol>
-//       <Button
-//         variant="secondary"
-//         className="group mt-6 w-full"
-//         href="https://firebasestorage.googleapis.com/v0/b/shagunresume.appspot.com/o/Shagun%20Mistry%20Resume.pdf?alt=media&token=77caa21f-7bbd-4d42-bbda-08d7180bfc67"
-//         download={true}
-//         target="_blank"
-//         rel="noopener noreferrer"
-//       >
-//         Download CV
-//         <ArrowDownIcon className="h-4 w-4 stroke-purple-400 transition group-active:stroke-purple-600 dark:group-hover:stroke-purple-50 dark:group-active:stroke-purple-50" />
-//       </Button>
-//     </div>
-//   )
-// }
+const SubTitle = () => (
+  <motion.p
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
+    className="mt-6 text-center text-lg font-medium text-purple-700 dark:text-purple-300"
+  >
+    Software Developer, Machine Learning Enthusiast,
+    <br /> Cinema Lover, and an Avid Reader.
+  </motion.p>
+)
 
-export default async function Home() {
-  // let articles = (await getAllArticles()).slice(0, 4)
+const ScrollProgress = () => {
+  const { scrollYProgress } = useScroll()
 
   return (
+    <motion.div
+      className="fixed left-0 right-0 top-0 h-1 origin-left transform bg-gradient-to-r from-purple-500 to-indigo-500"
+      style={{ scaleX: scrollYProgress }}
+    />
+  )
+}
+
+export default function Home() {
+  return (
     <>
-      <Container className="mt-9">
-        <h1 className="text-center text-4xl font-bold tracking-tight text-purple-700 sm:text-5xl dark:text-purple-500">
-          Shagun Mistry
-        </h1>
-        <p className="mt-6 text-center text-purple-600 dark:text-purple-400">
-          Software Developer, Machine Learning Enthusiast, Cinema Lover, and a
-          Avid Reader.
-        </p>
-        <div className="mx-auto max-w-2xl">
-          <div className="mt-6 flex items-center justify-between gap-6">
+      <ScrollProgress />
+      <GradientBackground />
+
+      <Container className="mt-16 sm:mt-32">
+        <Name />
+        <SubTitle />
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="mx-auto max-w-2xl"
+        >
+          <div className="mt-12 flex items-center justify-center gap-8">
             <SocialLink
               href="https://twitter.com/mistry_shagun"
               aria-label="Follow on X"
@@ -149,21 +143,24 @@ export default async function Home() {
               icon={LinkedInIcon}
             />
           </div>
-        </div>
+        </motion.div>
       </Container>
+
       <Container className="mt-24 md:mt-28">
-        <div className="mx-auto grid max-w-xl grid-cols-1 gap-y-20 lg:max-w-none lg:grid-cols-2">
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+          className="mx-auto grid max-w-xl grid-cols-1 gap-y-20 lg:max-w-none lg:grid-cols-2"
+        >
           <div className="flex flex-col gap-16">
-            {/* {articles.map((article) => (
-              <Article key={article.slug} article={article} />
-            ))} */}
-            {/* <ArticlesList articles={articles} /> */}
+            {/* Articles section can be added here */}
           </div>
           <div className="space-y-10 lg:pl-16 xl:pl-24">
             <Newsletter />
             <Resume />
           </div>
-        </div>
+        </motion.div>
       </Container>
     </>
   )

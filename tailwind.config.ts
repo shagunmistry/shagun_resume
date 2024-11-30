@@ -29,17 +29,28 @@ export default {
         'fade-in-up': {
           '0%': {
             opacity: '0',
-            transform: 'translateY(20px)'
+            transform: 'translateY(20px)',
           },
           '100%': {
             opacity: '1',
-            transform: 'translateY(0)'
+            transform: 'translateY(0)',
           },
-        }
+        },
+        gradient: {
+          '0%, 100%': {
+            'background-size': '200% 200%',
+            'background-position': 'left center',
+          },
+          '50%': {
+            'background-size': '200% 200%',
+            'background-position': 'right center',
+          },
+        },
       },
       animation: {
-        'fade-in-up': 'fade-in-up 0.4s ease-out'
-      }
-    }
+        'fade-in-up': 'fade-in-up 0.4s ease-out',
+        gradient: 'gradient 8s linear infinite',
+      },
+    },
   },
 } satisfies Config
