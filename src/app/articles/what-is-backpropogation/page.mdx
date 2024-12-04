@@ -1,0 +1,422 @@
+import { ArticleLayout } from '@/components/ArticleLayout'
+import BackpropagationDemo from '@/components/BackpropagationDemo'
+import BabyLearningImage from './baby_learning.png';
+import Image from 'next/image';
+
+
+export const article = {
+  author: 'Shagun Mistry',
+  date: '2024-12-04',
+  title:
+    'What is Backpropagation? Understanding the Core of Neural Network Training',
+  description:
+    'Learn the fundamentals of backpropagation, the algorithm that powers neural network training, with a mix of theory and practical implementation.',
+}
+
+export const metadata = {
+  title: article.title,
+  description: article.description,
+}
+
+export default (props) => <ArticleLayout article={article} {...props} />
+
+<Image src={BabyLearningImage} alt="Baby learning" className="mb-4" />
+
+Deep learning has had a huge impact on artificial intelligence, powering everything from autonomous vehicles to language models. At its core lies a brilliant algorithm called backpropagation.
+
+In this guide, we'll talk through backpropagation, providing both theoretical understanding and practical implementation details.
+
+
+## Prerequisites
+
+Before diving in, ensure you're comfortable with:
+
+- Python programming (intermediate level)
+- Basic calculus (particularly chain rule and partial derivatives)
+- Linear algebra fundamentals (matrices, vectors, dot products)
+- NumPy library operations
+- Basic neural network architecture concepts
+
+## The Challenge: Training Neural Networks
+
+Imagine trying to teach a child to recognize cats. You show them pictures, they make guesses, and you correct them. Neural networks learn similarly, but how do they actually update their "knowledge"? This is where backpropagation comes in.
+
+## Understanding Backpropagation: The Big Picture
+
+<BackpropagationDemo />
+
+Backpropagation (backward propagation of errors) is like a highly efficient blame game. When a neural network makes a prediction error, backpropagation determines how much each neuron contributed to that error and adjusts them accordingly.
+
+### The Four Key Steps
+
+1. **Forward Pass**: Data flows through the network, generating predictions
+2. **Error Calculation**: Compare predictions with actual values
+3. **Backward Pass**: Error propagates backwards, computing gradients
+4. **Weight Updates**: Adjust network parameters based on gradients
+
+Let's break each step down mathematically and implementationally.
+
+## The Mathematics Behind Backpropagation
+
+### Forward Propagation
+
+For a simple 2-layer neural network:
+
+1. First Layer:
+
+   ```
+   Z¹ = W¹X + b¹
+   A¹ = σ(Z¹)
+   ```
+
+2. Output Layer:
+   ```
+   Z² = W²A¹ + b²
+   A² = σ(Z²)
+   ```
+
+Where:
+
+- W¹, W² are weight matrices
+- b¹, b² are bias vectors
+- σ is the activation function (sigmoid in our case)
+- A¹, A² are layer activations
+
+### Error Calculation
+
+We use binary cross-entropy loss:
+
+```
+L = -1/m Σ(y log(a) + (1-y)log(1-a))
+```
+
+Where:
+
+- m is the number of training examples
+- y is the true label
+- a is the predicted output
+
+### Backward Propagation
+
+The magic happens here. Using chain rule:
+
+1. Output Layer:
+
+   ```
+   dZ² = A² - Y
+   dW² = 1/m * dZ²A¹ᵀ
+   db² = 1/m * Σ(dZ²)
+   ```
+
+2. Hidden Layer:
+   ```
+   dA¹ = W²ᵀdZ²
+   dZ¹ = dA¹ * σ'(Z¹)
+   dW¹ = 1/m * dZ¹Xᵀ
+   db¹ = 1/m * Σ(dZ¹)
+   ```
+
+## Practical Implementation
+
+Let's implement this in Python. We'll build a neural network from scratch:
+
+```python
+import numpy as np
+
+class NeuralNetwork:
+    def __init__(self, input_size, hidden_size, output_size, learning_rate=0.01):
+        self.input_size = input_size
+        self.hidden_size = hidden_size
+        self.output_size = output_size
+        self.learning_rate = learning_rate
+
+        # Initialize weights and biases
+        self.W1 = np.random.randn(hidden_size, input_size) * np.sqrt(2./input_size)
+        self.b1 = np.zeros((hidden_size, 1))
+        self.W2 = np.random.randn(output_size, hidden_size) * np.sqrt(2./hidden_size)
+        self.b2 = np.zeros((output_size, 1))
+
+    def sigmoid(self, Z):
+        """Sigmoid activation function"""
+        return 1 / (1 + np.exp(-np.clip(Z, -500, 500)))
+
+    def sigmoid_derivative(self, A):
+        """Derivative of sigmoid function"""
+        return A * (1 - A)
+
+    def forward_propagation(self, X):
+        """
+        Forward propagation step
+
+        Parameters:
+        X: Input data of shape (input_size, m)
+
+        Returns:
+        Tuple of activations and cache for backprop
+        """
+        # First layer
+        Z1 = np.dot(self.W1, X) + self.b1
+        A1 = self.sigmoid(Z1)
+
+        # Output layer
+        Z2 = np.dot(self.W2, A1) + self.b2
+        A2 = self.sigmoid(Z2)
+
+        cache = {
+            'Z1': Z1,
+            'A1': A1,
+            'Z2': Z2,
+            'A2': A2
+        }
+
+        return A2, cache
+
+    def compute_loss(self, A2, Y):
+        """
+        Computes binary cross-entropy loss
+
+        Parameters:
+        A2: Model predictions
+        Y: True labels
+
+        Returns:
+        Float: Loss value
+        """
+        m = Y.shape[1]
+        epsilon = 1e-15  # Prevent log(0)
+        loss = (-1/m) * np.sum(
+            Y * np.log(A2 + epsilon) +
+            (1 - Y) * np.log(1 - A2 + epsilon)
+        )
+        return np.squeeze(loss)
+
+    def backward_propagation(self, X, Y, cache):
+        """
+        Implements backward propagation
+
+        Parameters:
+        X: Input data
+        Y: True labels
+        cache: Dictionary containing intermediate values
+
+        Returns:
+        Dictionary containing gradients
+        """
+        m = X.shape[1]
+
+        # Get cached values
+        A1 = cache['A1']
+        A2 = cache['A2']
+
+        # Output layer gradients
+        dZ2 = A2 - Y
+        dW2 = (1/m) * np.dot(dZ2, A1.T)
+        db2 = (1/m) * np.sum(dZ2, axis=1, keepdims=True)
+
+        # Hidden layer gradients
+        dA1 = np.dot(self.W2.T, dZ2)
+        dZ1 = dA1 * self.sigmoid_derivative(A1)
+        dW1 = (1/m) * np.dot(dZ1, X.T)
+        db1 = (1/m) * np.sum(dZ1, axis=1, keepdims=True)
+
+        return {
+            'dW1': dW1,
+            'db1': db1,
+            'dW2': dW2,
+            'db2': db2
+        }
+
+    def update_parameters(self, gradients):
+        """
+        Updates network parameters using computed gradients
+
+        Parameters:
+        gradients: Dictionary containing dW1, db1, dW2, db2
+        """
+        self.W1 -= self.learning_rate * gradients['dW1']
+        self.b1 -= self.learning_rate * gradients['db1']
+        self.W2 -= self.learning_rate * gradients['dW2']
+        self.b2 -= self.learning_rate * gradients['db2']
+
+    def train(self, X, Y, iterations=1000):
+        """
+        Trains the neural network
+
+        Parameters:
+        X: Training data
+        Y: Training labels
+        iterations: Number of training iterations
+
+        Returns:
+        List of losses during training
+        """
+        losses = []
+
+        for i in range(iterations):
+            # Forward propagation
+            A2, cache = self.forward_propagation(X)
+
+            # Compute loss
+            loss = self.compute_loss(A2, Y)
+            losses.append(loss)
+
+            # Backward propagation
+            gradients = self.backward_propagation(X, Y, cache)
+
+            # Update parameters
+            self.update_parameters(gradients)
+
+            if i % 100 == 0:
+                print(f"Iteration {i}, Loss: {loss}")
+
+        return losses
+```
+
+## Advanced Topics and Best Practices
+
+### 1. Weight Initialization
+
+Proper weight initialization is crucial. We used He initialization:
+
+```python
+W = np.random.randn(size) * np.sqrt(2./input_size)
+```
+
+This helps prevent vanishing/exploding gradients by maintaining appropriate variance across layers.
+
+### 2. Learning Rate Selection
+
+The learning rate is a critical hyperparameter:
+
+- Too high: Training may diverge
+- Too low: Training may be too slow
+
+Common approaches:
+
+- Start with 0.01 and adjust based on loss curve
+- Use learning rate schedules
+- Implement adaptive learning rates (Adam, RMSprop)
+
+### 3. Gradient Checking
+
+Always verify your backpropagation implementation:
+
+```python
+def gradient_check(parameters, gradients, X, Y, epsilon=1e-7):
+    """
+    Verify backpropagation implementation using numerical gradients
+    """
+    for param_name in parameters:
+        param = parameters[param_name]
+        grad = gradients['d' + param_name]
+
+        numerical_grad = np.zeros_like(param)
+
+        # Compute numerical gradient for each parameter
+        for i in range(param.shape[0]):
+            for j in range(param.shape[1]):
+                # Add epsilon
+                param[i,j] += epsilon
+                cost_plus = compute_cost(forward_prop(X, parameters), Y)
+
+                # Subtract epsilon
+                param[i,j] -= 2*epsilon
+                cost_minus = compute_cost(forward_prop(X, parameters), Y)
+
+                # Restore parameter
+                param[i,j] += epsilon
+
+                # Compute numerical gradient
+                numerical_grad[i,j] = (cost_plus - cost_minus)/(2*epsilon)
+
+        # Compare numerical and analytical gradients
+        diff = np.linalg.norm(numerical_grad - grad)/(np.linalg.norm(numerical_grad) + np.linalg.norm(grad))
+        if diff > 1e-7:
+            print(f"Gradient check failed for {param_name}. Difference: {diff}")
+```
+
+## Common Pitfalls and Solutions
+
+1. **Vanishing/Exploding Gradients**
+
+   - Solution: Proper initialization, batch normalization, residual connections
+
+2. **Poor Convergence**
+
+   - Solution: Normalize inputs, use mini-batches, implement momentum
+
+3. **Overfitting**
+
+   - Solution: Add regularization, dropout, early stopping
+
+4. **Numerical Instability**
+   - Solution: Add epsilon to log calculations, clip gradients
+
+## Practical Exercise: Binary Classification
+
+Let's implement a complete example:
+
+```python
+# Generate synthetic data
+np.random.seed(42)
+X = np.random.randn(2, 1000)
+Y = np.array([(x1 + x2 > 0).astype(int) for x1, x2 in X.T]).reshape(1, -1)
+
+# Create and train network
+nn = NeuralNetwork(input_size=2, hidden_size=4, output_size=1)
+losses = nn.train(X, Y, iterations=2000)
+
+# Plot results
+import matplotlib.pyplot as plt
+
+plt.figure(figsize=(10, 5))
+plt.plot(losses)
+plt.title('Training Loss Over Time')
+plt.xlabel('Iteration')
+plt.ylabel('Loss')
+plt.grid(True)
+plt.show()
+```
+
+## Next Steps
+
+1. **Explore Advanced Architectures**
+
+   - Convolutional Neural Networks (CNNs)
+   - Recurrent Neural Networks (RNNs)
+   - Transformers
+
+2. **Learn Modern Frameworks**
+
+   - PyTorch
+   - TensorFlow
+   - JAX
+
+3. **Study Optimization Techniques**
+   - Adam optimizer
+   - Learning rate scheduling
+   - Curriculum learning
+
+Understanding backpropagation will help you:
+
+- Debug neural networks effectively
+- Choose appropriate architectures and hyperparameters
+- Implement custom layers and loss functions
+- Optimize training procedures
+
+While frameworks abstract away these details, this fundamental knowledge is invaluable for any serious AI practitioner.
+
+## Resources for Further Learning
+
+1. Deep Learning Book by Goodfellow, Bengio, and Courville
+2. CS231n: Convolutional Neural Networks for Visual Recognition
+3. Fast.ai Practical Deep Learning Course
+4. Papers:
+   - "Learning representations by back-propagating errors" (Rumelhart et al., 1986)
+   - "Random walk initialization for training very deep feedforward networks" (Sussillo & Abbott, 2014)
+
+Remember: Practice is key. Implement these concepts, experiment with different architectures, and don't be afraid to dive into the mathematics when needed.
+
+---
+
+_If you found this article helpful, follow me for more in-depth technical content about machine learning, artificial intelligence, and software engineering._
