@@ -15,12 +15,13 @@ const podcastNavItems = [
     hoverGradient: 'from-blue-500 to-blue-700',
   },
   {
-    title: 'Name Analysis',
-    href: '/projects/climate-change-podcast/podcast-name-analysis',
+    title: 'Episodes',
+    href: '/projects/climate-change-podcast/episodes',
     icon: Book,
     gradient: 'from-purple-400 to-purple-600',
     hoverGradient: 'from-purple-500 to-purple-700',
   },
+
   {
     title: 'Useful Diagrams',
     href: '/projects/climate-change-podcast/useful-diagrams',

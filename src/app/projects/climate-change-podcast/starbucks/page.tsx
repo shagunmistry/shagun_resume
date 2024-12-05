@@ -13,8 +13,8 @@ interface CalloutProps {
 
 const Callout: React.FC<CalloutProps> = ({ type, children }) => {
   const styles = {
-    info: 'bg-blue-50 border-blue-500 text-blue-700',
-    warning: 'bg-amber-50 border-amber-500 text-amber-700',
+    info: 'bg-blue-50 border-blue-500 text-blue-700 dark:bg-blue-900 dark:border-blue-300 dark:text-blue-200',
+    warning: 'bg-amber-50 border-amber-500 text-amber-700 dark:bg-amber-900 dark:border-amber-300 dark:text-amber-200',
   }
 
   return (
@@ -38,14 +38,14 @@ const fadeIn = {
 
 const StarbucksBlogPage = () => {
   return (
-    <div className="min-h-screen bg-gray-50 px-4 py-12 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-50 px-4 py-12 sm:px-6 lg:px-8 dark:bg-gray-900">
       <article className="mx-auto max-w-prose">
         <motion.h1
           variants={fadeIn}
           initial="initial"
           whileInView="whileInView"
           viewport={{ once: true }}
-          className="mb-8 text-4xl font-bold text-gray-900"
+          className="mb-8 text-4xl font-bold text-gray-900 dark:text-gray-100"
         >
           The Environmental Cost of Your Morning Coffee
         </motion.h1>
@@ -55,7 +55,7 @@ const StarbucksBlogPage = () => {
           initial="initial"
           whileInView="whileInView"
           viewport={{ once: true }}
-          className="mb-8 text-lg text-gray-700"
+          className="mb-8 text-lg text-gray-700 dark:text-gray-100"
         >
           Every second, roughly 58 disposable cups from Starbucks enter our
           waste system. That's 5 million drinks daily in the US alone. But
@@ -81,7 +81,7 @@ const StarbucksBlogPage = () => {
           initial="initial"
           whileInView="whileInView"
           viewport={{ once: true }}
-          className="mb-6 mt-12 text-3xl font-bold text-gray-900"
+          className="mb-6 mt-12 text-3xl font-bold text-gray-900 dark:text-gray-100"
         >
           The Daily Ritual
         </motion.h2>
@@ -91,7 +91,7 @@ const StarbucksBlogPage = () => {
           initial="initial"
           whileInView="whileInView"
           viewport={{ once: true }}
-          className="mb-8 text-lg text-gray-700"
+          className="mb-8 text-lg text-gray-700 dark:text-gray-100"
         >
           It's 4:30 AM, and like clockwork, lights flicker on in thousands of
           Starbucks stores across America. Each store is about to embark on a
@@ -114,7 +114,7 @@ const StarbucksBlogPage = () => {
           initial="initial"
           whileInView="whileInView"
           viewport={{ once: true }}
-          className="mb-6 mt-12 text-3xl font-bold text-gray-900"
+          className="mb-6 mt-12 text-3xl font-bold text-gray-900 dark:text-gray-100"
         >
           The Empire of Coffee
         </motion.h2>
@@ -124,7 +124,7 @@ const StarbucksBlogPage = () => {
           initial="initial"
           whileInView="whileInView"
           viewport={{ once: true }}
-          className="mb-8 text-lg text-gray-700"
+          className="mb-8 text-lg text-gray-700 dark:text-gray-100"
         >
           Picture this: If you lined up all Starbucks stores side by side, they
           would stretch from New York to Los Angeles. With a presence in 83
@@ -146,7 +146,7 @@ const StarbucksBlogPage = () => {
           initial="initial"
           whileInView="whileInView"
           viewport={{ once: true }}
-          className="mb-8 text-lg text-gray-700"
+          className="mb-8 text-lg text-gray-700 dark:text-gray-100"
         >
           <p className="mb-4">
             To understand these numbers, imagine following a single coffee
@@ -167,7 +167,7 @@ const StarbucksBlogPage = () => {
           initial="initial"
           whileInView="whileInView"
           viewport={{ once: true }}
-          className="mb-6 mt-12 text-3xl font-bold text-gray-900"
+          className="mb-6 mt-12 text-3xl font-bold text-gray-900 dark:text-gray-100"
         >
           The Water Crisis
         </motion.h2>
@@ -177,7 +177,7 @@ const StarbucksBlogPage = () => {
           initial="initial"
           whileInView="whileInView"
           viewport={{ once: true }}
-          className="mb-8 text-lg text-gray-700"
+          className="mb-8 text-lg text-gray-700 dark:text-gray-100"
         >
           Every single cup of coffee requires 37 gallons of water to produce.
           With 5 million drinks served daily in the US alone, that's enough
@@ -196,7 +196,7 @@ const StarbucksBlogPage = () => {
           initial="initial"
           whileInView="whileInView"
           viewport={{ once: true }}
-          className="mb-6 mt-12 text-3xl font-bold text-gray-900"
+          className="mb-6 mt-12 text-3xl font-bold text-gray-900 dark:text-gray-100"
         >
           The Investment in Change
         </motion.h2>
@@ -237,7 +237,7 @@ const StarbucksBlogPage = () => {
           initial="initial"
           whileInView="whileInView"
           viewport={{ once: true }}
-          className="mb-6 mt-12 text-3xl font-bold text-gray-900"
+          className="mb-6 mt-12 text-3xl font-bold text-gray-900 dark:text-gray-100"
         >
           The Innovation Opportunity
         </motion.h2>
@@ -250,30 +250,30 @@ const StarbucksBlogPage = () => {
           className="space-y-8"
         >
           <div>
-            <h3 className="mb-4 text-xl font-bold text-gray-900">
+            <h3 className="mb-4 text-xl font-bold text-gray-900 dark:text-gray-100">
               Packaging Innovation
             </h3>
-            <ul className="list-disc space-y-2 pl-6 text-gray-700">
+            <ul className="list-disc space-y-2 pl-6 text-gray-700 dark:text-gray-100">
               <li>California startup testing 100% reusable cup model</li>
               <li>Potential to eliminate single-use waste entirely</li>
             </ul>
           </div>
 
           <div>
-            <h3 className="mb-4 text-xl font-bold text-gray-900">
+            <h3 className="mb-4 text-xl font-bold text-gray-900 dark:text-gray-100">
               Supply Chain Technology
             </h3>
-            <ul className="list-disc space-y-2 pl-6 text-gray-700">
+            <ul className="list-disc space-y-2 pl-6 text-gray-700 dark:text-gray-100">
               <li>Blockchain meeting coffee farming</li>
               <li>Real-time emissions tracking and optimization</li>
             </ul>
           </div>
 
           <div>
-            <h3 className="mb-4 text-xl font-bold text-gray-900">
+            <h3 className="mb-4 text-xl font-bold text-gray-900 dark:text-gray-100">
               Consumer Engagement
             </h3>
-            <ul className="list-disc space-y-2 pl-6 text-gray-700">
+            <ul className="list-disc space-y-2 pl-6 text-gray-700 dark:text-gray-100">
               <li>Gamifying sustainability for retail customers</li>
               <li>Turning daily coffee runs into environmental actions</li>
             </ul>
@@ -291,7 +291,7 @@ const StarbucksBlogPage = () => {
           initial="initial"
           whileInView="whileInView"
           viewport={{ once: true }}
-          className="mb-6 mt-12 text-3xl font-bold text-gray-900"
+          className="mb-6 mt-12 text-3xl font-bold text-gray-900 dark:text-gray-100"
         >
           Looking Forward
         </motion.h2>
@@ -301,7 +301,7 @@ const StarbucksBlogPage = () => {
           initial="initial"
           whileInView="whileInView"
           viewport={{ once: true }}
-          className="space-y-4 text-gray-700"
+          className="space-y-4 text-gray-700 dark:text-gray-100"
         >
           <p>
             The next chapter isn't just about survival - it's about the
@@ -328,7 +328,7 @@ const StarbucksBlogPage = () => {
           initial="initial"
           whileInView="whileInView"
           viewport={{ once: true }}
-          className="my-12 border-l-4 border-emerald-500 pl-6 text-2xl italic text-gray-700"
+          className="my-12 border-l-4 border-emerald-500 pl-6 text-2xl italic text-gray-700 dark:text-gray-100"
         >
           "The best time to plant a tree was 20 years ago. The second best time
           is today."
