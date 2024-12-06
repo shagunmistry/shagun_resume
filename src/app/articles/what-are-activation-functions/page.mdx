@@ -1,0 +1,328 @@
+import { ArticleLayout } from '@/components/ArticleLayout'
+import ActivationFunctionVisualization from './ActivationFunctionVisualization'
+
+export const article = {
+  author: 'Shagun Mistry',
+  date: '2024-12-06',
+  title: 'Activation Functions: The Building Blocks of Neural Networks',
+  description:
+    'What are activation functions, and why are they crucial for neural networks?',
+}
+
+export const metadata = {
+  title: article.title,
+  description: article.description,
+}
+
+export default (props) => <ArticleLayout article={article} {...props} />
+
+# Activation Functions: The Building Blocks of Neural Networks
+
+Neural networks has taken machine learning to the next level, achieving unprecedented performance in tasks ranging from image recognition to natural language processing.
+
+At their core lies a fundamental component that enables their remarkable capabilities: activation functions. These functions introduce non-linearity into neural networks, allowing them to learn complex patterns and relationships.
+
+<ActivationFunctionVisualization />
+
+## Prerequisites
+
+- Basic understanding of calculus (derivatives and chain rule)
+- Familiarity with neural network architecture
+- Working knowledge of Python and NumPy
+- Basic understanding of gradient descent and backpropagation
+
+## The Mathematics Behind Neural Networks
+
+Before we talk in detail about activation functions, let's understand where they fit in the neural network architecture.
+
+In a typical neural network layer, we perform the following computation:
+
+```python
+z = W * x + b  # Linear transformation
+a = f(z)       # Non-linear activation
+```
+
+Where:
+
+- `W` is the weight matrix
+- `x` is the input vector
+- `b` is the bias vector
+- `f` is the activation function
+- `z` is the pre-activation output
+- `a` is the post-activation output
+
+Without activation functions, neural networks would collapse into simple linear transformations, regardless of their depth. This is because the composition of linear functions is still linear: f(g(x)) = ax + b where f and g are linear functions.
+
+## Understanding Activation Functions
+
+### The Role of Non-linearity
+
+Activation functions introduce non-linear transformations that enable neural networks to learn complex patterns. This non-linearity allows networks to approximate any continuous function, as stated by the Universal Approximation Theorem.
+
+### Key Properties of Activation Functions
+
+1. **Differentiability**: Most activation functions are differentiable, enabling gradient-based optimization.
+2. **Monotonicity**: Many activation functions are monotonic, ensuring consistent gradient behavior.
+3. **Output Range**: Different activation functions map inputs to different ranges, affecting network stability.
+4. **Computational Efficiency**: Some functions are more computationally expensive than others.
+
+## Implementation and Mathematical Analysis
+
+Let's implement and analyze common activation functions:
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+from typing import Union, Callable
+import warnings
+
+class ActivationFunction:
+    def __init__(self, func: Callable, derivative: Callable, name: str):
+        self.func = func
+        self.derivative = derivative
+        self.name = name
+
+    def __call__(self, x: np.ndarray) -> np.ndarray:
+        return self.func(x)
+
+def sigmoid(x: np.ndarray) -> np.ndarray:
+    """
+    Sigmoid activation function: f(x) = 1 / (1 + e^(-x))
+
+    Properties:
+    - Range: (0, 1)
+    - Smooth and differentiable
+    - Suffers from vanishing gradients
+    """
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore", RuntimeWarning)
+        return 1 / (1 + np.exp(-x))
+
+def sigmoid_derivative(x: np.ndarray) -> np.ndarray:
+    """Derivative of sigmoid: f'(x) = f(x) * (1 - f(x))"""
+    s = sigmoid(x)
+    return s * (1 - s)
+
+def relu(x: np.ndarray) -> np.ndarray:
+    """
+    Rectified Linear Unit: f(x) = max(0, x)
+
+    Properties:
+    - Range: [0, ∞)
+    - Sparse activation
+    - No vanishing gradient for positive values
+    - Dead neurons problem
+    """
+    return np.maximum(0, x)
+
+def relu_derivative(x: np.ndarray) -> np.ndarray:
+    """Derivative of ReLU: f'(x) = 1 if x > 0 else 0"""
+    return np.where(x > 0, 1, 0)
+
+def leaky_relu(x: np.ndarray, alpha: float = 0.01) -> np.ndarray:
+    """
+    Leaky ReLU: f(x) = x if x > 0 else αx
+
+    Properties:
+    - Range: (-∞, ∞)
+    - No dead neurons
+    - Small negative gradient
+    """
+    return np.where(x > 0, x, alpha * x)
+
+def leaky_relu_derivative(x: np.ndarray, alpha: float = 0.01) -> np.ndarray:
+    """Derivative of Leaky ReLU: f'(x) = 1 if x > 0 else α"""
+    return np.where(x > 0, 1, alpha)
+
+def tanh(x: np.ndarray) -> np.ndarray:
+    """
+    Hyperbolic tangent: f(x) = (e^x - e^(-x)) / (e^x + e^(-x))
+
+    Properties:
+    - Range: (-1, 1)
+    - Zero-centered
+    - Stronger gradients than sigmoid
+    """
+    return np.tanh(x)
+
+def tanh_derivative(x: np.ndarray) -> np.ndarray:
+    """Derivative of tanh: f'(x) = 1 - tanh^2(x)"""
+    return 1 - np.tanh(x) ** 2
+
+def softmax(x: np.ndarray) -> np.ndarray:
+    """
+    Softmax: f(x_i) = e^(x_i) / Σ(e^(x_j))
+
+    Properties:
+    - Outputs sum to 1
+    - Used for multi-class classification
+    - Numerically stable implementation
+    """
+    exp_x = np.exp(x - np.max(x, axis=-1, keepdims=True))
+    return exp_x / np.sum(exp_x, axis=-1, keepdims=True)
+```
+
+## Advanced Analysis and Visualization
+
+Let's create a comprehensive visualization tool to understand the behavior of these functions:
+
+```python
+def visualize_activation_functions(x_range: tuple = (-5, 5), num_points: int = 1000) -> None:
+    """
+    Visualize activation functions and their derivatives
+    """
+    x = np.linspace(x_range[0], x_range[1], num_points)
+
+    activation_functions = {
+        'Sigmoid': (sigmoid, sigmoid_derivative),
+        'ReLU': (relu, relu_derivative),
+        'Leaky ReLU': (lambda x: leaky_relu(x, 0.1),
+                      lambda x: leaky_relu_derivative(x, 0.1)),
+        'Tanh': (tanh, tanh_derivative)
+    }
+
+    fig, axes = plt.subplots(2, 2, figsize=(15, 10))
+    fig.suptitle('Activation Functions and Their Derivatives', fontsize=16)
+
+    for (name, (func, derivative)), ax in zip(activation_functions.items(), axes.flat):
+        ax.plot(x, func(x), 'b-', label=f'{name}')
+        ax.plot(x, derivative(x), 'r--', label=f'{name} derivative')
+        ax.grid(True)
+        ax.legend()
+        ax.set_title(name)
+        ax.axhline(y=0, color='k', linestyle='-', alpha=0.3)
+        ax.axvline(x=0, color='k', linestyle='-', alpha=0.3)
+
+    plt.tight_layout()
+    plt.show()
+```
+
+## Practical Considerations and Best Practices
+
+### 1. Choosing the Right Activation Function
+
+The choice of activation function depends on various factors:
+
+- **Output Layer**:
+  - Binary classification: Sigmoid
+  - Multi-class classification: Softmax
+  - Regression: Linear or ReLU
+- **Hidden Layers**:
+  - ReLU is generally the default choice
+  - Leaky ReLU or ELU for preventing dead neurons
+  - Tanh for normalized inputs
+
+### 2. Common Issues and Solutions
+
+#### Vanishing Gradients
+
+- **Problem**: Sigmoid and tanh saturate at extreme values
+- **Solution**: Use ReLU or its variants
+- **Implementation**:
+
+```python
+def initialize_weights(prev_layer_size: int, current_layer_size: int) -> np.ndarray:
+    """
+    He initialization for ReLU networks
+    """
+    return np.random.randn(current_layer_size, prev_layer_size) * np.sqrt(2 / prev_layer_size)
+```
+
+#### Dying ReLU
+
+- **Problem**: Neurons can get stuck in negative values
+- **Solution**: Use Leaky ReLU or parametric ReLU
+- **Monitoring**:
+
+```python
+def monitor_relu_health(activations: np.ndarray, threshold: float = 0.1) -> float:
+    """
+    Monitor the percentage of dead ReLU neurons
+    """
+    return np.mean(np.mean(activations <= 0, axis=0) >= threshold)
+```
+
+## Performance Optimization
+
+### 1. Vectorization
+
+Efficient implementation using NumPy's vectorized operations:
+
+```python
+def batch_activate(X: np.ndarray, activation_function: Callable) -> np.ndarray:
+    """
+    Efficiently apply activation function to a batch of inputs
+    """
+    return np.vectorize(activation_function)(X)
+```
+
+### 2. Memory Management
+
+```python
+def memory_efficient_activation(X: np.ndarray,
+                              activation_function: Callable,
+                              chunk_size: int = 1000) -> np.ndarray:
+    """
+    Memory-efficient activation for large datasets
+    """
+    return np.array_split(X, max(1, len(X) // chunk_size))
+```
+
+## Advanced Topics
+
+### 1. Custom Activation Functions
+
+Creating problem-specific activation functions:
+
+```python
+class CustomActivation(ActivationFunction):
+    def __init__(self,
+                 func: Callable,
+                 derivative: Callable,
+                 name: str = "Custom"):
+        super().__init__(func, derivative, name)
+
+    @staticmethod
+    def validate_monotonicity(x_range: tuple = (-10, 10),
+                            num_points: int = 1000) -> bool:
+        """Validate if activation function is monotonic"""
+        x = np.linspace(x_range[0], x_range[1], num_points)
+        y = func(x)
+        return np.all(np.diff(y) >= 0) or np.all(np.diff(y) <= 0)
+```
+
+### 2. Activation Function Regularization
+
+```python
+def activation_l2_regularization(activations: np.ndarray,
+                               lambda_reg: float = 0.01) -> float:
+    """
+    L2 regularization on activation values
+    """
+    return lambda_reg * np.sum(activations ** 2)
+```
+
+---
+
+Activation functions are fundamental to the success of neural networks. Understanding their properties, implementations, and practical considerations is crucial for developing effective deep learning solutions. We've covered:
+
+1. Mathematical foundations and implementations
+2. Practical considerations and best practices
+3. Common issues and their solutions
+4. Performance optimization techniques
+5. Advanced topics for specialized applications
+
+## Next Steps
+
+1. Experiment with different activation functions on various datasets
+2. Implement custom activation functions for specific problems
+3. Study the impact of activation functions on model convergence
+4. Explore advanced architectures with mixed activation functions
+
+## References
+
+1. Goodfellow, I., Bengio, Y., & Courville, A. (2016). Deep Learning. MIT Press.
+2. He, K., Zhang, X., Ren, S., & Sun, J. (2015). Delving Deep into Rectifiers.
+3. Nwankpa, C., Ijomah, W., Gachagan, A., & Marshall, S. (2018). Activation Functions: Comparison of trends in Practice and Research.
+
+---
