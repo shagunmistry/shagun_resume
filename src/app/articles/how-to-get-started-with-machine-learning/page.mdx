@@ -1,0 +1,80 @@
+
+import { ArticleLayout } from '@/components/ArticleLayout'
+import MLLearningPath from './MLLearningPath';
+
+export const article = {
+  author: 'Shagun Mistry',
+  date: '2024-12-07',
+  title: 'How to Get Started with Machine Learning',
+  description:
+    'Building a strong foundation is key to mastering machine learning. I share the essential steps to start your journey.',
+}
+
+export const metadata = {
+  title: article.title,
+  description: article.description,
+}
+
+export default (props) => <ArticleLayout article={article} {...props} />
+
+Most people approach machine learning the wrong way. They jump straight into neural networks and deep learning frameworks, trying to replicate the latest breakthrough they read about on arXiv. This is like trying to build a house starting with the roof.
+
+The path to becoming proficient in machine learning isn't about racing to implement the newest architecture. It's about building a solid foundation that will serve you for decades, not just until the next trending model comes along.
+
+
+## The Foundation Paradox
+
+Here's what's counterintuitive: spending more time on fundamentals actually makes you learn faster. Not immediately, but in the long run. The people who rush into advanced topics often find themselves stuck, unable to debug their models or understand why their approaches aren't working.
+
+Consider this learning path:
+
+<MLLearningPath />
+
+## The Essential Trinity
+
+Three foundational pillars support everything else in machine learning:
+
+1. **Mathematics**: Linear algebra, calculus, and probability theory aren't just academic requirements—they're your tools for understanding what's happening inside models. When you know these, neural networks stop being black boxes.
+
+2. **Programming**: Python isn't enough. You need to understand computational complexity, memory management, and optimization. Your models will eventually run on real hardware with real constraints.
+
+3. **Statistics**: This is how you'll know if your model is actually working or just memorizing noise. It's the difference between building something that works in production and something that only works in your notebook.
+
+## The Right Way to Start
+
+The best approach I've seen consistently work is this:
+
+1. Start with Andrew Ng's Machine Learning course, but don't just watch it—implement everything from scratch in Python. No frameworks allowed.
+
+2. Pick up the math along the way. When you encounter a concept you don't understand, dive deep into it. This contextual learning sticks better than studying math in isolation.
+
+3. Work with small, clean datasets before touching messy real-world data. Learn the principles without fighting data quality issues simultaneously.
+
+## Common Pitfalls to Avoid
+
+1. **Framework Dependency**: Tools like TensorFlow and PyTorch are means, not ends. If you can't implement basic algorithms without them, you don't really understand machine learning.
+
+2. **Tutorial Hell**: Following tutorials without understanding the underlying principles is the fastest way to get stuck. Each project should stretch your understanding slightly.
+
+3. **Skipping Statistics**: Many beginners ignore statistical validation, leading to models that work on training data but fail in production.
+
+## Building Your First Models
+
+Start smaller than you think you should:
+
+1. Linear regression implemented with gradient descent
+2. Logistic regression for binary classification
+3. A simple neural network with one hidden layer
+4. Basic clustering algorithms
+
+Each of these teaches fundamental concepts that scale up to more complex models.
+
+## The Path Forward
+
+Once you have these foundations, the advanced concepts become much more approachable. You'll understand why certain architectures work better for specific problems, not just that they do.
+
+The field of machine learning isn't slowing down. New architectures and approaches emerge monthly. But the fundamentals—optimization, regularization, validation—these remain constant. Master them first.
+
+Remember: The goal isn't to understand every new paper or implement every new architecture. It's to develop the foundation and intuition that lets you know which new developments matter for your specific problems.
+
+Start small. Build strong foundations. The speed will come naturally.
