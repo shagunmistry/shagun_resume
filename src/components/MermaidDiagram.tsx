@@ -131,10 +131,10 @@ export function MermaidDiagram({
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className={`relative rounded-xl border bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-gray-900 ${className}`}
+      className={`relative rounded-xl bg-white p-2 shadow-lg dark:border-gray-800 dark:bg-gray-900 ${className}`}
     >
       {title && (
-        <h3 className="mb-4 text-lg font-semibold text-gray-900 dark:text-white">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
           {title}
         </h3>
       )}
