@@ -1,4 +1,5 @@
 'use client'
+import PodcastFeed from '@/components/PodcastFeed'
 import { motion } from 'framer-motion'
 import { Clock, Calendar, ArrowUpRight } from 'lucide-react'
 
@@ -14,8 +15,10 @@ const episodes = [
       'https://firebasestorage.googleapis.com/v0/b/coauthor-5a141.appspot.com/o/The%20Money%20Planet%20Logo.jpg?alt=media&token=35649656-7bde-403a-8d83-0a1be5eeaa89',
     category: 'Entrepreneurship',
     gradient: 'from-emerald-400 via-teal-500 to-cyan-600',
-    applePodcastsUrl: 'https://podcasts.apple.com/us/podcast/the-money-plant/id1782918762?i=1000679095999',
-    spotifyUrl: 'https://open.spotify.com/episode/24PPPl5QEqpz33wHNUNWoO?si=HWcfQPXjSw6t0TiO--wq_A',
+    applePodcastsUrl:
+      'https://podcasts.apple.com/us/podcast/the-money-plant/id1782918762?i=1000679095999',
+    spotifyUrl:
+      'https://open.spotify.com/episode/24PPPl5QEqpz33wHNUNWoO?si=HWcfQPXjSw6t0TiO--wq_A',
   },
 ]
 
@@ -162,9 +165,6 @@ export default function Page() {
       <div className="mx-auto max-w-7xl">
         {/* Header */}
         <div className="mb-12 text-center">
-          <h1 className="bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-4xl font-bold text-transparent dark:from-white dark:to-gray-400">
-            Latest Episodes
-          </h1>
           <p className="mt-4 text-lg text-gray-600 dark:text-gray-300">
             Exploring the intersection of climate change, finance, and
             entrepreneurship
@@ -173,15 +173,7 @@ export default function Page() {
 
         {/* Episodes Grid */}
         <div className="space-y-12">
-          {/* Featured Episode */}
-          <FeaturedEpisode episode={featuredEpisode} />
-
-          {/* Regular Episodes */}
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {regularEpisodes.map((episode) => (
-              <EpisodeCard key={episode.id} episode={episode} />
-            ))}
-          </div>
+          <PodcastFeed />
         </div>
       </div>
     </div>

@@ -9,28 +9,12 @@ import {
   InstagramIcon,
   LinkedInIcon,
   XIcon,
+  DownloadResumeIcon,
+  PodcastIcon,
 } from '@/components/SocialIcons'
 import { Resume } from '@/components/Resume'
 import Newsletter from '@/components/Newsletter'
-
-// Smooth gradient backgrounds inspired by Apple
-const GradientBackground = () => (
-  <div className="fixed inset-0 -z-10 overflow-hidden">
-    <div className="absolute inset-0 bg-gradient-to-br from-purple-50 via-white to-purple-100 opacity-80 dark:from-purple-950 dark:via-gray-900 dark:to-purple-900" />
-    <motion.div
-      className="absolute inset-0 bg-[linear-gradient(to_right,#8B5CF6,#6366F1)] opacity-20 dark:opacity-30"
-      animate={{
-        scale: [1, 1.1, 1],
-        opacity: [0.2, 0.3, 0.2],
-      }}
-      transition={{
-        duration: 8,
-        repeat: Infinity,
-        ease: 'easeInOut',
-      }}
-    />
-  </div>
-)
+import PodcastFeed from '@/components/PodcastFeed'
 
 function SocialLink({
   icon: Icon,
@@ -72,26 +56,61 @@ function SocialLink({
 }
 
 const Name = () => (
-  <motion.h1
-    initial={{ opacity: 0, y: 20 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.8, ease: 'easeOut' }}
-    className="relative bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-center text-5xl font-bold tracking-tight text-transparent sm:text-6xl dark:from-purple-400 dark:to-indigo-400"
-  >
-    Shagun Mistry
-  </motion.h1>
+  <div className="relative">
+    {/* Background blur effect */}
+    <div className="absolute -inset-2 bg-gradient-to-r from-purple-500/20 to-indigo-500/20 blur-3xl" />
+
+    {/* Text content */}
+    <motion.div
+      className="relative"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 1 }}
+    >
+      <motion.span
+        className="absolute -inset-8 block text-center text-7xl font-bold opacity-5 blur-2xl"
+        initial={{ scale: 1.2 }}
+        animate={{ scale: 1 }}
+        transition={{ duration: 1, ease: 'easeOut' }}
+      >
+        Shagun Mistry
+      </motion.span>
+
+      <motion.h1
+        className="relative bg-gradient-to-br from-purple-600 via-indigo-600 to-purple-600 bg-clip-text text-center text-5xl font-bold tracking-tight text-transparent sm:text-7xl"
+        initial={{ y: 20 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.8, ease: 'easeOut' }}
+      >
+        Shagun Mistry
+      </motion.h1>
+    </motion.div>
+  </div>
 )
 
 const SubTitle = () => (
-  <motion.p
-    initial={{ opacity: 0, y: 20 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
-    className="mt-6 text-center text-lg font-medium text-purple-700 dark:text-purple-300"
-  >
-    Software Developer, Machine Learning Enthusiast,
-    <br /> Cinema Lover, and an Avid Reader.
-  </motion.p>
+  <div className="relative mt-8">
+    <motion.div
+      className="absolute inset-0 bg-gradient-to-r from-purple-100/50 via-transparent to-indigo-100/50 blur-xl"
+      initial={{ opacity: 0, scale: 0.9 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.8, delay: 0.3 }}
+    />
+
+    <motion.div
+      className="relative grid gap-4 text-center text-lg font-medium"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
+    >
+      <span className="text-purple-950/80 dark:text-purple-200/90">
+        Software Developer, Machine Learning Enthusiast
+      </span>
+      <span className="bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent dark:from-purple-400 dark:to-indigo-400">
+        Cinema Lover, and an Avid Reader
+      </span>
+    </motion.div>
+  </div>
 )
 
 const ScrollProgress = () => {
@@ -107,61 +126,86 @@ const ScrollProgress = () => {
 
 export default function Home() {
   return (
-    <>
+    <div className="min-h-screen w-full">
       <ScrollProgress />
-      <GradientBackground />
 
-      <Container className="mt-16 sm:mt-32">
-        <Name />
-        <SubTitle />
+      {/* Hero Section */}
+      <section className="px-4 pt-16 sm:pt-24 md:pt-32">
+        <div className="mx-auto max-w-7xl">
+          <Name />
+          <SubTitle />
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="mx-auto max-w-2xl"
-        >
-          <div className="mt-12 flex items-center justify-center gap-8">
-            <SocialLink
-              href="https://twitter.com/mistry_shagun"
-              aria-label="Follow on X"
-              icon={XIcon}
-            />
-            <SocialLink
-              href="https://www.instagram.com/shazzamm_/"
-              aria-label="Follow on Instagram"
-              icon={InstagramIcon}
-            />
-            <SocialLink
-              href="https://github.com/shagunmistry"
-              aria-label="Follow on GitHub"
-              icon={GitHubIcon}
-            />
-            <SocialLink
-              href="https://www.linkedin.com/in/shagun-mistry/"
-              aria-label="Follow on LinkedIn"
-              icon={LinkedInIcon}
-            />
-          </div>
-        </motion.div>
-      </Container>
+          {/* Social Links */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="mx-auto max-w-2xl"
+          >
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-6 sm:gap-8">
+              <SocialLink
+                href="https://twitter.com/mistry_shagun"
+                aria-label="Follow on X"
+                icon={XIcon}
+                className="transform transition-transform hover:scale-110"
+              />
+              <SocialLink
+                href="https://www.instagram.com/shazzamm_/"
+                aria-label="Follow on Instagram"
+                icon={InstagramIcon}
+                className="transform transition-transform hover:scale-110"
+              />
+              <SocialLink
+                href="https://github.com/shagunmistry"
+                aria-label="Follow on GitHub"
+                icon={GitHubIcon}
+                className="transform transition-transform hover:scale-110"
+              />
+              <SocialLink
+                href="https://www.linkedin.com/in/shagun-mistry/"
+                aria-label="Follow on LinkedIn"
+                icon={LinkedInIcon}
+                className="transform transition-transform hover:scale-110"
+              />
+              <SocialLink
+                href="https://open.spotify.com/show/1XlC0keK5SfJCEX4siyBZf"
+                aria-label="The Money Planet Podcast"
+                icon={PodcastIcon}
+                className="transform transition-transform hover:scale-110"
+              />
+              <SocialLink
+                href="https://firebasestorage.googleapis.com/v0/b/shagunresume.appspot.com/o/Shagun%20Mistry%20Resume.pdf?alt=media&token=77caa21f-7bbd-4d42-bbda-08d7180bfc67"
+                aria-label="Download Resume"
+                icon={DownloadResumeIcon}
+                className="transform transition-transform hover:scale-110"
+              />
+            </div>
+          </motion.div>
+        </div>
+      </section>
 
-      <Container className="mt-24 md:mt-28">
+      {/* Content Section */}
+      <section className="px-4 py-16 md:py-24">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
-          className="mx-auto grid max-w-xl grid-cols-1 gap-y-20 lg:max-w-none lg:grid-cols-2"
+          className="mx-auto max-w-7xl"
         >
-          <div className="flex flex-col gap-16">
-            {/* Articles section can be added here */}
-          </div>
-          <div className="space-y-10 lg:pl-16 xl:pl-24">
-            <Newsletter />
-            <Resume />
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-12">
+            {/* Podcast Feed */}
+            <div className="lg:col-span-7 lg:border-r lg:border-purple-100/20 lg:pr-8">
+              <PodcastFeed />
+            </div>
+
+            {/* Newsletter and Resume */}
+            <div className="space-y-8 lg:col-span-5 lg:pl-8">
+              <Newsletter />
+              <Resume />
+            </div>
           </div>
         </motion.div>
-      </Container>
-    </>
+      </section>
+    </div>
   )
 }
