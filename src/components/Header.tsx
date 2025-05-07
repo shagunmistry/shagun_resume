@@ -22,6 +22,15 @@ const gradients = {
   },
 }
 
+const MenuItems = [
+  { href: '/about', label: 'About' },
+  { href: '/articles', label: 'Articles' },
+  { href: '/projects', label: 'Projects' },
+  { href: '/tools', label: 'Tools' },
+  { href: '/projects/climate-change-podcast', label: 'Podcast' },
+  { href: '/tech', label: 'Tech' },
+]
+
 const menuVariants = {
   closed: {
     opacity: 0,
@@ -118,11 +127,11 @@ function MobileMenu({
             </div>
             <nav className="mt-6">
               <ul className="space-y-4">
-                <NavItem href="/about">About</NavItem>
-                <NavItem href="/articles">Articles</NavItem>
-                <NavItem href="/projects">Projects</NavItem>
-                <NavItem href="/projects/climate-change-podcast">Podcast</NavItem>
-                <NavItem href="/tech">Tech</NavItem>
+                {MenuItems.map((item) => (
+                  <li key={item.href}>
+                    <NavItem href={item.href}>{item.label}</NavItem>
+                  </li>
+                ))}
               </ul>
             </nav>
           </motion.div>
@@ -214,11 +223,11 @@ export function Header() {
           {/* Desktop Navigation */}
           <nav className="hidden lg:block">
             <motion.ul className="flex space-x-8" layout>
-              <NavItem href="/about">About</NavItem>
-              <NavItem href="/articles">Articles</NavItem>
-              <NavItem href="/projects">Projects</NavItem>
-              <NavItem href="/projects/climate-change-podcast">Podcast</NavItem>
-              <NavItem href="/tech">Tech</NavItem>
+              {MenuItems.map((item) => (
+                <li key={item.href}>
+                  <NavItem href={item.href}>{item.label}</NavItem>
+                </li>
+              ))}
             </motion.ul>
           </nav>
 
