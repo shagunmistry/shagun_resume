@@ -13,6 +13,14 @@ const tools = [
     icon: '=�',
     gradient: 'from-blue-400 via-blue-500 to-purple-600',
   },
+  {
+    name: 'On-Call Schedule Creator',
+    description:
+      'Generate perfect on-call schedules for your team. Create rotation schedules with custom frequencies and export to Excel or calendar apps.',
+    link: { href: '/tools/on-call-scheduler', label: 'Create Schedule' },
+    icon: '📅',
+    gradient: 'from-pink-400 via-purple-500 to-indigo-600',
+  },
 ]
 
 const ToolCard = ({ tool }: { tool: (typeof tools)[0] }) => (
