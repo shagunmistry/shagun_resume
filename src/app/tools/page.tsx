@@ -21,6 +21,22 @@ const tools = [
     icon: '📅',
     gradient: 'from-pink-400 via-purple-500 to-indigo-600',
   },
+  {
+    name: 'Vegan Macro Calculator',
+    description:
+      'Calculate personalized macronutrient targets for plant-based nutrition. Get vegan-specific recommendations with food suggestions and nutritional tips.',
+    link: { href: '/tools/vegan-macro-calculator', label: 'Calculate Macros' },
+    icon: '🌱',
+    gradient: 'from-green-400 via-emerald-500 to-teal-600',
+  },
+  {
+    name: 'Log Viewer',
+    description:
+      'Analyze and filter application logs with ease. Search, filter by level, and navigate through logs with keyboard shortcuts and pagination.',
+    link: { href: '/tools/log-viewer', label: 'View Logs' },
+    icon: '📋',
+    gradient: 'from-cyan-400 via-blue-500 to-indigo-600',
+  },
 ]
 
 const ToolCard = ({ tool }: { tool: (typeof tools)[0] }) => (

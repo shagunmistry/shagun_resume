@@ -1,6 +1,6 @@
 'use client'
 import PodcastFeed from '@/components/PodcastFeed'
-import { motion } from 'framer-motion'
+import { motion } from 'motion/react'
 import { Clock, Calendar, ArrowUpRight } from 'lucide-react'
 
 const episodes = [
