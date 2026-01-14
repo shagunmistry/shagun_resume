@@ -1,14 +1,11 @@
 'use client'
 
-import React, { useState, useMemo, useCallback, useRef, useEffect } from 'react'
+import React, { useState, useMemo, useRef, useEffect } from 'react'
 import {
   Search,
   Filter,
-  ChevronUp,
-  ChevronDown,
   X,
   Upload,
-  Clock,
   AlertCircle,
   Info,
   AlertTriangle,
@@ -60,13 +57,16 @@ type LogEntry = {
   raw: string
 }
 
-const LOG_LEVELS: Record<string, {
-  label: string
-  color: string
-  bg: string
-  border: string
-  icon: typeof Info
-}> = {
+const LOG_LEVELS: Record<
+  string,
+  {
+    label: string
+    color: string
+    bg: string
+    border: string
+    icon: typeof Info
+  }
+> = {
   INF: {
     label: 'Info',
     color: 'text-blue-400',
@@ -157,7 +157,13 @@ const LogLevelBadge = ({ level }: { level: string }) => {
   )
 }
 
-const HighlightedText = ({ text, searchTerm }: { text: string; searchTerm: string }) => {
+const HighlightedText = ({
+  text,
+  searchTerm,
+}: {
+  text: string
+  searchTerm: string
+}) => {
   if (!searchTerm) return <span>{text}</span>
 
   const parts = text.split(
@@ -182,7 +188,13 @@ const HighlightedText = ({ text, searchTerm }: { text: string; searchTerm: strin
   )
 }
 
-const LogEntryComponent = ({ log, searchTerm, isSelected, onClick, lineNumber }: {
+const LogEntryComponent = ({
+  log,
+  searchTerm,
+  isSelected,
+  onClick,
+  lineNumber,
+}: {
   log: LogEntry
   searchTerm: string
   isSelected: boolean
@@ -217,7 +229,13 @@ const LogEntryComponent = ({ log, searchTerm, isSelected, onClick, lineNumber }:
   )
 }
 
-const FilterButton = ({ active, onClick, count, label, color }: {
+const FilterButton = ({
+  active,
+  onClick,
+  count,
+  label,
+  color,
+}: {
   active: boolean
   onClick: () => void
   count: number
@@ -434,7 +452,7 @@ export default function LogViewer() {
         <div className="px-4 py-4">
           <div className="mb-4 flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500 to-purple-600">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl">
                 <Filter size={20} />
               </div>
               <div>
